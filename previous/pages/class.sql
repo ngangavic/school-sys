@@ -1,0 +1,12 @@
+ALTER TABLE `tbl_subjects` CHANGE `schid` `class` VARCHAR(100) NULL DEFAULT NULL;
+/*ALTER TABLE `tbl_positonsf1t2` CHANGE `schid` `class` VARCHAR(100) NULL DEFAULT NULL;
+ALTER TABLE `tbl_positonsf1t3` CHANGE `schid` `class` VARCHAR(100) NULL DEFAULT NULL;
+ALTER TABLE `tbl_positonsf2t1` CHANGE `schid` `class` VARCHAR(100) NULL DEFAULT NULL;
+ALTER TABLE `tbl_positonsf2t2` CHANGE `schid` `class` VARCHAR(100) NULL DEFAULT NULL;
+ALTER TABLE `tbl_positonsf2t3` CHANGE `schid` `class` VARCHAR(100) NULL DEFAULT NULL;
+ALTER TABLE `tbl_positonsf3t1` CHANGE `schid` `class` VARCHAR(100) NULL DEFAULT NULL;
+ALTER TABLE `tbl_positonsf3t2` CHANGE `schid` `class` VARCHAR(100) NULL DEFAULT NULL;
+ALTER TABLE `tbl_positonsf3t3` CHANGE `schid` `class` VARCHAR(100) NULL DEFAULT NULL;
+ALTER TABLE `tbl_positonsf4t1` CHANGE `schid` `class` VARCHAR(100) NULL DEFAULT NULL;
+ALTER TABLE `tbl_positonsf4t2` CHANGE `schid` `class` VARCHAR(100) NULL DEFAULT NULL;
+ALTER TABLE `tbl_positonsf4t3` CHANGE `schid` `class` VARCHAR(100) NULL DEFAULT NULL;*/
