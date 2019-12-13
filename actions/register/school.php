@@ -14,20 +14,38 @@ $password = cleanData($_POST['pass1']);
 $register = cleanData($_POST['register']);
 
 if (!isset($name) || !isset($email) || !isset($phone) || !isset($box) || !isset($town) || !isset($population) || !isset($password) || !isset($register)) {
-    echo 'empty values';
+    messages('empty values');
 } else {
     $count = checkIfExists($conn, $name, $phone, $email);
     if ($count == 0) {
-        $response = registerSchool($conn, $name, $phone, $box, $town, $email, $population);
+        $response = registerSchool($conn, $name, $box, $phone, $town, $email, $population);
         if ($response == 0) {
-            echo 'success';
+            messages('success');
         } else {
-            echo 'not inserted';
+            messages('not inserted');
         }
     } else {
-        echo 'already exists';
+        messages('already exists');
     }
     //header("location: ../../register/index.html");
+}
+
+function messages($message)
+{
+    switch ($message) {
+        case "success":
+            header("location: ../../register/index.html?code=200&&msg=registration successful.");
+            break;
+        case "not inserted":
+            header("location: ../../register/index.html?code=501&&msg=An error occurred.Please try again.");
+            break;
+        case "already exists":
+            header("location: ../../register/index.html?code=501&&msg=School already exist.");
+            break;
+        case "empty values":
+            header("location: ../../register/index.html?code=501&&msg=Please fill all the values.");
+            break;
+    }
 }
 
 
@@ -52,7 +70,8 @@ function registerSchool($conn, $name, $phone, $box, $town, $email, $population)
     }
 }
 
-function cleanData($data){
+function cleanData($data)
+{
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
