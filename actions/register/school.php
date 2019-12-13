@@ -34,16 +34,16 @@ function messages($message)
 {
     switch ($message) {
         case "success":
-            header("location: ../../register/index.php?code=200&&msg=registration successful.");
+            header("location: ../../register/index.php?code=200&&msg=Registration successful.&&sect=school");
             break;
         case "not inserted":
-            header("location: ../../register/index.php?code=501&&msg=An error occurred.Please try again.");
+            header("location: ../../register/index.php?code=501&&msg=An error occurred.Please try again.&&sect=school");
             break;
         case "already exists":
             header("location: ../../register/index.php?code=501&&msg=School already exist.");
             break;
         case "empty values":
-            header("location: ../../register/index.php?code=501&&msg=Please fill all the values.");
+            header("location: ../../register/index.php?code=501&&msg=Please fill all the values.&&sect=school");
             break;
     }
 }

@@ -43,7 +43,19 @@
 
 </div>
 <!--[END] register form-->
+<?php
+if(isset($_GET['msg'])&&isset($_GET['code'])){
+    if($_GET['code']=='501'){
 
+        ?>
+        <div class="col-xs-12 col-sm-12 col-md-6 offset-md-3 col-lg-6 alert alert-danger">
+            <strong><?php echo $_GET['msg']; ?></strong>
+        </div>
+    <?php }elseif ($_GET['code']==200){ ?>
+        <div class="col-xs-12 col-sm-12 col-md-6 offset-md-3 col-lg-6 alert alert-success">
+            <strong><?php echo $_GET['msg']; ?></strong>
+        </div>
+    <?php }} ?>
 <div id="demo" class="carousel slide" data-ride="carousel">
 
     <!-- Indicators -->
@@ -175,6 +187,7 @@
                         <form action="../actions/register/parent.php" method="post">
 
                             <div class=" form-group">
+
                                 <select name="school" class="form-control" required>
                                     <option value="">Select School</option>
                                     <option value="">School Name 1</option>
