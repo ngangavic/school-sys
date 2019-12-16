@@ -9,7 +9,7 @@ $register = cleanData($_POST['register']);
 if (isset($email) && isset($school) && isset($password) && isset($register)) {
     $count = checkIfExists($conn, $email);
     if ($count == 0) {
-        $response = registerTeacher($conn, $school, $email, $password);
+        $response = registerTeacher($conn, $school, $email, password_hash($password,PASSWORD_DEFAULT));
         if ($response == 0) {
             messages('success');
         } else {

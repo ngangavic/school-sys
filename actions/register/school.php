@@ -18,7 +18,7 @@ if (!isset($name) || !isset($email) || !isset($phone) || !isset($box) || !isset(
 } else {
     $count = checkIfExists($conn, $name, $phone, $email);
     if ($count == 0) {
-        $response = registerSchool($conn, $name, $box, $phone, $town, $email, $population);
+        $response = registerSchool($conn, $name, $box, $phone, $town, $email, $population,password_hash($password,PASSWORD_DEFAULT));
         if ($response == 0) {
             messages('success');
         } else {
@@ -59,10 +59,10 @@ function checkIfExists($conn, $name, $phone, $email)
     return $count;
 }
 
-function registerSchool($conn, $name, $phone, $box, $town, $email, $population)
+function registerSchool($conn, $name, $phone, $box, $town, $email, $population,$password)
 {
-    $stmt = $conn->prepare("INSERT INTO tbl_school(name,phone,box,town,email,population,date) VALUES (?,?,?,?,?,?,CURRENT_TIMESTAMP )");
-    $stmt->bind_param("ssssss", $name, $phone, $box, $town, $email, $population);
+    $stmt = $conn->prepare("INSERT INTO tbl_school(name,phone,box,town,email,password,population,date) VALUES (?,?,?,?,?,?,?,CURRENT_TIMESTAMP )");
+    $stmt->bind_param("sssssss", $name, $phone, $box, $town, $email,$password, $population);
     if (!$stmt->execute()) {
         return 1;
     } else {
