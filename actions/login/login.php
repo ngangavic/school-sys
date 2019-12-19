@@ -8,52 +8,59 @@ session_start();
 //           admin
 //           parent
 //4.else
-     //error
+//error
 
 
 /****************
-stop repeating the select statements
+ * stop repeating the select statements
  *******************/
 
-$email=$_POST['email'];
-$school=$_POST['school'];
-$password=$_POST['password'];
+$email = $_POST['email'];
+$school = $_POST['school'];
+$password = $_POST['password'];
 
-if(isset($email)&&isset($school)&&isset($password)){
-    checkAccount($school,$email,$conn,$password);
-}else{
+if (isset($email) && isset($school) && isset($password)) {
+    $stmt = $conn->prepare("INSERT INTO tbl_logins (email,school,date)VALUES(?,?,CURRENT_TIMESTAMP )");
+    $stmt->bind_param("ss", $email, $school);
+    if (!$stmt->execute()) {
+        header("location:../index.php?code=200&&msg=error");
+    } else {
+        checkAccount($school, $email, $conn, $password);
+    }
+} else {
     header("location:../index.php?code=200&&msg=error");
 }
 
-function checkAccount($school,$email,$conn,$password){
+function checkAccount($school, $email, $conn, $password)
+{
     //check if teacher, parent or admin
     //check for school
-    $stmt=$conn->prepare("SELECT * FROM tbl_school WHERE id=? AND email=? ");
-    $stmt->bind_param("ss",$school,$email);
+    $stmt = $conn->prepare("SELECT * FROM tbl_school WHERE id=? AND email=? ");
+    $stmt->bind_param("ss", $school, $email);
     $stmt->execute();
-    $result=$stmt->get_result();
-    if($count=$result->num_rows>0){
+    $result = $stmt->get_result();
+    if ($count = $result->num_rows > 0) {
         //login as school
-        loginAsSchool($conn,$email,$school,$password);
-    }else{
+        loginAsSchool($conn, $email, $school, $password);
+    } else {
         //check for parent
-        $stmt=$conn->prepare("SELECT * FROM tbl_parent WHERE school_id=? AND email=? ");
-        $stmt->bind_param("ss",$school,$email);
+        $stmt = $conn->prepare("SELECT * FROM tbl_parent WHERE school_id=? AND email=? ");
+        $stmt->bind_param("ss", $school, $email);
         $stmt->execute();
-        $result=$stmt->get_result();
-        if($count=$result->num_rows>0){
+        $result = $stmt->get_result();
+        if ($count = $result->num_rows > 0) {
             //login as parent
-            loginAsParent($conn,$email,$school,$password);
-        }else{
+            loginAsParent($conn, $email, $school, $password);
+        } else {
             //check for teacher
-            $stmt=$conn->prepare("SELECT * FROM tbl_teachers WHERE school_id=? AND email=? ");
-            $stmt->bind_param("ss",$school,$email);
+            $stmt = $conn->prepare("SELECT * FROM tbl_teachers WHERE school_id=? AND email=? ");
+            $stmt->bind_param("ss", $school, $email);
             $stmt->execute();
-            $result=$stmt->get_result();
-            if($count=$result->num_rows>0){
+            $result = $stmt->get_result();
+            if ($count = $result->num_rows > 0) {
                 //login as teacher
-                loginAsTeacher($conn,$email,$school,$password);
-            }else{
+                loginAsTeacher($conn, $email, $school, $password);
+            } else {
                 //account not found.
                 header("location:../index.php?code=200&&msg=ac_error");
             }
@@ -61,89 +68,92 @@ function checkAccount($school,$email,$conn,$password){
     }
 }
 
-function loginAsSchool($conn,$email,$school,$password){
-    $stmt=$conn->prepare("SELECT * FROM tbl_school WHERE id=? AND email=? ");
-    $stmt->bind_param("ss",$school,$email);
+function loginAsSchool($conn, $email, $school, $password)
+{
+    $stmt = $conn->prepare("SELECT * FROM tbl_school WHERE id=? AND email=? ");
+    $stmt->bind_param("ss", $school, $email);
     $stmt->execute();
-    $result=$stmt->get_result();
-    $count=$result->num_rows;
-    if($count>0){
+    $result = $stmt->get_result();
+    $count = $result->num_rows;
+    if ($count > 0) {
         //get password
-        $rows=$result->fetch_array();
-        if(password_verify($password,$rows['password'])=="true"){
+        $rows = $result->fetch_array();
+        if (password_verify($password, $rows['password']) == "true") {
             //set session
-            $_SESSION['email']=$rows['email'];
-            $_SESSION['id']=$rows['id'];
-            $_SESSION['name']=$rows['name'];
-            $_SESSION['locked']=$rows['locked'];
-            $_SESSION['paid']=$rows['paid'];
+            $_SESSION['email'] = $rows['email'];
+            $_SESSION['id'] = $rows['id'];
+            $_SESSION['name'] = $rows['name'];
+            $_SESSION['locked'] = $rows['locked'];
+            $_SESSION['paid'] = $rows['paid'];
 
             header("location:../admin/");
 
-        }else{
+        } else {
             //password error
             header("location:../index.php?code=200&&msg=p_error");
         }
 
-    }else{
+    } else {
         //error
         header("location:../index.php?code=200&&msg=ac_error");
     }
 }
 
-function loginAsParent($conn,$email,$school,$password){
-    $stmt=$conn->prepare("SELECT * FROM tbl_parent WHERE school_id=? AND email=? ");
-    $stmt->bind_param("ss",$school,$email);
+function loginAsParent($conn, $email, $school, $password)
+{
+    $stmt = $conn->prepare("SELECT * FROM tbl_parent WHERE school_id=? AND email=? ");
+    $stmt->bind_param("ss", $school, $email);
     $stmt->execute();
-    $result=$stmt->get_result();
-    $count=$result->num_rows;
-    if($count>0){
+    $result = $stmt->get_result();
+    $count = $result->num_rows;
+    if ($count > 0) {
         //get password
-        $rows=$result->fetch_array();
-        if(password_verify($password,$rows['password'])=="true"){
+        $rows = $result->fetch_array();
+        if (password_verify($password, $rows['password']) == "true") {
             //set session
-            $_SESSION['email']=$rows['email'];
-            $_SESSION['id']=$rows['id'];
-            $_SESSION['adm']=$rows['adm'];
-            $_SESSION['school']=$rows['school_id'];
+            $_SESSION['email'] = $rows['email'];
+            $_SESSION['id'] = $rows['id'];
+            $_SESSION['adm'] = $rows['adm'];
+            $_SESSION['school'] = $rows['school_id'];
 
             header("location:../index.php?code=200&&msg=f_coming");
 
-        }else{
+        } else {
             //password error
             header("location:../index.php?code=200&&msg=p_error");
         }
 
-    }else{
+    } else {
         //error
         header("location:../index.php?code=200&&msg=ac_error");
     }
 }
 
-function loginAsTeacher($conn,$email,$school,$password){
-    $stmt=$conn->prepare("SELECT * FROM tbl_teachers WHERE school_id=? AND email=? ");
-    $stmt->bind_param("ss",$school,$email);
+function loginAsTeacher($conn, $email, $school, $password)
+{
+    $stmt = $conn->prepare("SELECT * FROM tbl_teachers WHERE school_id=? AND email=? ");
+    $stmt->bind_param("ss", $school, $email);
     $stmt->execute();
-    $result=$stmt->get_result();
-    $count=$result->num_rows;
-    if($count>0){
+    $result = $stmt->get_result();
+    $count = $result->num_rows;
+    if ($count > 0) {
         //get password
-        $rows=$result->fetch_array();
-        if(password_verify($password,$rows['password'])=="true"){
+        $rows = $result->fetch_array();
+        if (password_verify($password, $rows['password']) == "true") {
             //set session
-            $_SESSION['email']=$rows['email'];
-            $_SESSION['id']=$rows['id'];
-            $_SESSION['school']=$rows['school_id'];
-            $_SESSION['status']=$rows['status'];
+            $_SESSION['email'] = $rows['email'];
+            $_SESSION['id'] = $rows['id'];
+            $_SESSION['school'] = $rows['school_id'];
+            $_SESSION['status'] = $rows['status'];
 
             header("location:../index.php?code=200&&msg=f_coming");
 
-        }else{
+        } else {
             //password error
             header("location:../index.php?code=200&&msg=p_error");
         }
 
-    }else{
+    } else {
         //error
         header("location:../index.php?code=200&&msg=ac_error");
     }

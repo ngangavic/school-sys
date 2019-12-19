@@ -9,7 +9,7 @@ $register = cleanData($_POST['register']);
 if (isset($email) && isset($school) && isset($password) && isset($register)) {
     $count = checkIfExists($conn, $email);
     if ($count == 0) {
-        $response = registerTeacher($conn, $school, $email, password_hash($password,PASSWORD_DEFAULT));
+        $response = registerTeacher($conn, $school, $email, password_hash($password, PASSWORD_DEFAULT));
         if ($response == 0) {
             messages('success');
         } else {
@@ -34,7 +34,7 @@ function cleanData($data)
 function checkIfExists($conn, $email)
 {
     $stmt = $conn->prepare("SELECT * FROM tbl_teachers WHERE email=?");
-    $stmt->bind_param("s",$email);
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
     $count = $result->num_rows;
@@ -44,7 +44,7 @@ function checkIfExists($conn, $email)
 function registerTeacher($conn, $school, $email, $password)
 {
     $stmt = $conn->prepare("INSERT INTO tbl_teachers(school_id,email,password,date) VALUES (?,?,?,CURRENT_TIMESTAMP)");
-    $stmt->bind_param("sss",$school,$email,$password);
+    $stmt->bind_param("sss", $school, $email, $password);
     if (!$stmt->execute()) {
         return 1;
     } else {

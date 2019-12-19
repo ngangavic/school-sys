@@ -127,7 +127,7 @@ if (isset($_GET['msg']) && isset($_GET['code'])) {
 
                             <div class="form-group">
                                 <button class="btn btn-block btn-outline-primary" name="register">REGISTER</button>
-                                <a href="../index.html" class="btn btn-block btn-outline-info">LOGIN</a>
+                                <a href="../index.php" class="btn btn-block btn-outline-info">LOGIN</a>
                             </div>
 
                         </form>
@@ -177,7 +177,7 @@ if (isset($_GET['msg']) && isset($_GET['code'])) {
 
                             <div class="form-group">
                                 <button class="btn btn-block btn-outline-primary" name="register">REGISTER</button>
-                                <a href="../index.html" class="btn btn-block btn-outline-info">LOGIN</a>
+                                <a href="../index.php" class="btn btn-block btn-outline-info">LOGIN</a>
                             </div>
 
                         </form>
@@ -230,7 +230,7 @@ if (isset($_GET['msg']) && isset($_GET['code'])) {
 
                             <div class="form-group">
                                 <button class="btn btn-block btn-outline-primary" name="register">REGISTER</button>
-                                <a href="../index.html" class="btn btn-block btn-outline-info">LOGIN</a>
+                                <a href="../index.php" class="btn btn-block btn-outline-info">LOGIN</a>
                             </div>
 
                         </form>
