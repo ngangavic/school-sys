@@ -34,6 +34,7 @@ function checkStudent($conn, $adm, $school, $name, $class, $kcpe, $dob)
     $count = $result->num_rows;
     if ($count > 0) {
         //update
+        updateStudent($conn, $adm, $school, $name, $class, $kcpe, $dob);
     } else {
         //insert
         insertStudent($conn, $adm, $school, $name, $class, $kcpe, $dob);
@@ -49,4 +50,14 @@ function insertStudent($conn, $adm, $school, $name, $class, $kcpe, $dob)
     } else {
         echo "0";
     }
+}
+
+function updateStudent($conn, $adm, $school, $name, $class, $kcpe, $dob){
+$stmt=$conn->prepare("UPDATE tbl_students SET name=?,class=?,kcpe=?,dob=? WHERE adm=? AND $school=? ");
+$stmt->bind_param("ssssss",$name,$class,$kcpe,$dob,$adm,$school);
+if(!$stmt->execute()){
+    echo "1";
+}else{
+    echo "0";
+}
 }
