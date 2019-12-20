@@ -1,6 +1,6 @@
 <?php
-require_once "../database/connection.php";
 session_start();
+require_once "../database/connection.php";
 //1. check if values are empty
 //2. if not empty
 //3.    check registered account
@@ -23,12 +23,12 @@ if (isset($email) && isset($school) && isset($password)) {
     $stmt = $conn->prepare("INSERT INTO tbl_logins (email,school,date)VALUES(?,?,CURRENT_TIMESTAMP )");
     $stmt->bind_param("ss", $email, $school);
     if (!$stmt->execute()) {
-        header("location:../index.php?code=200&&msg=error");
+        header("location:../../index.php?code=200&&msg=error");
     } else {
         checkAccount($school, $email, $conn, $password);
     }
 } else {
-    header("location:../index.php?code=200&&msg=error");
+    header("location:../../index.php?code=200&&msg=error");
 }
 
 function checkAccount($school, $email, $conn, $password)
@@ -62,7 +62,7 @@ function checkAccount($school, $email, $conn, $password)
                 loginAsTeacher($conn, $email, $school, $password);
             } else {
                 //account not found.
-                header("location:../index.php?code=200&&msg=ac_error");
+                header("location:../../index.php?code=200&&msg=ac_error");
             }
         }
     }
@@ -84,18 +84,18 @@ function loginAsSchool($conn, $email, $school, $password)
             $_SESSION['id'] = $rows['id'];
             $_SESSION['name'] = $rows['name'];
             $_SESSION['locked'] = $rows['locked'];
-            $_SESSION['paid'] = $rows['paid'];
+            $_SESSION['status'] = $rows['status'];
 
-            header("location:../admin/");
+            header("location:../../admin/");
 
         } else {
             //password error
-            header("location:../index.php?code=200&&msg=p_error");
+            header("location:../../index.php?code=200&&msg=p_error");
         }
 
     } else {
         //error
-        header("location:../index.php?code=200&&msg=ac_error");
+        header("location:../../index.php?code=200&&msg=ac_error");
     }
 }
 
@@ -116,16 +116,16 @@ function loginAsParent($conn, $email, $school, $password)
             $_SESSION['adm'] = $rows['adm'];
             $_SESSION['school'] = $rows['school_id'];
 
-            header("location:../index.php?code=200&&msg=f_coming");
+            header("location:../../index.php?code=200&&msg=f_coming");
 
         } else {
             //password error
-            header("location:../index.php?code=200&&msg=p_error");
+            header("location:../../index.php?code=200&&msg=p_error");
         }
 
     } else {
         //error
-        header("location:../index.php?code=200&&msg=ac_error");
+        header("location:../../index.php?code=200&&msg=ac_error");
     }
 }
 
@@ -146,15 +146,15 @@ function loginAsTeacher($conn, $email, $school, $password)
             $_SESSION['school'] = $rows['school_id'];
             $_SESSION['status'] = $rows['status'];
 
-            header("location:../index.php?code=200&&msg=f_coming");
+            header("location:../../index.php?code=200&&msg=f_coming");
 
         } else {
             //password error
-            header("location:../index.php?code=200&&msg=p_error");
+            header("location:../../index.php?code=200&&msg=p_error");
         }
 
     } else {
         //error
-        header("location:../index.php?code=200&&msg=ac_error");
+        header("location:../../index.php?code=200&&msg=ac_error");
     }
 }

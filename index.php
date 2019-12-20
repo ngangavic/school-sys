@@ -1,3 +1,6 @@
+<?php
+require_once "actions/database/connection.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
