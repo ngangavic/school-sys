@@ -79,21 +79,21 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                     for ($i = 0; $i < $_POST['no']; $i++) {
                                         ?>
                                         <tr>
-                                            <td><input type="text" class="form-control form-control-sm" name="adm[]"
+                                            <td><input type="text" class="form-control form-control-sm" name="adm[]" id="adm"
                                                        required></td>
-                                            <td><input type="text" class="form-control form-control-sm" name="name[]"
+                                            <td><input type="text" class="form-control form-control-sm" name="name[]" id="name"
                                                        required></td>
                                             <td>
-                                                <select name="class[]" required class="form-control form-control-sm">
+                                                <select name="classs[]" required class="form-control form-control-sm" id="classs">
                                                     <option value="Form 1">Form 1</option>
                                                     <option value="Form 2">Form 2</option>
                                                     <option value="Form 3">Form 3</option>
                                                     <option value="FOrm 4">Form 4</option>
                                                 </select>
                                             </td>
-                                            <td><input type="text" class="form-control form-control-sm" name="kcpe[]"
+                                            <td><input type="text" class="form-control form-control-sm" name="kcpe[]" id="kcpe"
                                                        required></td>
-                                            <td><input type="date" class="form-control form-control-sm" name="dob[]"
+                                            <td><input type="date" class="form-control form-control-sm dob" name="dob[]" id="dob"
                                                        required></td>
                                         </tr>
                                     <?php }
@@ -235,6 +235,36 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         }
     }
     ?>
+
+    <script>
+        $(document).ready(function () {
+            $('.dob').focusout(function () {
+                var adm = $("#adm").val();
+                var name = $("#name").val();
+                var classs = $("#classs").val();
+                var kcpe = $("#kcpe").val();
+                var dob = $("#dob").val();
+                $.ajax({
+                    url: "../actions/student/a-e-student.php",
+                    method: "post",
+                    data: {
+                        adm: adm,
+                        name: name,
+                        classs: classs,
+                        kcpe: kcpe,
+                        dob: dob
+                    },
+                    success: function (data) {
+                        if(data=="0"){
+                            alert("Success");
+                        }else{
+                            alert("Error");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
     </body>
     </html>
 <?php } else {
