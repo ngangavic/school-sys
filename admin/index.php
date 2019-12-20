@@ -14,6 +14,11 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <script rel="javascript" src="../bootstrap/js/bootstrap.js"></script>
         <link href="../css/custom.css" rel="stylesheet">
+        <style>
+            a{
+                text-decoration: none;
+            }
+        </style>
     </head>
     <body>
 
@@ -89,6 +94,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
             <!--        [END] card-->
             <!--        [START] card-->
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                <a href="student.php?page=add-student" style="text-decoration: none;color: #000000">
                 <div class="card">
                     <div class="card-header">
                         Students
@@ -97,6 +103,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         Add, Edit,View,Search student...
                     </div>
                 </div>
+                </a>
             </div>
             <!--        [END] card-->
         </div>
