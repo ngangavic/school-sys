@@ -10,7 +10,7 @@ $register = cleanData($_POST['register']);
 if (isset($adm) && isset($email) && isset($password) && isset($register) && isset($school)) {
     $count = checkIfExists($conn, $school, $adm);
     if ($count == 0) {
-        $response = registerParent($conn, $school, $adm, $email, $password);
+        $response = registerParent($conn, $school, $adm, $email, password_hash($password, PASSWORD_DEFAULT));
         if ($response == 0) {
             messages("success");
         } else {

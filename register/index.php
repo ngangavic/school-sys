@@ -1,3 +1,6 @@
+<?php
+require_once "../actions/database/connection.php"
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,18 +47,19 @@
 </div>
 <!--[END] register form-->
 <?php
-if(isset($_GET['msg'])&&isset($_GET['code'])){
-    if($_GET['code']=='501'){
+if (isset($_GET['msg']) && isset($_GET['code'])) {
+    if ($_GET['code'] == '501') {
 
         ?>
         <div class="col-xs-12 col-sm-12 col-md-6 offset-md-3 col-lg-6 alert alert-danger">
             <strong><?php echo $_GET['msg']; ?></strong>
         </div>
-    <?php }elseif ($_GET['code']==200){ ?>
+    <?php } elseif ($_GET['code'] == 200) { ?>
         <div class="col-xs-12 col-sm-12 col-md-6 offset-md-3 col-lg-6 alert alert-success">
             <strong><?php echo $_GET['msg']; ?></strong>
         </div>
-    <?php }} ?>
+    <?php }
+} ?>
 <div id="demo" class="carousel slide" data-ride="carousel">
 
     <!-- Indicators -->
@@ -123,7 +127,7 @@ if(isset($_GET['msg'])&&isset($_GET['code'])){
 
                             <div class="form-group">
                                 <button class="btn btn-block btn-outline-primary" name="register">REGISTER</button>
-                                <a href="../index.html" class="btn btn-block btn-outline-info">LOGIN</a>
+                                <a href="../index.php" class="btn btn-block btn-outline-info">LOGIN</a>
                             </div>
 
                         </form>
@@ -147,11 +151,17 @@ if(isset($_GET['msg'])&&isset($_GET['code'])){
                             </div>
 
                             <div class="form-group">
+
                                 <select name="school" class="form-control" required>
                                     <option>Select School</option>
-                                    <option value="1">School Name 1</option>
-                                    <option value="2">School Name 2</option>
-                                    <option value="3">School Nmae 3</option>
+                                    <?php
+                                    $stmt = $conn->prepare("SELECT * FROM tbl_school WHERE locked='no' AND status='paid' ");
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
+                                    while ($rows = $result->fetch_array()) {
+                                        ?>
+                                        <option value="<?php echo $rows['id']; ?>"><?php echo $rows['name']; ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
 
@@ -167,7 +177,7 @@ if(isset($_GET['msg'])&&isset($_GET['code'])){
 
                             <div class="form-group">
                                 <button class="btn btn-block btn-outline-primary" name="register">REGISTER</button>
-                                <a href="../index.html" class="btn btn-block btn-outline-info">LOGIN</a>
+                                <a href="../index.php" class="btn btn-block btn-outline-info">LOGIN</a>
                             </div>
 
                         </form>
@@ -190,9 +200,14 @@ if(isset($_GET['msg'])&&isset($_GET['code'])){
 
                                 <select name="school" class="form-control" required>
                                     <option value="">Select School</option>
-                                    <option value="">School Name 1</option>
-                                    <option value="">School Name 2</option>
-                                    <option value="">School Name 3</option>
+                                    <?php
+                                    $stmt = $conn->prepare("SELECT * FROM tbl_school WHERE locked='no' AND status='paid' ");
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
+                                    while ($rows = $result->fetch_array()) {
+                                        ?>
+                                        <option value="<?php echo $rows['id']; ?>"><?php echo $rows['name']; ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
 
@@ -215,7 +230,7 @@ if(isset($_GET['msg'])&&isset($_GET['code'])){
 
                             <div class="form-group">
                                 <button class="btn btn-block btn-outline-primary" name="register">REGISTER</button>
-                                <a href="../index.html" class="btn btn-block btn-outline-info">LOGIN</a>
+                                <a href="../index.php" class="btn btn-block btn-outline-info">LOGIN</a>
                             </div>
 
                         </form>
