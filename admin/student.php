@@ -63,7 +63,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         Add students
                     </div>
                     <div class="card-body">
-                        <form action="" method="post">
+                        <form action="../actions/student/a-e-student.php" method="post">
                             <table class="table table-sm">
                                 <thead>
                                 <th>Adm</th>
@@ -237,34 +237,38 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     ?>
 
     <script>
-        $(document).ready(function () {
-            $('.dob').focusout(function () {
-                var adm = $("#adm").val();
-                var name = $("#name").val();
-                var classs = $("#classs").val();
-                var kcpe = $("#kcpe").val();
-                var dob = $("#dob").val();
-                $.ajax({
-                  //  url: "../actions/student/a-e-student.php",
-                    url: "../actions/student/test.php",
-                    method: "post",
-                    data: {
-                        adm: adm,
-                        name: name,
-                        classs: classs,
-                        kcpe: kcpe,
-                        dob: dob
-                    },
-                    success: function (data) {
-                        if(data=="0"){
-                            alert("Success");
-                        }else{
-                            alert("Error");
-                        }
-                    }
-                });
-            });
-        });
+        // $(document).ready(function () {
+        //     $('.dob').focusout(function () {
+        //         var adm = $("#adm").val();
+        //         var name = $("#name").val();
+        //         var classs = $("#classs").val();
+        //         var kcpe = $("#kcpe").val();
+        //         var dob = $("#dob").val();
+        //         $.ajax({
+        //             url: "../actions/student/a-e-student.php",
+        //             // url: "../actions/student/test.php",
+        //             method: "post",
+        //             data: {
+        //                 adm: adm,
+        //                 name: name,
+        //                 classs: classs,
+        //                 kcpe: kcpe,
+        //                 dob: dob
+        //             },
+        //             success: function (data) {
+        //                 if(data=="00"){
+        //                     alert("Insert Success");
+        //                 }else if(data=="0") {
+        //                     alert("Update Success");
+        //                 }else if(data=="01") {
+        //                     alert("Insert error");
+        //                 }else{
+        //                     alert("Error");
+        //                 }
+        //             }
+        //         });
+        //     });
+        // });
     </script>
     </body>
     </html>
