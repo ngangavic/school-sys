@@ -245,7 +245,8 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                 var kcpe = $("#kcpe").val();
                 var dob = $("#dob").val();
                 $.ajax({
-                    url: "../actions/student/a-e-student.php",
+                  //  url: "../actions/student/a-e-student.php",
+                    url: "../actions/student/test.php",
                     method: "post",
                     data: {
                         adm: adm,

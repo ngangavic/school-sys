@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once "../database/connection.php";
+
 if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['locked']) && isset($_SESSION['status'])) {
 //check if student exists
     //if exists update
@@ -45,7 +46,7 @@ function insertStudent($conn, $adm, $school, $name, $class, $kcpe, $dob)
 {
     $stmt = $conn->prepare("INSERT INTO tbl_students(adm,school,name,class,kcpe,dob) VALUES (?,?,?,?,?,?)");
     $stmt->bind_param("ssssss", $adm, $school, $name, $class, $kcpe, $dob);
-    if (!$stmt->execute()) {
+    if(!$stmt->execute()){
         echo "1";
     } else {
         echo "0";
