@@ -10,8 +10,9 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         $name=$_POST['exam'];
         $year=$_POST['year'];
         $term=$_POST['term'];
-        $stmt=$conn->prepare("INSERT INTO tbl_exam(school,name,term,year,date) VALUES (?,?,?,?,CURRENT_TIMESTAMP )");
-        $stmt->bind_param("ssss",$school,$name,$term,$year);
+        $class=$_POST['class'];
+        $stmt=$conn->prepare("INSERT INTO tbl_exam(school,name,class,term,year,date) VALUES (?,?,?,?,?,CURRENT_TIMESTAMP )");
+        $stmt->bind_param("sssss",$school,$name,$class,$term,$year);
         if(!$stmt->execute()){
     echo 'error';
         }else{
@@ -67,6 +68,19 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     <form action="" method="post">
         <div class="form-group">
             <input class="form-control" name="exam" placeholder="Exam name" required>
+        </div>
+        <div class="form-group">
+            <select class="form-control" name="class" required>
+                <?php
+                $stmt=$conn->prepare("SELECT * FROM tbl_class WHERE school=?");
+                $stmt->bind_param("s",$_SESSION['id']);
+                $stmt->execute();
+                $result=$stmt->get_result();
+                while ($row=$result->fetch_array()){
+                ?>
+                <option value="<?php echo $row['name']; ?>"><?php echo $row['name']; ?></option>
+                    <?php } ?>
+            </select>
         </div>
         <div class="form-group">
             <select class="form-control" name="term" required>
