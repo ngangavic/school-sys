@@ -82,6 +82,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
             <!--        [END] card-->
             <!--        [START] card-->
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                <a href="subject.php" style="text-decoration: none;color: #000000">
                 <div class="card">
                     <div class="card-header">
                         Subjects
@@ -90,6 +91,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         Grades,Teachers,Subject selection...
                     </div>
                 </div>
+                </a>
             </div>
             <!--        [END] card-->
             <!--        [START] card-->
