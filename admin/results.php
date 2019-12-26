@@ -46,19 +46,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     </div>
 </nav>
 <!--[END] navbar-->
-<div class="container">
-<div class="row">
-    <?php
-    $stmt=$conn->prepare("SELECT * FROM tbl_exam WHERE school=?");
-    $stmt->bind_param("s",$_SESSION['id']);
-    $stmt->execute();
-    $result=$stmt->get_result();
-    while ($row=$result->fetch_array()){
-    ?>
-<a href="results.php?exam=<?php echo $row['name']?>&&class=<?php echo $row['class']?>&&term=<?php echo $row['term']?>&&year=<?php echo $row['year']?>" class="btn btn-outline-primary"><?php echo $row['name'].$row['class'].$row['term'].$row['year']; ?></a>
-        <?php } ?>
-</div>
-</div>
+
 <!--[START]main content-->
 <?php
 if(isset($_GET['exam'])&&isset($_GET['class'])&&isset($_GET['term'])&&isset($_GET['year'])&&isset($_GET['subject'])){
@@ -68,53 +56,97 @@ $term=$_GET['term'];
 $year=$_GET['year'];
 $subject=$_GET['subject'];
 
+//check if there are results
+    $stmt=$conn->prepare("SELECT * FROM tbl_exam_results WHERE school=? AND class=? AND subject=? AND term=? AND exam=? AND year=?");
+    $stmt->bind_param("ssssss",$_SESSION['id'],$class,$subject,$term,$exam,$year);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $count=$result->num_rows;
+    if($count>0){
+        //display the results
+        ?>
+
+        <form method="post" action="../actions/results/edit-results.php">
+            <input name="exam" type="hidden" value="<?php echo $exam; ?>">
+            <input name="term" type="hidden" value="<?php echo $term; ?>">
+            <input name="year" type="hidden" value="<?php echo $year; ?>">
+            <input name="subject" type="hidden" value="<?php echo $subject; ?>">
+            <table class="table">
+                <thead>
+                <th>Adm</th>
+                <th>Name</th>
+                <th>Class</th>
+                <th>Marks</th>
+                </thead>
+                <tbody>
+                <?php
+//                $stmt=$conn->prepare("SELECT * FROM tbl_exam_results WHERE school=? AND class=?");
+//                $stmt->bind_param("ss",$_SESSION['id'],$class);
+//                $stmt->execute();
+//                $result=$stmt->get_result();
+                while ($row=$result->fetch_array()){
+                    ?>
+                    <tr>
+                        <td><?php echo $row['adm'];?></td>
+                        <input name="adm[]" type="hidden" value="<?php echo $row['adm']; ?>">
+                        <input name="id[]" type="hidden" value="<?php echo $row['id']; ?>">
+                        <td><?php echo $row['name'];?></td>
+                        <input name="name[]" type="hidden" value="<?php echo $row['name']; ?>">
+                        <td><?php echo $row['class'];?></td>
+                        <input name="class[]" type="hidden" value="<?php echo $row['class']; ?>">
+                        <td><input name="marks[]" value="<?php echo $row['marks'];?>" required></td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+            <button class="btn btn-outline-danger" name="save">Save</button>
+        </form>
+
+        <?php
+    }else{
+        //insert
+        ?>
+
+        <form method="post" action="../actions/results/save-results.php">
+            <input name="exam" type="hidden" value="<?php echo $exam; ?>">
+            <input name="term" type="hidden" value="<?php echo $term; ?>">
+            <input name="year" type="hidden" value="<?php echo $year; ?>">
+            <input name="subject" type="hidden" value="<?php echo $subject; ?>">
+            <table class="table">
+                <thead>
+                <th>Adm</th>
+                <th>Name</th>
+                <th>Class</th>
+                <th>Marks</th>
+                </thead>
+                <tbody>
+                <?php
+                $stmt=$conn->prepare("SELECT * FROM tbl_students WHERE school=? AND class=?");
+                $stmt->bind_param("ss",$_SESSION['id'],$class);
+                $stmt->execute();
+                $result=$stmt->get_result();
+                while ($row=$result->fetch_array()){
+                    ?>
+                    <tr>
+                        <td><?php echo $row['adm'];?></td>
+                        <input name="adm[]" type="hidden" value="<?php echo $row['adm']; ?>">
+                        <td><?php echo $row['name'];?></td>
+                        <input name="name[]" type="hidden" value="<?php echo $row['name']; ?>">
+                        <td><?php echo $row['class'];?></td>
+                        <input name="class[]" type="hidden" value="<?php echo $row['class']; ?>">
+                        <td><input name="marks[]" required></td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+            <button class="btn btn-outline-danger" name="save">Save</button>
+        </form>
+
+        <?php
+    }
+
 ?>
 
-<form method="post" action="../actions/results/save-results.php">
-    <input name="exam" type="hidden" value="<?php echo $exam; ?>">
-    <input name="term" type="hidden" value="<?php echo $term; ?>">
-    <input name="year" type="hidden" value="<?php echo $year; ?>">
-    <input name="subject" type="hidden" value="<?php echo $subject; ?>">
-    <table class="table">
-        <thead>
-        <th>Adm</th>
-        <th>Name</th>
-        <th>Class</th>
-        <th>Marks</th>
-        <th><select name="subject" class="form-control" >
-            <?php
-            $stmt=$conn->prepare("SELECT * FROM tbl_subject WHERE school=?");
-            $stmt->bind_param("s",$_SESSION['id']);
-            $stmt->execute();
-            $result=$stmt->get_result();
-            while($row=$result->fetch_array()){
-            ?>
-            <option value="<?php echo $row['name']; ?>" ><?php echo $row['name']; ?></option>
-                <?php } ?>
-            </select></th>
-        </thead>
-        <tbody>
-        <?php
-        $stmt=$conn->prepare("SELECT * FROM tbl_students WHERE school=? AND class=?");
-        $stmt->bind_param("ss",$_SESSION['id'],$class);
-        $stmt->execute();
-        $result=$stmt->get_result();
-        while ($row=$result->fetch_array()){
-        ?>
-        <tr>
-            <td><?php echo $row['adm'];?></td>
-            <input name="adm[]" type="hidden" value="<?php echo $row['adm']; ?>">
-            <td><?php echo $row['name'];?></td>
-            <input name="name[]" type="hidden" value="<?php echo $row['name']; ?>">
-            <td><?php echo $row['class'];?></td>
-            <input name="class[]" type="hidden" value="<?php echo $row['class']; ?>">
-            <td><input name="marks[]" required></td>
-        </tr>
-        <?php } ?>
-        </tbody>
-    </table>
-    <button class="btn btn-outline-danger" name="save">Save</button>
-</form>
     <?php
 }else{
 
