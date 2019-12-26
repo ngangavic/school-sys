@@ -14,6 +14,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script rel="javascript" src="../bootstrap/js/bootstrap.js"></script>
     <link href="../css/custom.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -60,11 +61,12 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
 </div>
 <!--[START]main content-->
 <?php
-if(isset($_GET['exam'])&&isset($_GET['class'])&&isset($_GET['term'])&&isset($_GET['year'])){
+if(isset($_GET['exam'])&&isset($_GET['class'])&&isset($_GET['term'])&&isset($_GET['year'])&&isset($_GET['subject'])){
 $exam=$_GET['exam'];
 $class=$_GET['class'];
 $term=$_GET['term'];
 $year=$_GET['year'];
+$subject=$_GET['subject'];
 
 ?>
 
@@ -72,12 +74,24 @@ $year=$_GET['year'];
     <input name="exam" type="hidden" value="<?php echo $exam; ?>">
     <input name="term" type="hidden" value="<?php echo $term; ?>">
     <input name="year" type="hidden" value="<?php echo $year; ?>">
+    <input name="subject" type="hidden" value="<?php echo $subject; ?>">
     <table class="table">
         <thead>
         <th>Adm</th>
         <th>Name</th>
         <th>Class</th>
         <th>Marks</th>
+        <th><select name="subject" class="form-control" >
+            <?php
+            $stmt=$conn->prepare("SELECT * FROM tbl_subject WHERE school=?");
+            $stmt->bind_param("s",$_SESSION['id']);
+            $stmt->execute();
+            $result=$stmt->get_result();
+            while($row=$result->fetch_array()){
+            ?>
+            <option value="<?php echo $row['name']; ?>" ><?php echo $row['name']; ?></option>
+                <?php } ?>
+            </select></th>
         </thead>
         <tbody>
         <?php
