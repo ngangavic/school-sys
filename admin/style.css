@@ -1,0 +1,16 @@
+.sidebar{
+    background-color: black;
+}
+
+.link-item a{
+    color: white;
+}
+
+.link-item a:hover{
+    color: #dcdcdc;
+    text-decoration: none;
+}
+
+hr{
+    background-color: #6c757d;
+}

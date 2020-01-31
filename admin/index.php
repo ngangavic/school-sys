@@ -8,12 +8,15 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Admin</title>
         <script rel="javascript" src="../jquery/jquery-3.4.1.js"></script>
         <script rel="javascript" src="../popper/popper.min.js"></script>
         <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <script rel="javascript" src="../bootstrap/js/bootstrap.js"></script>
         <link href="../css/custom.css" rel="stylesheet">
+        <link href="style.css" rel="stylesheet">
+        <link href="../fonts/css/all.css" rel="stylesheet">
         <style>
             a{
                 text-decoration: none;
@@ -50,8 +53,57 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     </nav>
     <!--[END] navbar-->
 
-    <!--[START] content-->
+<!--    new UI start-->
+    <div class="container-fluid">
 
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 sidebar">
+                <div class="link-item">
+                    <a href=""><i class="fa fa-envelope"></i> SMS </a>
+                    <hr/>
+                </div>
+                <div class="link-item">
+                    <a href=""><i class="fa fa-school"></i> Classes </a>
+                    <hr/>
+                </div>
+                <div class="link-item">
+                    <a href=""><i class="fa fa-book"></i> Subjects </a>
+                    <hr/>
+                </div>
+                <div class="link-item">
+                    <a href=""><i class="fa fa-users"></i> Students </a>
+                    <hr/>
+                </div>
+                <div class="link-item">
+                    <a href=""><i class="fa fa-receipt"></i> Report </a>
+                    <hr/>
+                </div>
+                <div class="link-item">
+                    <a href=""><i class="fa fa-keyboard"></i> Results </a>
+                    <hr/>
+                </div>
+                <div class="link-item">
+                    <a href=""><i class="fa fa-file-alt"></i> Exams </a>
+                    <hr/>
+                </div>
+                <div class="link-item">
+                    <a href=""><i class="fa fa-door-open"></i> Logout </a>
+                    <hr/>
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+<!--    new UI end-->
+
+
+
+
+    <!--[START] content-->
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <h5>ADMIN PANEL</h5>
         <hr/>
