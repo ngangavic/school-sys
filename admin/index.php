@@ -17,11 +17,8 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         <link href="../css/custom.css" rel="stylesheet">
         <link href="style.css" rel="stylesheet">
         <link href="../fonts/css/all.css" rel="stylesheet">
-        <style>
-            a {
-                text-decoration: none;
-            }
-        </style>
+
+
     </head>
     <body>
 
@@ -96,6 +93,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 main-content">
+
                 <div class="row">
 
                     <div class="card col-md-2 my-card">
@@ -137,9 +135,16 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
 
 
                 </div>
+
+
             </div>
 
 
+        </div>
+
+<!--        calendar-->
+        <div class="row">
+            <div id="calendar"></div>
         </div>
 
     </div>
