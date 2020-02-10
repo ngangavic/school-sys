@@ -61,15 +61,15 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <hr/>
                 </div>
                 <div class="link-item">
-                    <a href=""><i class="fa fa-school"></i> Classes </a>
+                    <a href="class.php"><i class="fa fa-school"></i> Classes </a>
                     <hr/>
                 </div>
                 <div class="link-item">
-                    <a href=""><i class="fa fa-book"></i> Subjects </a>
+                    <a href="subject.php"><i class="fa fa-book"></i> Subjects </a>
                     <hr/>
                 </div>
                 <div class="link-item">
-                    <a href=""><i class="fa fa-users"></i> Students </a>
+                    <a href="student.php?page=add-student"><i class="fa fa-users"></i> Students </a>
                     <hr/>
                 </div>
                 <div class="link-item">
@@ -77,15 +77,15 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <hr/>
                 </div>
                 <div class="link-item">
-                    <a href=""><i class="fa fa-keyboard"></i> Results </a>
+                    <a data-toggle="modal" href="#resultsModal" ><i class="fa fa-keyboard"></i> Results </a>
                     <hr/>
                 </div>
                 <div class="link-item">
-                    <a href=""><i class="fa fa-file-alt"></i> Exams </a>
+                    <a href="exams.php"><i class="fa fa-file-alt"></i> Exams </a>
                     <hr/>
                 </div>
                 <div class="link-item">
-                    <a href=""><i class="fa fa-door-open"></i> Logout </a>
+                    <a href="logout.php"><i class="fa fa-door-open"></i> Logout </a>
                     <hr/>
                 </div>
 
@@ -96,7 +96,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
 
                 <div class="row">
 
-                    <div class="card col-md-2 my-card">
+                    <div class="card col-md-2 col-lg-2 my-card">
                         <div class="card-body">
                             <div class="row">
                                 <h2>0</h2>
@@ -105,7 +105,8 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                             Classes
                         </div>
                     </div>
-                    <div class="card col-md-2 my-card">
+
+                    <div class="card col-md-2 col-lg-2 my-card">
                         <div class="card-body">
                             <div class="row">
                                 <h2>0</h2>
@@ -114,7 +115,8 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                             Students
                         </div>
                     </div>
-                    <div class="card col-md-2 my-card">
+
+                    <div class="card col-md-2 col-lg-2 my-card">
                         <div class="card-body">
                             <div class="row">
                                 <h2>0</h2>
@@ -123,7 +125,8 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                             Teachers
                         </div>
                     </div>
-                    <div class="card col-md-2 my-card">
+
+                    <div class="card col-md-2 col-lg-2 my-card">
                         <div class="card-body">
                             <div class="row">
                                 <h2>0</h2>
@@ -133,144 +136,25 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         </div>
                     </div>
 
+                    <div class="card col-md-2 col-lg-2 my-card">
+                        <div class="card-body">
+                            <div class="row">
+                                <h2>0</h2>
+                                <i class="fa fa-3x fa-database ml-auto"></i>
+                            </div>
+                            Logs
+                        </div>
+                    </div>
 
                 </div>
 
 
             </div>
 
-
-        </div>
-
-<!--        calendar-->
-        <div class="row">
-            <div id="calendar"></div>
         </div>
 
     </div>
     <!--    new UI end-->
-
-
-    <!--[START] content-->
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <h5>ADMIN PANEL</h5>
-        <hr/>
-        <div class="row">
-            <!--        [START] card-->
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <div class="card">
-                    <div class="card-header">
-                        SMS
-                    </div>
-                    <div class="card-body red">
-                        Send SMS,View SMS...
-                    </div>
-                </div>
-            </div>
-            <!--        [END] card-->
-            <!--        [START] card-->
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <a href="class.php" style="text-decoration: none;color: #000000">
-                    <div class="card">
-                        <div class="card-header">
-                            Classes
-                        </div>
-                        <div class="card-body red">
-                            Add class,Edit class,Class teachers...
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!--        [END] card-->
-            <!--        [START] card-->
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <a href="subject.php" style="text-decoration: none;color: #000000">
-                    <div class="card">
-                        <div class="card-header">
-                            Subjects
-                        </div>
-                        <div class="card-body red">
-                            Grades,Teachers,Subject selection...
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!--        [END] card-->
-            <!--        [START] card-->
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <a href="student.php?page=add-student" style="text-decoration: none;color: #000000">
-                    <div class="card">
-                        <div class="card-header">
-                            Students
-                        </div>
-                        <div class="card-body red">
-                            Add, Edit,View,Search student...
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!--        [END] card-->
-        </div>
-        <br/>
-
-        <div class="row">
-            <!--        [START] card-->
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <div class="card">
-                    <div class="card-header">
-                        Reports
-                    </div>
-                    <div class="card-body red">
-                        Class reports, Student reports...
-                    </div>
-                </div>
-            </div>
-            <!--        [END] card-->
-            <!--        [START] card-->
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <a data-toggle="modal" href="#resultsModal" style="text-decoration: none;color: #000000">
-                    <div class="card">
-                        <div class="card-header">
-                            Results
-                        </div>
-                        <div class="card-body red">
-                            Enter results, Edit results...
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!--        [END] card-->
-            <!--        [START] card-->
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <div class="card">
-                    <div class="card-header">
-                        School Details
-                    </div>
-                    <div class="card-body red">
-                        Edit school details, payment...
-                    </div>
-                </div>
-            </div>
-            <!--        [END] card-->
-            <!--        [START] card-->
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <a href="exams.php" style="text-decoration: none;color: #000000">
-                    <div class="card">
-                        <div class="card-header">
-                            Exams
-                        </div>
-                        <div class="card-body red">
-                            Create exam...
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!--        [END] card-->
-        </div>
-        <br/>
-
-    </div>
-    <!--[END] content-->
 
     <!--    [START]results modal-->
 
