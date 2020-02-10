@@ -21,43 +21,14 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
 
     </head>
     <body>
-
-    <!--[START]navbar-->
-    <!--    <nav class="navbar navbar-expand-md bg-light navbar-light">-->
-    <!-- Brand -->
-    <!--        <a class="navbar-brand" href="#">School System</a>-->
-    <!---->
-    <!-- Toggler/collapsibe Button -->
-    <!--        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">-->
-    <!--            <span class="navbar-toggler-icon"></span>-->
-    <!--        </button>-->
-    <!---->
-    <!-- Navbar links -->
-    <!--        <div class="collapse navbar-collapse" id="collapsibleNavbar">-->
-    <!--            <ul class="navbar-nav ml-auto">-->
-    <!--                <li class="nav-item">-->
-    <!--                    <a class="nav-link" href="#">About</a>-->
-    <!--                </li>-->
-    <!--                <li class="nav-item">-->
-    <!--                    <a class="nav-link" href="#">Help</a>-->
-    <!--                </li>-->
-    <!--                <li class="nav-item">-->
-    <!--                    <a class="nav-link" href="#">Contact Us</a>-->
-    <!--                </li>-->
-    <!---->
-    <!--            </ul>-->
-    <!--        </div>-->
-    <!--    </nav>-->
-    <!--[END] navbar-->
-
     <!--    new UI start-->
     <div class="container-fluid">
 
         <div class="row">
 
             <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 sidebar">
-                <div class="link-item">
-                    <a href="#"><i class="fa fa-dashcube"></i> Dashboard </a>
+                <div class="link-item" style="padding-top: 10px">
+                    <a href="#"><i class="fa fa-home"></i> Dashboard </a>
                     <hr/>
                 </div>
                 <div class="link-item">
@@ -239,7 +210,6 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         </div>
     </div>
     <!--[END]results modal-->
-
 
     </body>
     </html>
