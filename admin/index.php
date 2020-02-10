@@ -23,31 +23,31 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     <body>
 
     <!--[START]navbar-->
-    <nav class="navbar navbar-expand-md bg-light navbar-light">
-        <!-- Brand -->
-        <a class="navbar-brand" href="#">School System</a>
-
-        <!-- Toggler/collapsibe Button -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Navbar links -->
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Help</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact Us</a>
-                </li>
-
-            </ul>
-        </div>
-    </nav>
+    <!--    <nav class="navbar navbar-expand-md bg-light navbar-light">-->
+    <!-- Brand -->
+    <!--        <a class="navbar-brand" href="#">School System</a>-->
+    <!---->
+    <!-- Toggler/collapsibe Button -->
+    <!--        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">-->
+    <!--            <span class="navbar-toggler-icon"></span>-->
+    <!--        </button>-->
+    <!---->
+    <!-- Navbar links -->
+    <!--        <div class="collapse navbar-collapse" id="collapsibleNavbar">-->
+    <!--            <ul class="navbar-nav ml-auto">-->
+    <!--                <li class="nav-item">-->
+    <!--                    <a class="nav-link" href="#">About</a>-->
+    <!--                </li>-->
+    <!--                <li class="nav-item">-->
+    <!--                    <a class="nav-link" href="#">Help</a>-->
+    <!--                </li>-->
+    <!--                <li class="nav-item">-->
+    <!--                    <a class="nav-link" href="#">Contact Us</a>-->
+    <!--                </li>-->
+    <!---->
+    <!--            </ul>-->
+    <!--        </div>-->
+    <!--    </nav>-->
     <!--[END] navbar-->
 
     <!--    new UI start-->
@@ -57,7 +57,11 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
 
             <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 sidebar">
                 <div class="link-item">
-                    <a href=""><i class="fa fa-envelope"></i> SMS </a>
+                    <a href="#"><i class="fa fa-dashcube"></i> Dashboard </a>
+                    <hr/>
+                </div>
+                <div class="link-item">
+                    <a href="#"><i class="fa fa-envelope"></i> SMS </a>
                     <hr/>
                 </div>
                 <div class="link-item">
@@ -77,7 +81,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <hr/>
                 </div>
                 <div class="link-item">
-                    <a data-toggle="modal" href="#resultsModal" ><i class="fa fa-keyboard"></i> Results </a>
+                    <a data-toggle="modal" href="#resultsModal"><i class="fa fa-keyboard"></i> Results </a>
                     <hr/>
                 </div>
                 <div class="link-item">
@@ -89,10 +93,14 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <hr/>
                 </div>
 
-
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 main-content">
+
+                <div style="background-color: #ffffff" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h5 style="color: #000000;padding: 5px;">Dashboard</h5>
+                    <hr/>
+                </div>
 
                 <div class="row">
 
