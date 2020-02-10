@@ -28,7 +28,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
 
             <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 sidebar">
                 <div class="link-item" style="padding-top: 10px">
-                    <a href="#"><i class="fa fa-home"></i> Dashboard </a>
+                    <a href="index.php"><i class="fa fa-home"></i> Dashboard </a>
                     <hr/>
                 </div>
                 <div class="link-item">
