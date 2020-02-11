@@ -83,7 +83,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
             <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 main-content">
 
                 <div style="background-color: #ffffff" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <h5 style="color: #000000;padding: 5px;">Dashboard</h5>
+                    <h5 style="color: #000000;padding: 5px;">Dashboard: Class</h5>
                     <hr/>
                 </div>
 
