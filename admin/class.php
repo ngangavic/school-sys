@@ -2,20 +2,28 @@
 session_start();
 require_once "../actions/database/connection.php";
 
-//INSERT INTO `tbl_exam`(`id`, `school`, `name`, `year`, `date`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5])
 if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['locked']) && isset($_SESSION['status'])) {
 
     if (isset($_POST['create'])) {
         $school = $_SESSION['id'];
         $class = $_POST['class'];
-//        $year=$_POST['year'];
-//        $term=$_POST['term'];
-        $stmt = $conn->prepare("INSERT INTO tbl_class(school,name,date) VALUES (?,?,CURRENT_TIMESTAMP )");
-        $stmt->bind_param("ss", $school, $class);
-        if (!$stmt->execute()) {
-            echo 'error';
-        } else {
-            header("location:class.php?msg=success");
+
+        $stmt=$conn->prepare("SELECT * FROM tbl_class WHERE school=? AND name=? ");
+        $stmt->bind_param("ss",$school,$class);
+        $stmt->execute();
+        $result=$stmt->get_result();
+        $count=$result->num_rows;
+
+        if ($count>0){
+            header("location:class.php?msg=error");
+        }else {
+            $stmt = $conn->prepare("INSERT INTO tbl_class(school,name,date) VALUES (?,?,CURRENT_TIMESTAMP )");
+            $stmt->bind_param("ss", $school, $class);
+            if (!$stmt->execute()) {
+                header("location:class.php?msg=error");
+            } else {
+                header("location:class.php?msg=success");
+            }
         }
     }
     ?>
@@ -98,18 +106,24 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         <th>Action</th>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Form 1</td>
-                            <td>10/10/10</td>
-                            <td>
-                                <div class="btn btn-group btn-group-sm">
-                                    <a href="#" class="btn btn-group-sm btn-outline-primary">Edit</a>
-                                    <a href="#" class="btn btn-group-sm btn-outline-success">Activate</a>
-                                    <a href="#" class="btn btn-group-sm btn-outline-warning">De-Activate</a>
-                                    <a href="#" class="btn btn-group-sm btn-outline-danger">Delete</a>
-                                </div>
-                            </td>
-                        </tr>
+                        <?php
+                        $stmt = $conn->prepare("SELECT * FROM tbl_class WHERE school=?");
+                        $stmt->bind_param("s", $_SESSION['id']);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        while ($row = $result->fetch_array()) {
+                            ?>
+                            <tr>
+                                <td><?php echo $row['name']; ?></td>
+                                <td><?php echo $row['date']; ?></td>
+                                <td>
+                                    <div class="btn btn-group btn-group-sm">
+                                        <a href="#" class="btn btn-group-sm btn-outline-primary">Edit</a>
+                                        <a href="#" class="btn btn-group-sm btn-outline-danger">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php } ?>
                         </tbody>
                     </table>
                 </div>
