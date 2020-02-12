@@ -107,7 +107,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         </thead>
                         <tbody>
                         <?php
-                        $stmt = $conn->prepare("SELECT * FROM tbl_class WHERE school=?");
+                        $stmt = $conn->prepare("SELECT * FROM tbl_class WHERE school=? AND status='active' ");
                         $stmt->bind_param("s", $_SESSION['id']);
                         $stmt->execute();
                         $result = $stmt->get_result();
@@ -119,7 +119,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                 <td>
                                     <div class="btn btn-group btn-group-sm">
                                         <a href="#" class="btn btn-group-sm btn-outline-primary">Edit</a>
-                                        <a href="#" class="btn btn-group-sm btn-outline-danger">Delete</a>
+                                        <a href="action/delete-class.php?id=<?php echo $row['id']; ?>" class="btn btn-group-sm btn-outline-danger">Delete</a>
                                     </div>
                                 </td>
                             </tr>
