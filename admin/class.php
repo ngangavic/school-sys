@@ -118,7 +118,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                 <td><?php echo $row['date']; ?></td>
                                 <td>
                                     <div class="btn btn-group btn-group-sm">
-                                        <a href="#" class="btn btn-group-sm btn-outline-primary">Edit</a>
+                                        <a data-toggle="modal" href="#editClassModal" id="<?php echo $row['id']; ?>" class="btn btn-group-sm btn-outline-primary edit">Edit</a>
                                         <a href="action/delete-class.php?id=<?php echo $row['id']; ?>" class="btn btn-group-sm btn-outline-danger">Delete</a>
                                     </div>
                                 </td>
@@ -238,6 +238,33 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         </div>
     </div>
     <!--[END]results modal-->
+
+<!--    START edit class modal-->
+    <div class="modal fade" id="editClassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div id="view_class"></div>
+            </div>
+        </div>
+    </div>
+<!--    END edit class modal-->
+    <script>
+        $(document).ready(function () {
+            $('.edit').click(function () {
+                var class_id = $(this).attr("id");
+                $.ajax({
+                    url: "action/edit-class.php",
+                    method: "post",
+                    data: {class_id: class_id},
+                    success: function (data) {
+                        $('#view_class').html(data);
+                        $('#editClassModal').modal("show");
+                    }
+                });
+            });
+        });
+    </script>
 
     </body>
     </html>
