@@ -2,7 +2,6 @@
 session_start();
 require_once "../actions/database/connection.php";
 if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['locked']) && isset($_SESSION['status'])) {
-
     ?>
     <!DOCTYPE html>
     <html lang="en">
