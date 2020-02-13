@@ -9,22 +9,33 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         $subject = $_POST['subject'];
         $code = $_POST['code'];
 
-        $stmt = $conn->prepare("SELECT * FROM tbl_subject WHERE school=? AND name=? AND code=?");
-        $stmt->bind_param("sss", $school, $subject,$code);
+        //check if code exists
+        $stmt = $conn->prepare("SELECT * FROM tbl_subject WHERE school=? AND code=? AND status='active' ");
+        $stmt->bind_param("ss", $school, $code);
         $stmt->execute();
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
             //error
             header("location:subject.php?msg=error");
         } else {
-        $stmt = $conn->prepare("INSERT INTO tbl_subject(school,name,code,date) VALUES (?,?,?,CURRENT_TIMESTAMP )");
-        $stmt->bind_param("sss", $school, $subject,$code);
-        if (!$stmt->execute()) {
-            header("location:subject.php?msg=error");
-        } else {
-            header("location:subject.php?msg=success");
+            //check if subject name exists
+            $stmt = $conn->prepare("SELECT * FROM tbl_subject WHERE school=? AND name=? AND status='active' ");
+            $stmt->bind_param("ss", $school, $subject);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                //error
+                header("location:subject.php?msg=error");
+            } else {
+                $stmt = $conn->prepare("INSERT INTO tbl_subject(school,name,code,date) VALUES (?,?,?,CURRENT_TIMESTAMP )");
+                $stmt->bind_param("sss", $school, $subject, $code);
+                if (!$stmt->execute()) {
+                    header("location:subject.php?msg=error");
+                } else {
+                    header("location:subject.php?msg=success");
+                }
+            }
         }
-    }
     }
     ?>
 
@@ -108,24 +119,26 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         </thead>
                         <tbody>
                         <?php
-                        $stmt=$conn->prepare("SELECT * FROM tbl_subject WHERE school=? AND status='active' ");
-                        $stmt->bind_param("s",$_SESSION['id']);
+                        $stmt = $conn->prepare("SELECT * FROM tbl_subject WHERE school=? AND status='active' ");
+                        $stmt->bind_param("s", $_SESSION['id']);
                         $stmt->execute();
-                        $result=$stmt->get_result();
-                        while ($row=$result->fetch_array()){
-                        ?>
-                        <tr>
-                            <td><?php echo $row['name'];?></td>
-                            <td><?php echo $row['code'];?></td>
-                            <td><?php echo $row['date'];?></td>
-                            <td>
-                                <div class="btn btn-group btn-group-sm">
-                                    <a data-toggle="modal" href="#editSubjectModal" id="<?php echo $row['id']; ?>" class="btn btn-group-sm btn-outline-primary edit">Edit</a>
-                                    <a href="action/delete-subject.php?id=<?php echo $row['id']; ?>" class="btn btn-group-sm btn-outline-danger">Delete</a>
-                                </div>
-                            </td>
-                        </tr>
-                            <?php } ?>
+                        $result = $stmt->get_result();
+                        while ($row = $result->fetch_array()) {
+                            ?>
+                            <tr>
+                                <td><?php echo $row['name']; ?></td>
+                                <td><?php echo $row['code']; ?></td>
+                                <td><?php echo $row['date']; ?></td>
+                                <td>
+                                    <div class="btn btn-group btn-group-sm">
+                                        <a data-toggle="modal" href="#editSubjectModal" id="<?php echo $row['id']; ?>"
+                                           class="btn btn-group-sm btn-outline-primary edit">Edit</a>
+                                        <a href="action/delete-subject.php?id=<?php echo $row['id']; ?>"
+                                           class="btn btn-group-sm btn-outline-danger">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php } ?>
                         </tbody>
                     </table>
                 </div>
@@ -138,7 +151,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     </div>
     <!--    new UI end-->
 
-<!--    START modal create subject-->
+    <!--    START modal create subject-->
     <div id="addSubjectModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
@@ -167,7 +180,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
             </div>
         </div>
     </div>
-<!--    END modal create subject-->
+    <!--    END modal create subject-->
 
     <!--    [START]results modal-->
     <!-- Modal -->
