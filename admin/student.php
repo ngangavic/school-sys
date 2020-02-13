@@ -148,6 +148,21 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                             ?>
 
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="5000". id="myToast">
+                                    <div class="toast-header">
+                                        <img src="..." class="rounded mr-2" alt="...">
+                                        <strong class="mr-auto">Bootstrap</strong>
+                                        <small class="text-muted">just now</small>
+                                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="toast-body">
+                                        See? Just like this.
+                                    </div>
+                                </div>
+
                                 <div class="btn-group btn-group-sm">
                                     <a href="student.php?page=edit-student&class=Form 1" class="btn btn-group btn-outline-danger">Form 1</a>
                                     <a href="student.php?page=edit-student&class=Form 2" class="btn btn-group btn-outline-info">Form 2</a>
@@ -180,14 +195,14 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                                     ?>
                                                     <tr>
                                                         <td><input type="text" class="form-control form-control-sm"
-                                                                   name="adm[]" value="<?php echo $row['adm']; ?>" required>
+                                                                   name="adm[]" value="<?php echo $row['adm']; ?>" id="<?php echo $row['id']; ?>" required>
                                                         </td>
                                                         <td><input type="text" class="form-control form-control-sm"
-                                                                   name="name[]" value="<?php echo $row['name']; ?>" required>
+                                                                   name="name[]" value="<?php echo $row['name']; ?>" id="<?php echo $row['id']; ?>" required>
                                                         </td>
                                                         <td>
                                                             <select name="class[]" required
-                                                                    class="form-control form-control-sm">
+                                                                    class="form-control form-control-sm" id="<?php echo $row['id']; ?>">
                                                                 <option value="<?php echo $row['class']; ?>"><?php echo $row['class']; ?></option>
                                                                 <option value="Form 1">Form 1</option>
                                                                 <option value="Form 2">Form 2</option>
@@ -195,11 +210,11 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                                                 <option value="Form 4">Form 4</option>
                                                             </select>
                                                         </td>
-                                                        <td><input type="text" class="form-control form-control-sm"
-                                                                   name="kcpe[]" value="<?php  echo $row['kcpe']; ?>" required>
+                                                        <td><input type="text" class="form-control form-control-sm kcpe"
+                                                                   name="kcpe[]" value="<?php  echo $row['kcpe']; ?>" id="kcpe<?php echo $row['id']; ?>" required>
                                                         </td>
                                                         <td><input type="date" class="form-control form-control-sm"
-                                                                   name="dob[]" value="<?php echo $row['dob']; ?>" required>
+                                                                   name="dob[]" value="<?php echo $row['dob']; ?>" id="<?php echo $row['id']; ?>" required>
                                                         </td>
                                                     </tr>
                                                 <?php } ?>
@@ -306,6 +321,26 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     </div>
     <!--[END]results modal-->
 
+    <script>
+        $(document).ready(function () {
+            $('.kcpe').focusout(function () {
+                var kcpe_id = $(this).attr("id");
+                var kcpe_data = $("#"+kcpe_id).val();
+                $.ajax({
+                    url: "action/edit-student-kcpe.php",
+                    method: "post",
+                    data: {kcpe_id: kcpe_id,
+                        kcpe_data:kcpe_data},
+                    success: function (data) {
+                        $('#myToast').toast('show')
+                        // alert(data);
+                        // $('#view_subject').html(data);
+                        // $('#editSubjectModal').modal("show");
+                    }
+                });
+            });
+        });
+    </script>
 
     </body>
     </html>
