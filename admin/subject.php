@@ -121,7 +121,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                             <td>
                                 <div class="btn btn-group btn-group-sm">
                                     <a data-toggle="modal" href="#editSubjectModal" id="<?php echo $row['id']; ?>" class="btn btn-group-sm btn-outline-primary edit">Edit</a>
-                                    <a href="#" class="btn btn-group-sm btn-outline-danger">Delete</a>
+                                    <a href="action/delete-subject.php?id=<?php echo $row['id']; ?>" class="btn btn-group-sm btn-outline-danger">Delete</a>
                                 </div>
                             </td>
                         </tr>
