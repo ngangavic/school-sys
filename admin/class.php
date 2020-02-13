@@ -102,6 +102,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <table class="table table-bordered">
                         <thead>
                         <th>Class name</th>
+                        <th>No. of Students</th>
                         <th>Date created</th>
                         <th>Action</th>
                         </thead>
@@ -112,9 +113,15 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         $stmt->execute();
                         $result = $stmt->get_result();
                         while ($row = $result->fetch_array()) {
+                            $stmt_c=$conn->prepare("SELECT * FROM tbl_students WHERE school=? AND class=?");
+                            $stmt_c->bind_param("ss",$_SESSION['id'],$row['name']);
+                            $stmt_c->execute();
+                            $result_c=$stmt_c->get_result();
+
                             ?>
                             <tr>
                                 <td><?php echo $row['name']; ?></td>
+                                <td><?php echo $result_c->num_rows; ?></td>
                                 <td><?php echo $row['date']; ?></td>
                                 <td>
                                     <div class="btn btn-group btn-group-sm">
