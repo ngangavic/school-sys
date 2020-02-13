@@ -120,7 +120,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                             <td><?php echo $row['date'];?></td>
                             <td>
                                 <div class="btn btn-group btn-group-sm">
-                                    <a href="#" class="btn btn-group-sm btn-outline-primary">Edit</a>
+                                    <a data-toggle="modal" href="#editSubjectModal" id="<?php echo $row['id']; ?>" class="btn btn-group-sm btn-outline-primary edit">Edit</a>
                                     <a href="#" class="btn btn-group-sm btn-outline-danger">Delete</a>
                                 </div>
                             </td>
@@ -244,6 +244,33 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     </div>
     <!--[END]results modal-->
 
+    <!--    START edit subject modal-->
+    <div class="modal fade" id="editSubjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div id="view_subject"></div>
+            </div>
+        </div>
+    </div>
+    <!--    END edit subject modal-->
+
+    <script>
+        $(document).ready(function () {
+            $('.edit').click(function () {
+                var subject_id = $(this).attr("id");
+                $.ajax({
+                    url: "action/edit-subject.php",
+                    method: "post",
+                    data: {subject_id: subject_id},
+                    success: function (data) {
+                        $('#view_subject').html(data);
+                        $('#editSubjectModal').modal("show");
+                    }
+                });
+            });
+        });
+    </script>
     </body>
     </html>
 <?php } else {
