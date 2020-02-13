@@ -62,6 +62,18 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <hr/>
                 </div>
 
+                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="5000". id="myToast">
+                    <div class="toast-header">
+                        <strong class="mr-auto">Message</strong>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        K.C.P.E updated successfully
+                    </div>
+                </div>
+
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 main-content">
@@ -148,20 +160,6 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                             ?>
 
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
-                                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="5000". id="myToast">
-                                    <div class="toast-header">
-                                        <img src="..." class="rounded mr-2" alt="...">
-                                        <strong class="mr-auto">Bootstrap</strong>
-                                        <small class="text-muted">just now</small>
-                                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="toast-body">
-                                        See? Just like this.
-                                    </div>
-                                </div>
 
                                 <div class="btn-group btn-group-sm">
                                     <a href="student.php?page=edit-student&class=Form 1" class="btn btn-group btn-outline-danger">Form 1</a>
@@ -333,9 +331,6 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         kcpe_data:kcpe_data},
                     success: function (data) {
                         $('#myToast').toast('show')
-                        // alert(data);
-                        // $('#view_subject').html(data);
-                        // $('#editSubjectModal').modal("show");
                     }
                 });
             });
