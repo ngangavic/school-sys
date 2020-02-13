@@ -7,15 +7,23 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     if (isset($_POST['create'])) {
         $school = $_SESSION['id'];
         $subject = $_POST['subject'];
-//        $year=$_POST['year'];
-//        $term=$_POST['term'];
+
+        $stmt = $conn->prepare("SELECT * FROM tbl_subject WHERE school=? AND name=?");
+        $stmt->bind_param("ss", $school, $subject);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            //error
+            header("location:subject.php?msg=error");
+        } else {
         $stmt = $conn->prepare("INSERT INTO tbl_subject(school,name,date) VALUES (?,?,CURRENT_TIMESTAMP )");
         $stmt->bind_param("ss", $school, $subject);
         if (!$stmt->execute()) {
-            echo 'error';
+            header("location:subject.php?msg=error");
         } else {
             header("location:subject.php?msg=success");
         }
+    }
     }
     ?>
 
