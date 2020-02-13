@@ -77,11 +77,15 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     if ($page == "add-student") {
                         ?>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="row">
+                                <form class="form-inline" action="" method="post">
+                                    <input type="number" class="form-control form-control-sm"
+                                           placeholder="Enter number of students" name="no" required/>
+                                    <button class="btn btn-sm btn-danger" name="create">CREATE</button>
+                                </form>
 
-                            <form class="form-inline" action="" method="post">
-                                <input type="number" class="form-control form-control-sm" placeholder="Enter number of students" name="no" required />
-                                <button class="btn btn-sm btn-danger" name="create">CREATE</button>
-                            </form>
+                                <a href="student.php?page=edit-student&class=Form 1" class="btn btn-sm btn-primary">View Students</a>
+                            </div>
                             <hr/>
 
                             <div class="card">
@@ -105,21 +109,26 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                                 for ($i = 0; $i < $_POST['no']; $i++) {
                                                     ?>
                                                     <tr>
-                                                        <td><input type="text" class="form-control form-control-sm" name="adm[]" id="adm"
+                                                        <td><input type="text" class="form-control form-control-sm"
+                                                                   name="adm[]" id="adm"
                                                                    required></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="name[]" id="name"
+                                                        <td><input type="text" class="form-control form-control-sm"
+                                                                   name="name[]" id="name"
                                                                    required></td>
                                                         <td>
-                                                            <select name="classs[]" required class="form-control form-control-sm" id="classs">
+                                                            <select name="classs[]" required
+                                                                    class="form-control form-control-sm" id="classs">
                                                                 <option value="Form 1">Form 1</option>
                                                                 <option value="Form 2">Form 2</option>
                                                                 <option value="Form 3">Form 3</option>
                                                                 <option value="FOrm 4">Form 4</option>
                                                             </select>
                                                         </td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="kcpe[]" id="kcpe"
+                                                        <td><input type="text" class="form-control form-control-sm"
+                                                                   name="kcpe[]" id="kcpe"
                                                                    required></td>
-                                                        <td><input type="date" class="form-control form-control-sm dob" name="dob[]" id="dob"
+                                                        <td><input type="date" class="form-control form-control-sm dob"
+                                                                   name="dob[]" id="dob"
                                                                    required></td>
                                                     </tr>
                                                 <?php }
@@ -135,129 +144,82 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
 
                         <?php
                     } elseif ($page == "edit-student") {
-                        ?>
+                        if (isset($_GET['class']) && !empty($_GET['class'])) {
+                            ?>
 
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
-                            <h5>EDIT STUDENT </h5>
-
-                            <hr/>
-                            <div class="btn-group btn-group-sm">
-                                <a href="#" class="btn btn-group btn-outline-danger">Form 1</a>
-                                <a href="#" class="btn btn-group btn-outline-info">Form 2</a>
-                                <a href="#" class="btn btn-group btn-outline-success">Form 3</a>
-                                <a href="#" class="btn btn-group btn-outline-primary">Form 4</a>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    Edit students-Form 1
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="btn-group btn-group-sm">
+                                    <a href="student.php?page=edit-student&class=Form 1" class="btn btn-group btn-outline-danger">Form 1</a>
+                                    <a href="student.php?page=edit-student&class=Form 2" class="btn btn-group btn-outline-info">Form 2</a>
+                                    <a href="student.php?page=edit-student&class=Form 3" class="btn btn-group btn-outline-success">Form 3</a>
+                                    <a href="student.php?page=edit-student&class=Form 4" class="btn btn-group btn-outline-primary">Form 4</a>
+                                    <a href="student.php?page=add-student" class="btn btn-group btn-outline-primary">Add Student</a>
                                 </div>
-                                <div class="card-body">
-                                    <form action="" method="post">
-                                        <table class="table table-sm">
-                                            <thead>
-                                            <th>Adm</th>
-                                            <th>Name</th>
-                                            <th>Class</th>
-                                            <th>KCPE</th>
-                                            <th>DOB</th>
-                                            </thead>
-                                            <tbody>
+                                <div class="card">
+                                    <div class="card-header">
+                                        Edit students-<?php echo $_GET['class']; ?>
+                                    </div>
+                                    <div class="card-body">
+                                        <form action="" method="post">
+                                            <table class="table table-sm">
+                                                <thead>
+                                                <th>Adm</th>
+                                                <th>Name</th>
+                                                <th>Class</th>
+                                                <th>K.C.P.E</th>
+                                                <th>DOB</th>
+                                                </thead>
+                                                <tbody>
 
-                                            <tr>
-                                                <td><input type="text" class="form-control form-control-sm" name="adm[]" required>
-                                                </td>
-                                                <td><input type="text" class="form-control form-control-sm" name="name[]" required>
-                                                </td>
-                                                <td>
-                                                    <select name="class[]" required class="form-control form-control-sm">
-                                                        <option value="">Form 1</option>
-                                                        <option value="">Form 2</option>
-                                                        <option value="">Form 3</option>
-                                                        <option value="">Form 4</option>
-                                                    </select>
-                                                </td>
-                                                <td><input type="text" class="form-control form-control-sm" name="kcpe[]" required>
-                                                </td>
-                                                <td><input type="date" class="form-control form-control-sm" name="dob[]" required>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td><input type="text" class="form-control form-control-sm" name="adm[]" required>
-                                                </td>
-                                                <td><input type="text" class="form-control form-control-sm" name="name[]" required>
-                                                </td>
-                                                <td><input type="text" class="form-control form-control-sm" name="class[]" required>
-                                                </td>
-                                                <td><input type="text" class="form-control form-control-sm" name="kcpe[]" required>
-                                                </td>
-                                                <td><input type="date" class="form-control form-control-sm" name="dob[]" required>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td><input type="text" class="form-control form-control-sm" name="adm[]" required>
-                                                </td>
-                                                <td><input type="text" class="form-control form-control-sm" name="name[]" required>
-                                                </td>
-                                                <td><input type="text" class="form-control form-control-sm" name="class[]" required>
-                                                </td>
-                                                <td><input type="text" class="form-control form-control-sm" name="kcpe[]" required>
-                                                </td>
-                                                <td><input type="date" class="form-control form-control-sm" name="dob[]" required>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td><input type="text" class="form-control form-control-sm" name="adm[]" required>
-                                                </td>
-                                                <td><input type="text" class="form-control form-control-sm" name="name[]" required>
-                                                </td>
-                                                <td><input type="text" class="form-control form-control-sm" name="class[]" required>
-                                                </td>
-                                                <td><input type="text" class="form-control form-control-sm" name="kcpe[]" required>
-                                                </td>
-                                                <td><input type="date" class="form-control form-control-sm" name="dob[]" required>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td><input type="text" class="form-control form-control-sm" name="adm[]" required>
-                                                </td>
-                                                <td><input type="text" class="form-control form-control-sm" name="name[]" required>
-                                                </td>
-                                                <td><input type="text" class="form-control form-control-sm" name="class[]" required>
-                                                </td>
-                                                <td><input type="text" class="form-control form-control-sm" name="kcpe[]" required>
-                                                </td>
-                                                <td><input type="date" class="form-control form-control-sm" name="dob[]" required>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td><input type="text" class="form-control form-control-sm" name="adm[]" required>
-                                                </td>
-                                                <td><input type="text" class="form-control form-control-sm" name="name[]" required>
-                                                </td>
-                                                <td><input type="text" class="form-control form-control-sm" name="class[]" required>
-                                                </td>
-                                                <td><input type="text" class="form-control form-control-sm" name="kcpe[]" required>
-                                                </td>
-                                                <td><input type="date" class="form-control form-control-sm" name="dob[]" required>
-                                                </td>
-                                            </tr>
-
-                                            </tbody>
-                                        </table>
-                                        <button class="btn btn-sm btn-outline-primary">EDIT</button>
-                                    </form>
+                                                <?php
+                                                $stmt = $conn->prepare("SELECT * FROM tbl_students WHERE class=? AND school=? ");
+                                                $stmt->bind_param("ss", $_GET['class'],$_SESSION['id']);
+                                                $stmt->execute();
+                                                $result = $stmt->get_result();
+                                                while ($row = $result->fetch_array()) {
+                                                    ?>
+                                                    <tr>
+                                                        <td><input type="text" class="form-control form-control-sm"
+                                                                   name="adm[]" value="<?php echo $row['adm']; ?>" required>
+                                                        </td>
+                                                        <td><input type="text" class="form-control form-control-sm"
+                                                                   name="name[]" value="<?php echo $row['name']; ?>" required>
+                                                        </td>
+                                                        <td>
+                                                            <select name="class[]" required
+                                                                    class="form-control form-control-sm">
+                                                                <option value="<?php echo $row['class']; ?>"><?php echo $row['class']; ?></option>
+                                                                <option value="Form 1">Form 1</option>
+                                                                <option value="Form 2">Form 2</option>
+                                                                <option value="Form 3">Form 3</option>
+                                                                <option value="Form 4">Form 4</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" class="form-control form-control-sm"
+                                                                   name="kcpe[]" value="<?php  echo $row['kcpe']; ?>" required>
+                                                        </td>
+                                                        <td><input type="date" class="form-control form-control-sm"
+                                                                   name="dob[]" value="<?php echo $row['dob']; ?>" required>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
+                                                </tbody>
+                                            </table>
+                                            <button class="btn btn-sm btn-outline-primary" name="edit">EDIT</button>
+                                        </form>
+                                    </div>
                                 </div>
+
                             </div>
 
-                        </div>
-
-                        <?php
+                            <?php
+                        } else {
+                            ?>
+                            <div class="alert alert-danger">
+                                <strong>Oops! An error occured.</strong>
+                            </div>
+                            <?php
+                        }
                     }
                 }
                 ?>
@@ -343,7 +305,6 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         </div>
     </div>
     <!--[END]results modal-->
-
 
 
     </body>
