@@ -7,17 +7,18 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     if (isset($_POST['create'])) {
         $school = $_SESSION['id'];
         $subject = $_POST['subject'];
+        $code = $_POST['code'];
 
-        $stmt = $conn->prepare("SELECT * FROM tbl_subject WHERE school=? AND name=?");
-        $stmt->bind_param("ss", $school, $subject);
+        $stmt = $conn->prepare("SELECT * FROM tbl_subject WHERE school=? AND name=? AND code=?");
+        $stmt->bind_param("sss", $school, $subject,$code);
         $stmt->execute();
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
             //error
             header("location:subject.php?msg=error");
         } else {
-        $stmt = $conn->prepare("INSERT INTO tbl_subject(school,name,date) VALUES (?,?,CURRENT_TIMESTAMP )");
-        $stmt->bind_param("ss", $school, $subject);
+        $stmt = $conn->prepare("INSERT INTO tbl_subject(school,name,code,date) VALUES (?,?,?,CURRENT_TIMESTAMP )");
+        $stmt->bind_param("sss", $school, $subject,$code);
         if (!$stmt->execute()) {
             header("location:subject.php?msg=error");
         } else {
@@ -100,23 +101,31 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                 <div class="class-table">
                     <table class="table table-bordered">
                         <thead>
-                        <th>Subject name</th>
-                        <th>Date created</th>
+                        <th>Subject Name</th>
+                        <th>Subject Code</th>
+                        <th>Date Created</th>
                         <th>Action</th>
                         </thead>
                         <tbody>
+                        <?php
+                        $stmt=$conn->prepare("SELECT * FROM tbl_subject WHERE school=? AND status='active' ");
+                        $stmt->bind_param("s",$_SESSION['id']);
+                        $stmt->execute();
+                        $result=$stmt->get_result();
+                        while ($row=$result->fetch_array()){
+                        ?>
                         <tr>
-                            <td>English</td>
-                            <td>10/10/10</td>
+                            <td><?php echo $row['name'];?></td>
+                            <td><?php echo $row['code'];?></td>
+                            <td><?php echo $row['date'];?></td>
                             <td>
                                 <div class="btn btn-group btn-group-sm">
                                     <a href="#" class="btn btn-group-sm btn-outline-primary">Edit</a>
-                                    <a href="#" class="btn btn-group-sm btn-outline-success">Activate</a>
-                                    <a href="#" class="btn btn-group-sm btn-outline-warning">De-Activate</a>
                                     <a href="#" class="btn btn-group-sm btn-outline-danger">Delete</a>
                                 </div>
                             </td>
                         </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
@@ -143,6 +152,9 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <form action="" method="post">
                         <div class="form-group">
                             <input class="form-control" name="subject" placeholder="Subject name" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" name="code" placeholder="Subject code" required>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-outline-primary" name="create">Create</button>
