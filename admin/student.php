@@ -223,8 +223,8 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                                         <td><input type="text" class="form-control form-control-sm kcpe"
                                                                    name="kcpe[]" value="<?php  echo $row['kcpe']; ?>" id="kcpe<?php echo $row['id']; ?>" required>
                                                         </td>
-                                                        <td><input type="date" class="form-control form-control-sm"
-                                                                   name="dob[]" value="<?php echo $row['dob']; ?>" id="<?php echo $row['id']; ?>" required>
+                                                        <td><input type="date" class="form-control form-control-sm dob"
+                                                                   name="dob[]" value="<?php echo $row['dob']; ?>" id="dob<?php echo $row['id']; ?>" required>
                                                         </td>
                                                     </tr>
                                                 <?php } ?>
@@ -332,6 +332,26 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     <!--[END]results modal-->
 
     <script>
+        //dob
+        $(document).ready(function () {
+            $('.dob').focusout(function () {
+                var dob_id = $(this).attr("id");
+                var dob_data = $("#"+dob_id).val();
+                $.ajax({
+                    url: "action/edit-student-dob.php",
+                    method: "post",
+                    data: {dob_id: dob_id,
+                        dob_data:dob_data},
+                    success: function (data) {
+                        if (data==='0') {
+                            $('#myToastS').toast('show')
+                        }else{
+                            $('#myToastE').toast('show')
+                        }
+                    }
+                });
+            });
+        });
         //class
         $(document).ready(function () {
             $('.classs').focusout(function () {
