@@ -71,8 +71,6 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                 <h5 style="color: #000000;padding: 5px;">Dashboard: Student</h5>
                 <hr/>
             </div>
-
-
         <?php
         if(isset($_GET['exam'])&&isset($_GET['class'])&&isset($_GET['term'])&&isset($_GET['year'])&&isset($_GET['subject'])){
             $exam=$_GET['exam'];
@@ -82,7 +80,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
             $subject=$_GET['subject'];
 
 //check if there are results
-            $stmt=$conn->prepare("SELECT * FROM tbl_exam_results WHERE school=? AND class=? AND subject=? AND term=? AND exam=? AND year=?");
+            $stmt=$conn->prepare("SELECT * FROM tbl_exam_results WHERE school=? AND class=? AND subject=? AND term=? AND exam=? AND year=? AND complete='no' ");
             $stmt->bind_param("ssssss",$_SESSION['id'],$class,$subject,$term,$exam,$year);
             $stmt->execute();
             $result=$stmt->get_result();
