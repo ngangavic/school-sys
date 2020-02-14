@@ -204,8 +204,8 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                                 while ($row = $result->fetch_array()) {
                                                     ?>
                                                     <tr>
-                                                        <td><input type="text" class="form-control form-control-sm"
-                                                                   name="adm[]" value="<?php echo $row['adm']; ?>" id="<?php echo $row['id']; ?>" required>
+                                                        <td><input type="text" class="form-control form-control-sm adm"
+                                                                   name="adm[]" value="<?php echo $row['adm']; ?>" id="adm<?php echo $row['id']; ?>" required>
                                                         </td>
                                                         <td><input type="text" class="form-control form-control-sm names"
                                                                    name="name[]" value="<?php echo $row['name']; ?>" id="name<?php echo $row['id']; ?>" required>
@@ -332,6 +332,26 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     <!--[END]results modal-->
 
     <script>
+        //adm
+        $(document).ready(function () {
+            $('.adm').focusout(function () {
+                var adm_id = $(this).attr("id");
+                var adm_data = $("#"+adm_id).val();
+                $.ajax({
+                    url: "action/edit-student-adm.php",
+                    method: "post",
+                    data: {adm_id: adm_id,
+                        adm_data:adm_data},
+                    success: function (data) {
+                        if (data==='0') {
+                            $('#myToastS').toast('show')
+                        }else{
+                            $('#myToastE').toast('show')
+                        }
+                    }
+                });
+            });
+        });
         //name
         $(document).ready(function () {
             $('.names').focusout(function () {
