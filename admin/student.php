@@ -230,7 +230,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                                 <?php } ?>
                                                 </tbody>
                                             </table>
-                                            <button class="btn btn-sm btn-outline-primary" name="edit">EDIT</button>
+<!--                                            <button class="btn btn-sm btn-outline-primary" name="edit">EDIT</button>-->
                                         </form>
                                     </div>
                                 </div>
