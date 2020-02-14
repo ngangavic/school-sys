@@ -207,8 +207,8 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                                         <td><input type="text" class="form-control form-control-sm"
                                                                    name="adm[]" value="<?php echo $row['adm']; ?>" id="<?php echo $row['id']; ?>" required>
                                                         </td>
-                                                        <td><input type="text" class="form-control form-control-sm"
-                                                                   name="name[]" value="<?php echo $row['name']; ?>" id="<?php echo $row['id']; ?>" required>
+                                                        <td><input type="text" class="form-control form-control-sm names"
+                                                                   name="name[]" value="<?php echo $row['name']; ?>" id="name<?php echo $row['id']; ?>" required>
                                                         </td>
                                                         <td>
                                                             <select name="class[]" required
@@ -332,6 +332,26 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     <!--[END]results modal-->
 
     <script>
+        //name
+        $(document).ready(function () {
+            $('.names').focusout(function () {
+                var name_id = $(this).attr("id");
+                var name_data = $("#"+name_id).val();
+                $.ajax({
+                    url: "action/edit-student-name.php",
+                    method: "post",
+                    data: {name_id: name_id,
+                        name_data:name_data},
+                    success: function (data) {
+                        if (data==='0') {
+                            $('#myToastS').toast('show')
+                        }else{
+                            $('#myToastE').toast('show')
+                        }
+                    }
+                });
+            });
+        });
         //dob
         $(document).ready(function () {
             $('.dob').focusout(function () {
