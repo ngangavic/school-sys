@@ -62,7 +62,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <hr/>
                 </div>
 
-                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="5000". id="myToast">
+                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="5000". id="myToastS" style="background-color: green">
                     <div class="toast-header">
                         <strong class="mr-auto">Message</strong>
                         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -70,7 +70,19 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         </button>
                     </div>
                     <div class="toast-body">
-                        K.C.P.E updated successfully
+                        Updated successful
+                    </div>
+                </div>
+
+                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="5000". id="myToastE" style="background-color: red">
+                    <div class="toast-header">
+                        <strong class="mr-auto">Message</strong>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                       Update failed
                     </div>
                 </div>
 
@@ -200,7 +212,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                                         </td>
                                                         <td>
                                                             <select name="class[]" required
-                                                                    class="form-control form-control-sm" id="<?php echo $row['id']; ?>">
+                                                                    class="form-control form-control-sm classs" id="class<?php echo $row['id']; ?>">
                                                                 <option value="<?php echo $row['class']; ?>"><?php echo $row['class']; ?></option>
                                                                 <option value="Form 1">Form 1</option>
                                                                 <option value="Form 2">Form 2</option>
@@ -320,6 +332,27 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     <!--[END]results modal-->
 
     <script>
+        //class
+        $(document).ready(function () {
+            $('.classs').focusout(function () {
+                var class_id = $(this).attr("id");
+                var class_data = $("#"+class_id).val();
+                $.ajax({
+                    url: "action/edit-student-class.php",
+                    method: "post",
+                    data: {class_id: class_id,
+                        class_data:class_data},
+                    success: function (data) {
+                        if (data==='0') {
+                            $('#myToastS').toast('show')
+                        }else{
+                            $('#myToastE').toast('show')
+                        }
+                    }
+                });
+            });
+        });
+        //kcpe
         $(document).ready(function () {
             $('.kcpe').focusout(function () {
                 var kcpe_id = $(this).attr("id");
@@ -330,7 +363,11 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     data: {kcpe_id: kcpe_id,
                         kcpe_data:kcpe_data},
                     success: function (data) {
-                        $('#myToast').toast('show')
+                        if (data==='0') {
+                            $('#myToastS').toast('show')
+                        }else{
+                            $('#myToastE').toast('show')
+                        }
                     }
                 });
             });
