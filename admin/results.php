@@ -63,6 +63,31 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <a href="logout.php"><i class="fa fa-door-open"></i> Logout </a>
                     <hr/>
                 </div>
+
+                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="5000". id="myToastS" style="background-color: green">
+                    <div class="toast-header">
+                        <strong class="mr-auto">Message</strong>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        Updated successful
+                    </div>
+                </div>
+
+                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="5000". id="myToastE" style="background-color: red">
+                    <div class="toast-header">
+                        <strong class="mr-auto">Message</strong>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        Update failed
+                    </div>
+                </div>
+
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 main-content">
@@ -103,21 +128,17 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                 </thead>
                                 <tbody>
                                 <?php
-                                //                $stmt=$conn->prepare("SELECT * FROM tbl_exam_results WHERE school=? AND class=?");
-                                //                $stmt->bind_param("ss",$_SESSION['id'],$class);
-                                //                $stmt->execute();
-                                //                $result=$stmt->get_result();
                                 while ($row = $result->fetch_array()) {
                                     ?>
                                     <tr>
                                         <td><?php echo $row['adm']; ?></td>
-                                        <input name="adm[]" type="hidden" value="<?php echo $row['adm']; ?>">
-                                        <input name="id[]" type="hidden" value="<?php echo $row['id']; ?>">
+                                        <input name="adm[]" type="hidden" value="<?php echo $row['adm']; ?>" id="adm<?php echo $row['id']; ?>">
+                                        <input name="id[]" type="hidden" value="<?php echo $row['id']; ?>" id="id<?php echo $row['id']; ?>">
                                         <td><?php echo $row['name']; ?></td>
-                                        <input name="name[]" type="hidden" value="<?php echo $row['name']; ?>">
+                                        <input name="name[]" type="hidden" value="<?php echo $row['name']; ?>" id="name<?php echo $row['id']; ?>">
                                         <td><?php echo $row['class']; ?></td>
-                                        <input name="class[]" type="hidden" value="<?php echo $row['class']; ?>">
-                                        <td><input name="marks[]" value="<?php echo $row['marks']; ?>" required></td>
+                                        <input name="class[]" type="hidden" value="<?php echo $row['class']; ?>" id="class<?php echo $row['id']; ?>">
+                                        <td><input name="marks[]" value="<?php echo $row['marks']; ?>" id="<?php echo $row['id'];?>" required></td>
                                     </tr>
                                 <?php } ?>
                                 </tbody>
@@ -151,13 +172,23 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                 while ($row = $result->fetch_array()) {
                                     ?>
                                     <tr>
+<!--                                        <td>--><?php //echo $row['adm']; ?><!--</td>-->
+<!--                                        <input name="adm[]" type="hidden" value="--><?php //echo $row['adm']; ?><!--">-->
+<!--                                        <td>--><?php //echo $row['name']; ?><!--</td>-->
+<!--                                        <input name="name[]" type="hidden" value="--><?php //echo $row['name']; ?><!--">-->
+<!--                                        <td>--><?php //echo $row['class']; ?><!--</td>-->
+<!--                                        <input name="class[]" type="hidden" value="--><?php //echo $row['class']; ?><!--">-->
+<!--                                        <td><input name="marks[]" required></td>-->
+
                                         <td><?php echo $row['adm']; ?></td>
-                                        <input name="adm[]" type="hidden" value="<?php echo $row['adm']; ?>">
+                                        <input name="adm[]" type="hidden" value="<?php echo $row['adm']; ?>" id="adm<?php echo $row['id']; ?>">
+                                        <input name="id[]" type="hidden" value="<?php echo $row['id']; ?>" id="id<?php echo $row['id']; ?>">
                                         <td><?php echo $row['name']; ?></td>
-                                        <input name="name[]" type="hidden" value="<?php echo $row['name']; ?>">
+                                        <input name="name[]" type="hidden" value="<?php echo $row['name']; ?>" id="name<?php echo $row['id']; ?>">
                                         <td><?php echo $row['class']; ?></td>
-                                        <input name="class[]" type="hidden" value="<?php echo $row['class']; ?>">
-                                        <td><input name="marks[]" required></td>
+                                        <input name="class[]" type="hidden" value="<?php echo $row['class']; ?>" id="class<?php echo $row['id']; ?>">
+                                        <td><input name="marks[]" class="marks" id="<?php echo $row['id'];?>" required></td>
+
                                     </tr>
                                 <?php } ?>
                                 </tbody>
@@ -183,7 +214,6 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     <!--END new UI-->
 
     <!--    [START]results modal-->
-    <!-- Modal -->
     <div id="resultsModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
@@ -257,6 +287,58 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     </div>
     <!--[END]results modal-->
 
+    <script>
+        //get params (exam, term, year, subject)
+        //post params (adm, id, name, class, marks)
+        $(document).ready(function () {
+            $('.marks').focusout(function () {
+                var student_id = $(this).attr("id");
+                var adm_data = $("#adm"+student_id).val();
+                var name_data = $("#name"+student_id).val();
+                var class_data = $("#class"+student_id).val();
+                var marks_data = $("#"+student_id).val();
+                var exam = "<?php echo $_GET['exam']; ?>";
+                var term = "<?php echo  $_GET['term']; ?>";
+                var year = "<?php echo $_GET['year']; ?>";
+                var subject = "<?php echo $_GET['subject']; ?>";
+
+                var URL="action/save-results.php";
+                console.log(adm_data);
+                console.log(name_data);
+                console.log(class_data);
+                console.log(marks_data);
+
+                console.log(exam);
+                console.log(term);
+                console.log(year);
+                console.log(subject);
+
+                $.ajax({
+                    url: URL,
+                    method: "post",
+                    data: {
+                        student_id: student_id,
+                        adm_data: adm_data,
+                        name_data: name_data,
+                        class_data: class_data,
+                        marks_data: marks_data,
+                        exam:exam,
+                        term:term,
+                        year:year,
+                        subject:subject
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        if (data === '0') {
+                            $('#myToastS').toast('show')
+                        } else {
+                            $('#myToastE').toast('show')
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 
     </body>
     </html>
