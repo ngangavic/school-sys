@@ -2,7 +2,6 @@
 session_start();
 require_once "../actions/database/connection.php";
 
-//INSERT INTO `tbl_exam`(`id`, `school`, `name`, `year`, `date`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5])
 if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['locked']) && isset($_SESSION['status'])) {
 
     if (isset($_POST['create'])) {
@@ -11,13 +10,25 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         $year = $_POST['year'];
         $term = $_POST['term'];
         $class = $_POST['class'];
-        $stmt = $conn->prepare("INSERT INTO tbl_exam(school,name,class,term,year,date) VALUES (?,?,?,?,?,CURRENT_TIMESTAMP )");
-        $stmt->bind_param("sssss", $school, $name, $class, $term, $year);
-        if (!$stmt->execute()) {
-            echo 'error';
-        } else {
-            header("location:exams.php?msg=success");
+
+        //check if subject
+        $stmt=$conn->prepare("SELECT * FROM tbl_exam WHERE name=? AND school=? AND class=? AND term=? AND year=? ");
+        $stmt->bind_param("sssss",$name,$school,$class,$term,$year);
+        $stmt->execute();
+
+        if ($stmt->get_result()->num_rows>0){
+            header("location:exams.php?msg=error");
+        }else{
+            $stmt = $conn->prepare("INSERT INTO tbl_exam(school,name,class,term,year,date) VALUES (?,?,?,?,?,CURRENT_TIMESTAMP )");
+            $stmt->bind_param("sssss", $school, $name, $class, $term, $year);
+            if (!$stmt->execute()) {
+                header("location:exams.php?msg=error");
+            } else {
+                header("location:exams.php?msg=success");
+            }
         }
+
+
     }
     ?>
 
@@ -101,19 +112,27 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         <th>Action</th>
                         </thead>
                         <tbody>
+                        <?php
+                            $stmt=$conn->prepare("SELECT * FROM tbl_exam WHERE school=? AND status='active' ");
+                            $stmt->bind_param("s",$_SESSION['id']);
+                            $stmt->execute();
+                            $result=$stmt->get_result();
+                            while ($row=$result->fetch_array()){
+                        ?>
                         <tr>
-                            <td>Opener</td>
-                            <td>Form 1</td>
-                            <td>Term 3</td>
-                            <td>2020</td>
-                            <td>10/10/10</td>
+                            <td><?php echo $row['name']; ?></td>
+                            <td><?php echo $row['class']; ?></td>
+                            <td><?php echo $row['term']; ?></td>
+                            <td><?php echo $row['year']; ?></td>
+                            <td><?php echo $row['date']; ?></td>
                             <td>
                                 <div class="btn btn-group btn-group-sm">
-                                    <a href="#" class="btn btn-group-sm btn-outline-primary">View</a>
-                                    <a href="#" class="btn btn-group-sm btn-outline-danger">Delete</a>
+<!--                                    <a href="#" class="btn btn-group-sm btn-outline-primary">View</a>-->
+                                    <a href="action/delete-exam.php?id=<?php echo $row['id'];?>" class="btn btn-group-sm btn-outline-danger">Delete</a>
                                 </div>
                             </td>
                         </tr>
+                        <?php } ?>
                         </tbody>
                     </table>
                 </div>
@@ -145,7 +164,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         <div class="form-group">
                             <select class="form-control" name="class" required>
                                 <?php
-                                $stmt = $conn->prepare("SELECT * FROM tbl_class WHERE school=?");
+                                $stmt = $conn->prepare("SELECT * FROM tbl_class WHERE school=? AND status='active' ");
                                 $stmt->bind_param("s", $_SESSION['id']);
                                 $stmt->execute();
                                 $result = $stmt->get_result();
