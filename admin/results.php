@@ -104,13 +104,18 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     $year = $_GET['year'];
                     $subject = $_GET['subject'];
 
+                    $stmt=$conn->prepare("SELECT * FROM tbl_students WHERE school=? AND class=? ");
+                    $stmt->bind_param("ss",$_SESSION['id'],$_GET['class']);
+                    $stmt->execute();
+                    $total_students=$stmt->get_result()->num_rows;
+
 //check if there are results
                     $stmt = $conn->prepare("SELECT * FROM tbl_exam_results WHERE school=? AND class=? AND subject=? AND term=? AND exam=? AND year=? AND complete='no' ");
                     $stmt->bind_param("ssssss", $_SESSION['id'], $class, $subject, $term, $exam, $year);
                     $stmt->execute();
                     $result = $stmt->get_result();
                     $count = $result->num_rows;
-                    if ($count > 0) {
+                    if ($count >= $total_students) {
                         //display the results
                         ?>
 
