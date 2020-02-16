@@ -105,13 +105,15 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <table class="table table-bordered">
                         <thead>
                         <th>Exam name</th>
-                        <th>Code</th>
+                        <th>Class</th>
+                        <th>Term</th>
+                        <th>Year</th>
                         <th>Date created</th>
                         <th>Action</th>
                         </thead>
                         <tbody>
                         <?php
-                            $stmt=$conn->prepare("SELECT * FROM tbl_subject WHERE  school=? AND  status='active' ");
+                            $stmt=$conn->prepare("SELECT * FROM tbl_exam WHERE school=? AND status='active' ");
                             $stmt->bind_param("s",$_SESSION['id']);
                             $stmt->execute();
                             $result=$stmt->get_result();
@@ -119,11 +121,13 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         ?>
                         <tr>
                             <td><?php echo $row['name']; ?></td>
-                            <td><?php echo $row['code']; ?></td>
+                            <td><?php echo $row['class']; ?></td>
+                            <td><?php echo $row['term']; ?></td>
+                            <td><?php echo $row['year']; ?></td>
                             <td><?php echo $row['date']; ?></td>
                             <td>
                                 <div class="btn btn-group btn-group-sm">
-                                    <a href="#" class="btn btn-group-sm btn-outline-primary">View</a>
+<!--                                    <a href="#" class="btn btn-group-sm btn-outline-primary">View</a>-->
                                     <a href="action/delete-exam.php?id=<?php echo $row['id'];?>" class="btn btn-group-sm btn-outline-danger">Delete</a>
                                 </div>
                             </td>
@@ -160,7 +164,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         <div class="form-group">
                             <select class="form-control" name="class" required>
                                 <?php
-                                $stmt = $conn->prepare("SELECT * FROM tbl_class WHERE school=?");
+                                $stmt = $conn->prepare("SELECT * FROM tbl_class WHERE school=? AND status='active' ");
                                 $stmt->bind_param("s", $_SESSION['id']);
                                 $stmt->execute();
                                 $result = $stmt->get_result();
