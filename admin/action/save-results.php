@@ -24,6 +24,8 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         $term = $_POST['term'];
         $exam = $_POST['exam'];
         $year = $_POST['year'];
+        $marks = $_POST['marks_data'];
+        $name=$_POST['name_data'];
         //check if the results exists
         $stmt = $conn->prepare("SELECT * FROM tbl_exam_results WHERE adm=? AND school=? AND class=? AND subject=? AND term=? AND exam=? AND year=? AND complete='no' ");
         $stmt->bind_param("sssssss", $adm, $school, $class, $subject, $term, $exam, $year);
@@ -31,14 +33,21 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         $results = $stmt->get_result();
         if ($results->num_rows > 0) {
             //update
+
             echo '0';
         } else {
             //insert
-            echo '0';
+            $stmt = $conn->prepare("INSERT INTO tbl_exam_results (adm,school,name,class,subject,marks,term,exam,year) VALUES (?,?,?,?,?,?,?,?,?)");
+            $stmt->bind_param("sssssssss",$adm,$school,$name,$class,$subject,$marks,$term,$exam,$year);
+            if (!$stmt->execute()){
+                echo '0';
+            }else {
+                echo '0';
+            }
         }
 
     } else {
-        echo 'post data';
+        echo '1';
     }
 
 } else {
