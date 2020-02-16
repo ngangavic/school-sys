@@ -104,17 +104,22 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     $year = $_GET['year'];
                     $subject = $_GET['subject'];
 
+                    $stmt=$conn->prepare("SELECT * FROM tbl_students WHERE school=? AND class=? ");
+                    $stmt->bind_param("ss",$_SESSION['id'],$_GET['class']);
+                    $stmt->execute();
+                    $total_students=$stmt->get_result()->num_rows;
+
 //check if there are results
                     $stmt = $conn->prepare("SELECT * FROM tbl_exam_results WHERE school=? AND class=? AND subject=? AND term=? AND exam=? AND year=? AND complete='no' ");
                     $stmt->bind_param("ssssss", $_SESSION['id'], $class, $subject, $term, $exam, $year);
                     $stmt->execute();
                     $result = $stmt->get_result();
                     $count = $result->num_rows;
-                    if ($count > 0) {
+                    if ($count >= $total_students) {
                         //display the results
                         ?>
 
-                        <form method="post" action="../actions/results/edit-results.php">
+                        <form method="post" action="">
                             <input name="exam" type="hidden" value="<?php echo $exam; ?>">
                             <input name="term" type="hidden" value="<?php echo $term; ?>">
                             <input name="year" type="hidden" value="<?php echo $year; ?>">
@@ -138,12 +143,12 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                         <input name="name[]" type="hidden" value="<?php echo $row['name']; ?>" id="name<?php echo $row['id']; ?>">
                                         <td><?php echo $row['class']; ?></td>
                                         <input name="class[]" type="hidden" value="<?php echo $row['class']; ?>" id="class<?php echo $row['id']; ?>">
-                                        <td><input name="marks[]" value="<?php echo $row['marks']; ?>" id="<?php echo $row['id'];?>" required></td>
+                                        <td><input name="marks[]" class="marks" value="<?php echo $row['marks']; ?>" id="<?php echo $row['id'];?>" required></td>
                                     </tr>
                                 <?php } ?>
                                 </tbody>
                             </table>
-                            <button class="btn btn-outline-danger" name="save">Save</button>
+                            <a href="results.php?exam=<?php echo $_GET['exam']; ?>&&class=<?php echo $_GET['class']?>&&term=<?php echo $_GET['term'] ?>&&year=<?php echo $_GET['year']?>&&subject=<?php echo $_GET['subject']; ?>" class="btn btn-outline-danger" name="save">Save</a>
                         </form>
 
                         <?php
@@ -151,7 +156,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         //insert
                         ?>
 
-                        <form method="post" action="../actions/results/save-results.php">
+                        <form method="post" action="">
                             <input name="exam" type="hidden" value="<?php echo $exam; ?>">
                             <input name="term" type="hidden" value="<?php echo $term; ?>">
                             <input name="year" type="hidden" value="<?php echo $year; ?>">
@@ -172,14 +177,6 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                 while ($row = $result->fetch_array()) {
                                     ?>
                                     <tr>
-<!--                                        <td>--><?php //echo $row['adm']; ?><!--</td>-->
-<!--                                        <input name="adm[]" type="hidden" value="--><?php //echo $row['adm']; ?><!--">-->
-<!--                                        <td>--><?php //echo $row['name']; ?><!--</td>-->
-<!--                                        <input name="name[]" type="hidden" value="--><?php //echo $row['name']; ?><!--">-->
-<!--                                        <td>--><?php //echo $row['class']; ?><!--</td>-->
-<!--                                        <input name="class[]" type="hidden" value="--><?php //echo $row['class']; ?><!--">-->
-<!--                                        <td><input name="marks[]" required></td>-->
-
                                         <td><?php echo $row['adm']; ?></td>
                                         <input name="adm[]" type="hidden" value="<?php echo $row['adm']; ?>" id="adm<?php echo $row['id']; ?>">
                                         <input name="id[]" type="hidden" value="<?php echo $row['id']; ?>" id="id<?php echo $row['id']; ?>">
@@ -193,7 +190,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                 <?php } ?>
                                 </tbody>
                             </table>
-                            <button class="btn btn-outline-danger" name="save">Save</button>
+                            <a href="results.php?exam=<?php echo $_GET['exam']; ?>&&class=<?php echo $_GET['class']?>&&term=<?php echo $_GET['term'] ?>&&year=<?php echo $_GET['year']?>&&subject=<?php echo $_GET['subject']; ?>" class="btn btn-outline-danger" name="save">Save</a>
                         </form>
 
                         <?php
