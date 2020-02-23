@@ -28,7 +28,11 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     $stmt->bind_param("s",$_SESSION['id']);
     $stmt->execute();
     $parent_count=$stmt->get_result()->fetch_array();
-
+    //logs count
+    $stmt=$conn->prepare("SELECT COUNT(*) FROM tbl_logins WHERE school=? ");
+    $stmt->bind_param("s",$_SESSION['id']);
+    $stmt->execute();
+    $logs_count=$stmt->get_result()->fetch_array();
 
     ?>
     <!DOCTYPE html>
