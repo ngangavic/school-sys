@@ -2,6 +2,18 @@
 session_start();
 require_once "../actions/database/connection.php";
 if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['locked']) && isset($_SESSION['status'])) {
+    $class_count=0;
+    $student_count=0;
+    $teacher_count=0;
+    $parent_count=0;
+
+    //count class
+    $stmt=$conn->prepare("SELECT COUNT(*) FROM tbl_class WHERE school=? AND status='active' ");
+    $stmt->bind_param("s",$_SESSION['id']);
+    $stmt->execute();
+    $class_count=$stmt->get_result()->fetch_array();
+
+
     ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -77,7 +89,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <div class="card col-md-2 col-lg-2 my-card">
                         <div class="card-body">
                             <div class="row">
-                                <h2>0</h2>
+                                <h2><?php echo $class_count[0]; ?></h2>
                                 <i class="fa fa-3x fa-users ml-auto"></i>
                             </div>
                             Classes
@@ -87,7 +99,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <div class="card col-md-2 col-lg-2 my-card">
                         <div class="card-body">
                             <div class="row">
-                                <h2>0</h2>
+                                <h2><?php echo $student_count[0];?></h2>
                                 <i class="fa fa-3x fa-user ml-auto"></i>
                             </div>
                             Students
