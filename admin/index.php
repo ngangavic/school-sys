@@ -159,6 +159,12 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                 </div>
 
                 <div class="school-details">
+                    <?php
+                    $stmt=$conn->prepare("SELECT * FROM tbl_school WHERE id=?");
+                    $stmt->bind_param("s",$_SESSION['id']);
+                    $stmt->execute();
+                    $row=$stmt->get_result()->fetch_array();
+                    ?>
                     <div class="card">
                         <div class="card-header">
                     <h6>School Details</h6>
@@ -168,25 +174,25 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
 
                         <div class="row">
                             <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                <input type="text" name="name" class="form-control" placeholder="School Name" disabled required>
+                                <input type="text" name="name" class="form-control" placeholder="School Name" value="<?php echo $row['name']; ?>" disabled required>
                             </div>
                             <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                <input type="tel" name="phone" class="form-control" placeholder="School Phone" disabled required>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                <input type="text" name="box" class="form-control" placeholder="P.O. Box address" disabled required>
-                            </div>
-                            <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                <input type="text" name="town" class="form-control" placeholder="Location" disabled required>
+                                <input type="tel" name="phone" class="form-control" placeholder="School Phone" value="<?php echo $row['phone']; ?>" disabled required>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                <input type="number" name="population" class="form-control" placeholder="School population" disabled required>
+                                <input type="text" name="box" class="form-control" placeholder="P.O. Box address" value="<?php echo $row['box']; ?>" disabled required>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <input type="text" name="town" class="form-control" placeholder="Location" value="<?php echo $row['town']; ?>" disabled required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <input type="number" name="population" class="form-control" placeholder="School population" value="<?php echo $row['population']; ?>" disabled required>
                             </div>
                             <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <input type="file" name="logo" class="form-control" placeholder="School logo" disabled required>
