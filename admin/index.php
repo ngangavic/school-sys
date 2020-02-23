@@ -6,6 +6,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     $student_count=0;
     $teacher_count=0;
     $parent_count=0;
+    $logs_count=0;
 
     //count class
     $stmt=$conn->prepare("SELECT COUNT(*) FROM tbl_class WHERE school=? AND status='active' ");
@@ -22,6 +23,12 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     $stmt->bind_param("s",$_SESSION['id']);
     $stmt->execute();
     $teacher_count=$stmt->get_result()->fetch_array();
+    //count parent
+    $stmt=$conn->prepare("SELECT COUNT(*) FROM tbl_parent WHERE school_id=? ");
+    $stmt->bind_param("s",$_SESSION['id']);
+    $stmt->execute();
+    $parent_count=$stmt->get_result()->fetch_array();
+
 
     ?>
     <!DOCTYPE html>
@@ -128,7 +135,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <div class="card col-md-2 col-lg-2 my-card">
                         <div class="card-body">
                             <div class="row">
-                                <h2>0</h2>
+                                <h2><?php echo $parent_count[0]; ?></h2>
                                 <i class="fa fa-3x fa-home ml-auto"></i>
                             </div>
                             Parents
@@ -138,7 +145,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <div class="card col-md-2 col-lg-2 my-card">
                         <div class="card-body">
                             <div class="row">
-                                <h2>0</h2>
+                                <h2><?php echo $logs_count[0];?></h2>
                                 <i class="fa fa-3x fa-database ml-auto"></i>
                             </div>
                             Logs
