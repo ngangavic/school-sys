@@ -17,6 +17,11 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     $stmt->bind_param("s",$_SESSION['id']);
     $stmt->execute();
     $student_count=$stmt->get_result()->fetch_array();
+    //count teacher
+    $stmt=$conn->prepare("SELECT COUNT(*) FROM tbl_teachers WHERE school_id=? AND status='available' ");
+    $stmt->bind_param("s",$_SESSION['id']);
+    $stmt->execute();
+    $teacher_count=$stmt->get_result()->fetch_array();
 
     ?>
     <!DOCTYPE html>
@@ -113,7 +118,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <div class="card col-md-2 col-lg-2 my-card">
                         <div class="card-body">
                             <div class="row">
-                                <h2>0</h2>
+                                <h2><?php echo $teacher_count[0]; ?></h2>
                                 <i class="fa fa-3x fa-male ml-auto"></i>
                             </div>
                             Teachers
