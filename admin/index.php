@@ -12,7 +12,11 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     $stmt->bind_param("s",$_SESSION['id']);
     $stmt->execute();
     $class_count=$stmt->get_result()->fetch_array();
-
+    //count student
+    $stmt=$conn->prepare("SELECT COUNT(*) FROM tbl_students WHERE school=? AND kcse='not done' ");
+    $stmt->bind_param("s",$_SESSION['id']);
+    $stmt->execute();
+    $student_count=$stmt->get_result()->fetch_array();
 
     ?>
     <!DOCTYPE html>
