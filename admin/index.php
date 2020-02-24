@@ -2,6 +2,38 @@
 session_start();
 require_once "../actions/database/connection.php";
 if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['locked']) && isset($_SESSION['status'])) {
+    $class_count = 0;
+    $student_count = 0;
+    $teacher_count = 0;
+    $parent_count = 0;
+    $logs_count = 0;
+
+    //count class
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM tbl_class WHERE school=? AND status='active' ");
+    $stmt->bind_param("s", $_SESSION['id']);
+    $stmt->execute();
+    $class_count = $stmt->get_result()->fetch_array();
+    //count student
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM tbl_students WHERE school=? AND kcse='not done' ");
+    $stmt->bind_param("s", $_SESSION['id']);
+    $stmt->execute();
+    $student_count = $stmt->get_result()->fetch_array();
+    //count teacher
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM tbl_teachers WHERE school_id=? AND status='available' ");
+    $stmt->bind_param("s", $_SESSION['id']);
+    $stmt->execute();
+    $teacher_count = $stmt->get_result()->fetch_array();
+    //count parent
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM tbl_parent WHERE school_id=? ");
+    $stmt->bind_param("s", $_SESSION['id']);
+    $stmt->execute();
+    $parent_count = $stmt->get_result()->fetch_array();
+    //logs count
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM tbl_logins WHERE school=? ");
+    $stmt->bind_param("s", $_SESSION['id']);
+    $stmt->execute();
+    $logs_count = $stmt->get_result()->fetch_array();
+
     ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -77,7 +109,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <div class="card col-md-2 col-lg-2 my-card">
                         <div class="card-body">
                             <div class="row">
-                                <h2>0</h2>
+                                <h2><?php echo $class_count[0]; ?></h2>
                                 <i class="fa fa-3x fa-users ml-auto"></i>
                             </div>
                             Classes
@@ -87,7 +119,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <div class="card col-md-2 col-lg-2 my-card">
                         <div class="card-body">
                             <div class="row">
-                                <h2>0</h2>
+                                <h2><?php echo $student_count[0]; ?></h2>
                                 <i class="fa fa-3x fa-user ml-auto"></i>
                             </div>
                             Students
@@ -97,7 +129,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <div class="card col-md-2 col-lg-2 my-card">
                         <div class="card-body">
                             <div class="row">
-                                <h2>0</h2>
+                                <h2><?php echo $teacher_count[0]; ?></h2>
                                 <i class="fa fa-3x fa-male ml-auto"></i>
                             </div>
                             Teachers
@@ -107,7 +139,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <div class="card col-md-2 col-lg-2 my-card">
                         <div class="card-body">
                             <div class="row">
-                                <h2>0</h2>
+                                <h2><?php echo $parent_count[0]; ?></h2>
                                 <i class="fa fa-3x fa-home ml-auto"></i>
                             </div>
                             Parents
@@ -117,13 +149,66 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <div class="card col-md-2 col-lg-2 my-card">
                         <div class="card-body">
                             <div class="row">
-                                <h2>0</h2>
+                                <h2><?php echo $logs_count[0]; ?></h2>
                                 <i class="fa fa-3x fa-database ml-auto"></i>
                             </div>
                             Logs
                         </div>
                     </div>
 
+                </div>
+
+                <div class="school-details">
+                    <?php
+                    $stmt=$conn->prepare("SELECT * FROM tbl_school WHERE id=?");
+                    $stmt->bind_param("s",$_SESSION['id']);
+                    $stmt->execute();
+                    $row=$stmt->get_result()->fetch_array();
+                    ?>
+                    <div class="card">
+                        <div class="card-header">
+                    <h6>School Details</h6>
+                        </div>
+                        <div class="card-body">
+                    <form action="" method="post" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <input type="text" name="name" class="form-control" placeholder="School Name" value="<?php echo $row['name']; ?>" disabled required>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <input type="tel" name="phone" class="form-control" placeholder="School Phone" value="<?php echo $row['phone']; ?>" disabled required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <input type="text" name="box" class="form-control" placeholder="P.O. Box address" value="<?php echo $row['box']; ?>" disabled required>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <input type="text" name="town" class="form-control" placeholder="Location" value="<?php echo $row['town']; ?>" disabled required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <input type="number" name="population" class="form-control" placeholder="School population" value="<?php echo $row['population']; ?>" disabled required>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <input type="file" name="logo" class="form-control" placeholder="School logo" disabled required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="btn-group col-xs-12 col-sm-12 col-md-6 offset-md-3 col-lg-6">
+                                <input type="button" name="edit" class="btn btn-success" value="Edit">
+                                <input type="submit" name="save" class="btn btn-danger" value="Save" disabled>
+                            </div>
+                        </div>
+
+                    </form>
+                        </div>
+                    </div>
                 </div>
 
 
