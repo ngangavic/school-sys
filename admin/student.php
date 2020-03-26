@@ -204,9 +204,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                                 while ($row = $result->fetch_array()) {
                                                     ?>
                                                     <tr>
-                                                        <td><input type="text" class="form-control form-control-sm adm"
-                                                                   name="adm[]" value="<?php echo $row['adm']; ?>" id="adm<?php echo $row['id']; ?>" required>
-                                                        </td>
+                                                        <td><?php echo $row['adm']; ?></td>
                                                         <td><input type="text" class="form-control form-control-sm names"
                                                                    name="name[]" value="<?php echo $row['name']; ?>" id="name<?php echo $row['id']; ?>" required>
                                                         </td>
