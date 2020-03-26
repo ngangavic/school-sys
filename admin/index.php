@@ -69,15 +69,15 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         <hr />
                     </div>
                     <div class="link-item">
-                        <a href="class.php"><i class="fa fa-school"></i> Classes </a>
+                        <a href="class/"><i class="fa fa-school"></i> Classes </a>
                         <hr />
                     </div>
                     <div class="link-item">
-                        <a href="subject.php"><i class="fa fa-book"></i> Subjects </a>
+                        <a href="subject/"><i class="fa fa-book"></i> Subjects </a>
                         <hr />
                     </div>
                     <div class="link-item">
-                        <a href="student.php?page=add-student"><i class="fa fa-users"></i> Students </a>
+                        <a href="student/?page=add-student"><i class="fa fa-users"></i> Students </a>
                         <hr />
                     </div>
                     <div class="link-item">
@@ -89,7 +89,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         <hr />
                     </div>
                     <div class="link-item">
-                        <a href="exams.php"><i class="fa fa-file-alt"></i> Exams </a>
+                        <a href="exams/"><i class="fa fa-file-alt"></i> Exams </a>
                         <hr />
                     </div>
                     <div class="link-item">
