@@ -206,7 +206,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         </div>
         <!--    END modal create exam-->
 
-        <!--    [START]results modal-->
+     <!--    [START]results modal-->
         <!-- Modal -->
         <div id="resultsModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -219,56 +219,60 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     </div>
                     <div class="modal-body">
                         <form action="results.php" method="get">
-
-                            <select name="exam" class="form-control">
-                                <?php
-                                $stmt = $conn->prepare("SELECT * FROM tbl_exam WHERE school=?");
-                                $stmt->bind_param("s", $_SESSION['id']);
-                                $stmt->execute();
-                                $result = $stmt->get_result();
-                                while ($row = $result->fetch_array()) {
-                                ?>
-                                    <option value="<?php echo $row['name']; ?>"><?php echo $row['name'] ?></option>
-                                <?php } ?>
-                            </select>
-
-                            <select name="class" class="form-control">
-                                <?php
-                                $stmt = $conn->prepare("SELECT * FROM tbl_class WHERE school=?");
-                                $stmt->bind_param("s", $_SESSION['id']);
-                                $stmt->execute();
-                                $result = $stmt->get_result();
-                                while ($row = $result->fetch_array()) {
-                                ?>
-                                    <option value="<?php echo $row['name']; ?>"><?php echo $row['name'] ?></option>
-                                <?php } ?>
-                            </select>
-
-                            <select name="term" class="form-control">
-                                <option value="Term 1">Term 1</option>
-                                <option value="Term 2">Term 2</option>
-                                <option value="Term 3">Term 3</option>
-                            </select>
-
-                            <select name="year" class="form-control">
-                                <option value="2017">2017</option>
-                                <option value="2018">2018</option>
-                                <option value="2019">2019</option>
-                                <option value="2020">2020</option>
-                            </select>
-
-                            <select name="subject" class="form-control">
-                                <?php
-                                $stmt = $conn->prepare("SELECT * FROM tbl_subject WHERE school=?");
-                                $stmt->bind_param("s", $_SESSION['id']);
-                                $stmt->execute();
-                                $result = $stmt->get_result();
-                                while ($row = $result->fetch_array()) {
-                                ?>
-                                    <option value="<?php echo $row['name']; ?>"><?php echo $row['name'] ?></option>
-                                <?php } ?>
-                            </select>
-
+                            <div class="form-group">
+                                <select name="exam" class="form-control">
+                                    <?php
+                                    $stmt = $conn->prepare("SELECT * FROM tbl_exam WHERE school=? AND status='active' ");
+                                    $stmt->bind_param("s", $_SESSION['id']);
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
+                                    while ($row = $result->fetch_array()) {
+                                    ?>
+                                        <option value="<?php echo $row['name']; ?>"><?php echo $row['name'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="class" class="form-control">
+                                    <?php
+                                    $stmt = $conn->prepare("SELECT * FROM tbl_class WHERE school=? AND status='active' ");
+                                    $stmt->bind_param("s", $_SESSION['id']);
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
+                                    while ($row = $result->fetch_array()) {
+                                    ?>
+                                        <option value="<?php echo $row['name']; ?>"><?php echo $row['name'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="term" class="form-control">
+                                    <option value="Term 1">Term 1</option>
+                                    <option value="Term 2">Term 2</option>
+                                    <option value="Term 3">Term 3</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="year" class="form-control">
+                                    <option value="2017">2017</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2020">2020</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="subject" class="form-control">
+                                    <?php
+                                    $stmt = $conn->prepare("SELECT * FROM tbl_subject WHERE school=? AND status='active' ");
+                                    $stmt->bind_param("s", $_SESSION['id']);
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
+                                    while ($row = $result->fetch_array()) {
+                                    ?>
+                                        <option value="<?php echo $row['name']; ?>"><?php echo $row['name'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
                             <button type="submit" class="btn btn-outline-primary">DONE</button>
                         </form>
                     </div>
