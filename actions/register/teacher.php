@@ -1,5 +1,6 @@
 <?php
 require_once "../database/connection.php";
+require "../../mail/send-mail.php";
 
 $email = cleanData($_POST['email']);
 $school = cleanData($_POST['school']);
@@ -43,11 +44,13 @@ function checkIfExists($conn, $email)
 
 function registerTeacher($conn, $school, $email, $password)
 {
+    $link="http://www.sms.com/registration?confirm=".md5($email)."&&from=mail&date=".date("Y/m/d");
     $stmt = $conn->prepare("INSERT INTO tbl_teachers(school_id,email,password,date) VALUES (?,?,?,CURRENT_TIMESTAMP)");
     $stmt->bind_param("sss", $school, $email, $password);
     if (!$stmt->execute()) {
         return 1;
     } else {
+        newMail($email,$link,$school);
         return 0;
     }
 }
