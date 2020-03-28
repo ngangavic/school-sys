@@ -1,5 +1,6 @@
 <?php
 require_once "../database/connection.php";
+require "../../mail/send-mail.php";
 
 //1. check if variables are empty
 //2. check if variables are set
@@ -61,11 +62,14 @@ function checkIfExists($conn, $name, $phone, $email)
 
 function registerSchool($conn, $name, $phone, $box, $town, $email, $population, $password)
 {
+    $link="http://www.sms.com/registration?confirm=".md5($email)."&&from=mail&date=".date("Y/m/d");
+    
     $stmt = $conn->prepare("INSERT INTO tbl_school(name,phone,box,town,email,password,population,date) VALUES (?,?,?,?,?,?,?,CURRENT_TIMESTAMP )");
     $stmt->bind_param("sssssss", $name, $phone, $box, $town, $email, $password, $population);
     if (!$stmt->execute()) {
         return 1;
     } else {
+        newMail($email,$link,$name);
         return 0;
     }
 }
