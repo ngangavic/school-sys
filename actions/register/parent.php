@@ -1,5 +1,6 @@
 <?php
 require_once "../database/connection.php";
+require "../../mail/send-mail.php";
 
 $adm = cleanData($_POST['adm']);
 $email = cleanData($_POST['email']);
@@ -44,11 +45,13 @@ function messages($message)
 
 function registerParent($conn, $school, $adm, $email, $password)
 {
+    $link="http://www.sms.com/registration?confirm=".md5($email)."&&from=mail&date=".date("Y/m/d");
     $stmt = $conn->prepare("INSERT INTO tbl_parent(school_id,adm,email,password,date) VALUES (?,?,?,?,CURRENT_TIMESTAMP )");
     $stmt->bind_param("ssss", $school, $adm, $email, $password);
     if (!$stmt->execute()) {
         return 1;
     } else {
+        newMail($email,$link,$school);
         return 0;
     }
 }
