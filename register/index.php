@@ -4,7 +4,8 @@ require_once "../actions/database/connection.php"
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>School System|Register</title>
     <script rel="javascript" src="../jquery/jquery-3.4.1.js"></script>
     <script rel="javascript" src="../popper/popper.min.js"></script>

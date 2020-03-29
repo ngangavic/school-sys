@@ -6,7 +6,8 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     <!DOCTYPE html>
     <html lang="en">
     <head>
-        <meta charset="UTF-8">
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Student</title>
         <script rel="javascript" src="../../jquery/jquery-3.4.1.js"></script>
         <script rel="javascript" src="../../popper/popper.min.js"></script>
@@ -30,7 +31,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     <hr/>
                 </div>
                 <div class="link-item">
-                    <a href="#"><i class="fa fa-envelope"></i> SMS </a>
+                <a href="../teacher/"><i class="fa fa-chalkboard-teacher"></i> Teachers </a>
                     <hr/>
                 </div>
                 <div class="link-item">

@@ -8,7 +8,8 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     <!DOCTYPE html>
     <html lang="en">
     <head>
-        <meta charset="UTF-8">
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>School System|Login</title>
         <script rel="javascript" src="jquery/jquery-3.4.1.js"></script>
         <script rel="javascript" src="popper/popper.min.js"></script>
