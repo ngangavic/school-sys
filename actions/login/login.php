@@ -143,10 +143,13 @@ function loginAsTeacher($conn, $email, $school, $password)
             //set session
             $_SESSION['email'] = $rows['email'];
             $_SESSION['id'] = $rows['id'];
+            $_SESSION['name'] = $rows['name'];
+            $_SESSION['phone'] = $rows['phone'];
+            $_SESSION['id_no'] = $rows['id_no'];
             $_SESSION['school'] = $rows['school_id'];
             $_SESSION['status'] = $rows['status'];
 
-            header("location:../../index.php?code=200&&msg=f_coming");
+            header("location:../../teacher/");
 
         } else {
             //password error
