@@ -28,7 +28,13 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
             <div class="row">
                 <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6">
                     <img src="logo.jpg" width="50" height="50" alt="School logo">
-                    Teacher Name
+                    <?php
+                    if($_SESSION['name']=='1'){
+
+                    }else{
+                        echo $_SESSION['name'];
+                    }
+                    ?>
                 </div>
             </div>
         </div>
@@ -96,7 +102,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <a href="#">Log Out</a>
+                                    <a href="logout.php">Log Out</a>
                                 </div>
                             </div>
                         </div>
@@ -121,22 +127,22 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php 
+                                    $stmt=$conn->prepare("SELECT * FROM tbl_teachers_assigned WHERE teacher_id=?");
+                                    $stmt->bind_param("s",$_SESSION['id']);
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
+                                    while($row=$result->fetch_array()){
+                                    ?>
                                     <tr>
-                                        <td>Form 1</td>
-                                        <td>English</td>
+                                        <td><?php echo $row['class']; ?></td>
+                                        <td><?php echo $row['subject']; ?></td>
                                         <td>
                                             <a href="#" data-toggle="tooltip" data-placement="top" title="Enter results"><i class="fa fa-1x fa-table"></i></a>
                                             <a href="#" data-toggle="tooltip" data-placement="top" title="View results"><i class="fa fa-1x fa-eye"></i></i></a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>Form 4</td>
-                                        <td>Geography</td>
-                                        <td>
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Enter results"><i class="fa fa-1x fa-table"></i></a>
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="View results"><i class="fa fa-1x fa-eye"></i></i></a>
-                                        </td>
-                                    </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -154,27 +160,31 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                 <thead>
                                     <tr>
                                         <th>Exam</th>
-                                        <th>Date Created</th>
+                                        <th>Class</th>
+                                        <th>Term</th>
+                                        <th>Year</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <?php 
+                                    $stmt=$conn->prepare("SELECT * FROM tbl_exam WHERE school=? ORDER BY date DESC");
+                                    $stmt->bind_param("s",$_SESSION['school']);
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
+                                    while($row=$result->fetch_array()){
+                                    ?>
                                     <tr>
-                                        <td>Opener</td>
-                                        <td>10/10/2010</td>
+                                        <td><?php echo $row['name']; ?></td>
+                                        <td><?php echo $row['class']; ?></td>
+                                        <td><?php echo $row['term']; ?></td>
+                                        <td><?php echo $row['year']; ?></td>
                                         <td>
                                             <a href="#" data-toggle="tooltip" data-placement="top" title="Enter results"><i class="fa fa-1x fa-table"></i></a>
                                             <a href="#" data-toggle="tooltip" data-placement="top" title="View results"><i class="fa fa-1x fa-eye"></i></i></a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>Closing</td>
-                                        <td>11/11/2009</td>
-                                        <td>
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Enter results"><i class="fa fa-1x fa-table"></i></a>
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="View results"><i class="fa fa-1x fa-eye"></i></i></a>
-                                        </td>
-                                    </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>
