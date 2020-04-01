@@ -24,26 +24,46 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     </head>
 
     <body>
-        <div class="header">
-            <div class="row">
-                <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6">
-                    <img src="logo.jpg" width="50" height="50" alt="School logo">
-                    <?php
-                    if($_SESSION['name']=='1'){
 
-                    }else{
-                        echo $_SESSION['name'];
-                    }
-                    ?>
-                </div>
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <!-- Brand -->
+            <a class="navbar-brand" href="#"><?php echo $school_row['name']; ?></a>
+
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" style="color:#ffffff" href="#" id="navbardrop" data-toggle="dropdown">
+                        <i class="fa fa-1x fa-user"></i>
+                            <?php
+                            if ($_SESSION['name'] == '1') {
+                            } else {
+                                echo $_SESSION['name'];
+                            }
+                            ?>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Email</a>
+                            <a class="dropdown-item" href="#">ID no</a>
+                            <a class="dropdown-item" href="#">Phone</a>
+                        </div>
+                    </li>
+                    <li><a href="logout.php" class="nav-link" style="color:#ffffff">Logout</a></li>
+                </ul>
             </div>
-        </div>
+        </nav>
 
         <div class="container-fluid">
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <?php
-                if ($_SESSION['name'] == "1" || $_SESSION['phone'] == "1" || $_SESSION['id_no']=='1') {
+                if ($_SESSION['name'] == "1" || $_SESSION['phone'] == "1" || $_SESSION['id_no'] == '1') {
                     //edit page
                 ?>
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 offset-md-3">
@@ -72,42 +92,6 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                 <?php
                 } else {
                 ?>
-
-                    <div class="row" style="margin-top: 10px">
-
-                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="card-group">
-                                        Your Profile
-                                        <div class="card-img ml-auto">
-                                            <i class="fa fa-1x fa-user"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <a href="#">Your Profile</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="card-group">
-                                        Log Out
-                                        <div class="card-img ml-auto">
-                                            <i class="fa fa-1x fa-lock"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <a href="logout.php">Log Out</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -127,21 +111,21 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php 
-                                    $stmt=$conn->prepare("SELECT * FROM tbl_teachers_assigned WHERE teacher_id=?");
-                                    $stmt->bind_param("s",$_SESSION['id']);
+                                    <?php
+                                    $stmt = $conn->prepare("SELECT * FROM tbl_teachers_assigned WHERE teacher_id=?");
+                                    $stmt->bind_param("s", $_SESSION['id']);
                                     $stmt->execute();
                                     $result = $stmt->get_result();
-                                    while($row=$result->fetch_array()){
+                                    while ($row = $result->fetch_array()) {
                                     ?>
-                                    <tr>
-                                        <td><?php echo $row['class']; ?></td>
-                                        <td><?php echo $row['subject']; ?></td>
-                                        <td>
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Enter results"><i class="fa fa-1x fa-table"></i></a>
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="View results"><i class="fa fa-1x fa-eye"></i></i></a>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td><?php echo $row['class']; ?></td>
+                                            <td><?php echo $row['subject']; ?></td>
+                                            <td>
+                                                <a href="#" data-toggle="tooltip" data-placement="top" title="Enter results"><i class="fa fa-1x fa-table"></i></a>
+                                                <a href="#" data-toggle="tooltip" data-placement="top" title="View results"><i class="fa fa-1x fa-eye"></i></i></a>
+                                            </td>
+                                        </tr>
                                     <?php } ?>
                                 </tbody>
                             </table>
@@ -167,23 +151,23 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php 
-                                    $stmt=$conn->prepare("SELECT * FROM tbl_exam WHERE school=? ORDER BY date DESC");
-                                    $stmt->bind_param("s",$_SESSION['school']);
+                                    <?php
+                                    $stmt = $conn->prepare("SELECT * FROM tbl_exam WHERE school=? ORDER BY date DESC");
+                                    $stmt->bind_param("s", $_SESSION['school']);
                                     $stmt->execute();
                                     $result = $stmt->get_result();
-                                    while($row=$result->fetch_array()){
+                                    while ($row = $result->fetch_array()) {
                                     ?>
-                                    <tr>
-                                        <td><?php echo $row['name']; ?></td>
-                                        <td><?php echo $row['class']; ?></td>
-                                        <td><?php echo $row['term']; ?></td>
-                                        <td><?php echo $row['year']; ?></td>
-                                        <td>
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Enter results"><i class="fa fa-1x fa-table"></i></a>
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="View results"><i class="fa fa-1x fa-eye"></i></i></a>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td><?php echo $row['name']; ?></td>
+                                            <td><?php echo $row['class']; ?></td>
+                                            <td><?php echo $row['term']; ?></td>
+                                            <td><?php echo $row['year']; ?></td>
+                                            <td>
+                                                <a href="#" data-toggle="tooltip" data-placement="top" title="Enter results"><i class="fa fa-1x fa-table"></i></a>
+                                                <a href="#" data-toggle="tooltip" data-placement="top" title="View results"><i class="fa fa-1x fa-eye"></i></i></a>
+                                            </td>
+                                        </tr>
                                     <?php } ?>
                                 </tbody>
                             </table>
