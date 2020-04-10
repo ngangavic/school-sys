@@ -36,11 +36,11 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
 
             <!-- Navbar links -->
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                
+
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" style="color:#ffffff" href="#" id="navbardrop" data-toggle="dropdown">
-                        <i class="fa fa-1x fa-user"></i>
+                            <i class="fa fa-1x fa-user"></i>
                             <?php
                             if ($_SESSION['name'] == '1') {
                             } else {
@@ -49,9 +49,20 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                             ?>
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Email</a>
-                            <a class="dropdown-item" href="#">ID no</a>
-                            <a class="dropdown-item" href="#">Phone</a>
+                            <a class="dropdown-item" href="#"><?php if ($_SESSION['email'] == '1') {
+                                                                ?>Email<?php } else {
+                                                                    echo $_SESSION['email'];
+                                                                } ?></a>
+                            <a class="dropdown-item" href="#"><?php if ($_SESSION['id_no'] == '1') {
+                                                                ?>ID No<?php } else {
+                                                                    echo $_SESSION['id_no'];
+                                                                } ?></a>
+                            <a class="dropdown-item" href="#"><?php if ($_SESSION['phone'] == '1') {
+                                                                ?>Phone<?php } else {
+                                                                    echo $_SESSION['phone'];
+                                                                } ?>
+                                                                <button class="btn btn-sm btn-danger">Edit</button>
+                                                            </a>
                         </div>
                     </li>
                     <li><a href="logout.php" class="nav-link" style="color:#ffffff">Logout</a></li>
