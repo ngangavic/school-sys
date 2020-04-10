@@ -94,7 +94,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
             <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 main-content">
 
                 <div style="background-color: #ffffff" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <h5 style="color: #000000;padding: 5px;">Dashboard: Student</h5>
+                    <h5 style="color: #000000;padding: 5px;">Dashboard: Results</h5>
                     <hr/>
                 </div>
                 <?php
@@ -223,7 +223,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <form action="results.php" method="get">
+                        <form action="" method="get">
                             <div class="form-group">
                                 <select name="exam" class="form-control">
                                     <?php

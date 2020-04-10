@@ -219,7 +219,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <form action="results.php" method="get">
+                        <form action="../results/" method="get">
                             <div class="form-group">
                                 <select name="exam" class="form-control">
                                     <?php
