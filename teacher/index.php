@@ -133,7 +133,8 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                             <td><?php echo $row['class']; ?></td>
                                             <td><?php echo $row['subject']; ?></td>
                                             <td>
-                                                <a href="#" data-toggle="tooltip" data-placement="top" title="Enter results"><i class="fa fa-1x fa-table"></i></a>
+                                            <!-- ?exam=Closing&class=Form+1&term=Term+1&year=2017&subject=Mathematics -->
+                                                <a href="results/?class=<?php echo $row['class']; ?>&subject=<?php echo $row['subject']; ?>&year=<?php echo $row['year'] ?>" data-toggle="tooltip" data-placement="top" title="Enter results"><i class="fa fa-1x fa-table"></i></a>
                                                 <a href="#" data-toggle="tooltip" data-placement="top" title="View results"><i class="fa fa-1x fa-eye"></i></i></a>
                                             </td>
                                         </tr>
