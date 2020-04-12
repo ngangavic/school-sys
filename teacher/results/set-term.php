@@ -14,8 +14,8 @@ if (isset($_POST['exam_id'])) {
     $stmt->execute();
     $result = $stmt->get_result();
 
-    $output .= '
-    <option>Select Term</option>';
+    // $output .= '
+    // <option>Select Term</option>';
 
     while ($row = $result->fetch_array()) {
         $output .= '<option>' . $row['term'] . '</option>';
