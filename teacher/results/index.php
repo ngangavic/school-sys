@@ -19,7 +19,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="../style.css">
         <title><?php echo $school_row['name']; ?> | Teacher</title>
     </head>
 
@@ -80,12 +80,13 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     $subject = $_GET['subject'];
                 ?>
                     <form method="post" action="">
-                        <input name="exam" type="hidden" id="exam_input" >
+                        <input name="exam" type="hidden" id="exam_input">
                         <input name="term" type="hidden" id="term_input">
                         <input name="year" type="hidden" value="<?php echo $year; ?>">
                         <input name="subject" type="hidden" value="<?php echo $subject; ?>">
                         <div class="card" style="margin-top: 10px">
                             <div class="card-header">
+                                <p><?php echo $class.' '.$subject.' '.$year ?></p>
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                                         <div class="form-group">
@@ -141,7 +142,6 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                         <?php } ?>
                                     </tbody>
                                 </table>
-                                <a href="results.php?exam=<?php echo $_GET['exam']; ?>&&class=<?php echo $_GET['class'] ?>&&term=<?php echo $_GET['term'] ?>&&year=<?php echo $_GET['year'] ?>&&subject=<?php echo $_GET['subject']; ?>" class="btn btn-outline-danger" name="save">Save</a>
                             </div>
                         </div>
                     </form>
@@ -156,15 +156,12 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
 
         <!-- Footer -->
         <footer class="page-footer font-small blue">
-            <!-- Copyright -->
             <div class="footer-copyright text-center py-3">© 2020 Copyright:
                 <a href="#"> School Management System</a>
             </div>
-            <!-- Copyright -->
         </footer>
         <!-- Footer -->
         <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-        <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         <script>
@@ -172,13 +169,11 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                 console.log("doc ready");
                 $('.exam-option').click(function() {
                     console.log("focus out");
-                    //    var exam_id=$('.exam-option option:selected').val()
                     var exam_id = $(this).children(":selected").attr("id");
                     var exam_value = $(this).children(":selected").attr("value");
                     $('#exam_input').val(exam_value);
-                    // var exam_id = $(this).attr("id");
                     console.log(exam_id);
-                    console.log("exam value"+exam_value);
+                    console.log("exam value" + exam_value);
                     $.ajax({
                         url: "set-term.php",
                         method: "post",
@@ -196,7 +191,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                 if (value != "1") {
                                     //enable input
                                     $('#term_input').val(value)
-                                    console.log("term value"+value);
+                                    console.log("term value" + value);
                                     $('.marks').prop("disabled", false);
                                 }
                             });
@@ -207,58 +202,60 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         </script>
 
         <script>
-            //get params (exam, term, year, subject)
-            //post params (adm, id, name, class, marks)
-            // $(document).ready(function () {
-            //     $('.marks').focusout(function () {
-            //         var student_id = $(this).attr("id");
-            //         var adm_data = $("#adm"+student_id).val();
-            //         var name_data = $("#name"+student_id).val();
-            //         var class_data = $("#class"+student_id).val();
-            //         var marks_data = $("#"+student_id).val();
-            //         var exam = "<?php echo $_GET['exam']; ?>";
-            //         var term = "<?php echo  $_GET['term']; ?>";
-            //         var year = "<?php echo $_GET['year']; ?>";
-            //         var subject = "<?php echo $_GET['subject']; ?>";
+            //get params (year, subject)
+            //post params (adm, id, name, class, marks,exam, term)
+            $(document).ready(function() {
+                $('.marks').focusout(function() {
+                    var student_id = $(this).attr("id");
+                    var adm_data = $("#adm" + student_id).val();
+                    var name_data = $("#name" + student_id).val();
+                    var class_data = $("#class" + student_id).val();
+                    var marks_data = $("#" + student_id).val();
+                    var exam_data = $('#exam_input').val();
+                    var term_data = $('#term_input').val();
+                    var year = "<?php echo $_GET['year']; ?>";
+                    var subject = "<?php echo $_GET['subject']; ?>";
 
-            //         var URL="../action/save-results.php";
-            //         console.log(adm_data);
-            //         console.log(name_data);
-            //         console.log(class_data);
-            //         console.log(marks_data);
+                    var URL = "save-results.php";
+                    console.log(adm_data);
+                    console.log(name_data);
+                    console.log(class_data);
+                    console.log(marks_data);
 
-            //         console.log(exam);
-            //         console.log(term);
-            //         console.log(year);
-            //         console.log(subject);
-
-            //         $.ajax({
-            //             url: URL,
-            //             method: "post",
-            //             data: {
-            //                 student_id: student_id,
-            //                 adm_data: adm_data,
-            //                 name_data: name_data,
-            //                 class_data: class_data,
-            //                 marks_data: marks_data,
-            //                 exam:exam,
-            //                 term:term,
-            //                 year:year,
-            //                 subject:subject
-            //             },
-            //             success: function (data) {
-            //                 console.log(data);
-            //                 if (data === '0') {
-            //                     $('#myToastS').toast('show')
-            //                 } else {
-            //                     $('#myToastE').toast('show')
-            //                 }
-            //             }
-            //         });
-            //     });
-            // });
+                    console.log(exam_data);
+                    console.log(term_data);
+                    console.log(year);
+                    console.log(subject);
+                    if (marks_data === '') {
+                        var color = $('#' + student_id).css("background-color", "red");
+                    } else {
+                        $.ajax({
+                            url: URL,
+                            method: "post",
+                            data: {
+                                student_id: student_id,
+                                adm_data: adm_data,
+                                name_data: name_data,
+                                class_data: class_data,
+                                marks_data: marks_data,
+                                exam_data: exam_data,
+                                term_data: term_data,
+                                year: year,
+                                subject: subject
+                            },
+                            success: function(data) {
+                                console.log(data);
+                                if (data === '0') {
+                                    var color = $('#' + student_id).css("background-color", "green");
+                                } else {
+                                    var color = $('#' + student_id).css("background-color", "red");
+                                }
+                            }
+                        });
+                    }
+                });
+            });
         </script>
-
 
     </body>
 
