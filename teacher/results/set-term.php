@@ -18,7 +18,7 @@ if (isset($_POST['exam_id'])) {
     <option value="1">Select Term</option>';
 
     while ($row = $result->fetch_array()) {
-        $output .= '<option value="'.$row['term'].'" >' . $row['term'] . '</option>';
+        $output .= '<option value="' . $row['term'] . '" >' . $row['term'] . '</option>';
     }
 
     $output .= '

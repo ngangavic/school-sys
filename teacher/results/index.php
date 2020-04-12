@@ -189,9 +189,9 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                             $('#select-term').click(function() {
                                 var value = $(this).children(":selected").attr("value");
                                 console.log(value);
-                                if(value!="1"){
-//enable input
-$('.marks').prop("disabled", false);
+                                if (value != "1") {
+                                    //enable input
+                                    $('.marks').prop("disabled", false);
                                 }
                             });
                         }
