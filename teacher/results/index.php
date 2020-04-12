@@ -90,6 +90,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                     <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
                                         <div class="form-group">
                                             <select class="form-control exam-option">
+                                            <option>Select Exam</option>
                                                 <?php
                                                 $stmt = $conn->prepare("SELECT * FROM tbl_exam WHERE school=? AND class=? AND year=? ");
                                                 $stmt->bind_param("sss", $_SESSION['school'], $class, $year);
@@ -97,7 +98,6 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                                 $result = $stmt->get_result();
                                                 while ($row = $result->fetch_array()) {
                                                 ?>
-                                                    <option>Select Exam</option>
                                                     <option id="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
                                                 <?php } ?>
                                             </select>
