@@ -90,7 +90,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                                         <div class="form-group">
                                             <select class="form-control exam-option">
-                                            <option>Select Exam</option>
+                                                <option>Select Exam</option>
                                                 <?php
                                                 $stmt = $conn->prepare("SELECT * FROM tbl_exam WHERE school=? AND class=? AND year=? ");
                                                 $stmt->bind_param("sss", $_SESSION['school'], $class, $year);
@@ -98,7 +98,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                                 $result = $stmt->get_result();
                                                 while ($row = $result->fetch_array()) {
                                                 ?>
-                                                    <option id="<?php echo $row['id']; ?>"><?php echo $row['name'].' '.$row['term']; ?></option>
+                                                    <option id="<?php echo $row['id']; ?>"><?php echo $row['name'] . ' ' . $row['term']; ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>
@@ -134,7 +134,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                                 <input name="name[]" type="hidden" value="<?php echo $row['name']; ?>" id="name<?php echo $row['id']; ?>">
                                                 <td><?php echo $row['class']; ?></td>
                                                 <input name="class[]" type="hidden" value="<?php echo $row['class']; ?>" id="class<?php echo $row['id']; ?>">
-                                                <td><input name="marks[]" class="marks" id="<?php echo $row['id']; ?>" required></td>
+                                                <td><input name="marks[]" class="marks" id="<?php echo $row['id']; ?>" disabled required></td>
 
                                             </tr>
                                         <?php } ?>
@@ -184,10 +184,34 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         success: function(data) {
                             console.log(data);
                             $('#set-term').html(data);
+                            var value = $('#select-term').children(":selected").attr("value");
+                            console.log(value);
+                            $('#select-term').click(function() {
+                                var value = $(this).children(":selected").attr("value");
+                                console.log(value);
+                                if(value!="1"){
+//enable input
+$('.marks').prop("disabled", false);
+                                }
+                            });
                         }
                     });
                 });
             });
+        </script>
+
+        <script>
+            // $(document).ready(function() {
+            //     console.log("doc ready");
+            //     $('#select-term').click(function() {
+            //         console.log("focus out");
+            //         //    var exam_id=$('.exam-option option:selected').val()
+            //         var value = $(this).children(":selected").attr("value");
+            //         // var exam_id = $(this).attr("id");
+            //         console.log(value);
+
+            //     });
+            // });
         </script>
 
     </body>
