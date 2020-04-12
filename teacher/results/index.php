@@ -89,7 +89,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control exam-option">
                                                 <?php
                                                 $stmt = $conn->prepare("SELECT * FROM tbl_exam WHERE school=? AND class=? AND year=? ");
                                                 $stmt->bind_param("sss", $_SESSION['school'], $class, $year);
@@ -98,16 +98,14 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                                 while ($row = $result->fetch_array()) {
                                                 ?>
                                                     <option>Select Exam</option>
-                                                    <option><?php echo $row['name']; ?></option>
+                                                    <option id="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
-                                        <div class="form-group">
-                                            <select class="form-control">
-                                                <option>Select Term</option>
-                                            </select>
+                                        <div class="form-group" id="set-term">
+
                                         </div>
                                     </div>
                                 </div>
@@ -164,10 +162,34 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
             <!-- Copyright -->
         </footer>
         <!-- Footer -->
-
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function() {
+                console.log("doc ready");
+                $('.exam-option').click(function() {
+                    console.log("focus out");
+                    //    var exam_id=$('.exam-option option:selected').val()
+                    var exam_id = $(this).children(":selected").attr("id");
+                    // var exam_id = $(this).attr("id");
+                    console.log(exam_id);
+                    $.ajax({
+                        url: "set-term.php",
+                        method: "post",
+                        data: {
+                            exam_id: exam_id
+                        },
+                        success: function(data) {
+                            console.log(data);
+                            $('#set-term').html(data);
+                        }
+                    });
+                });
+            });
+        </script>
+
     </body>
 
     </html>
