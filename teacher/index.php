@@ -192,6 +192,13 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         <?php } ?>
         </div>
 
+         <!-- Footer -->
+         <footer class="page-footer font-small blue">
+            <div class="footer-copyright text-center py-3">© 2020 Copyright:
+                <a href="#"> School Management System</a>
+            </div>
+        </footer>
+        <!-- Footer -->
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
