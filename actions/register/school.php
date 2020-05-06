@@ -35,7 +35,7 @@ function messages($message)
 {
     switch ($message) {
         case "success":
-            header("location: ../../register/index.php?code=200&&msg=Registration successful.&&sect=school");
+            header("location: ../../index.php?code=200&&msg=Registration successful.&&sect=school");
             break;
         case "not inserted":
             header("location: ../../register/index.php?code=501&&msg=An error occurred.Please try again.&&sect=school");

@@ -44,13 +44,13 @@ function checkIfExists($conn, $email)
 
 function registerTeacher($conn, $school, $email, $password)
 {
-    $link="http://www.sms.com/registration?confirm=".md5($email)."&&from=mail&date=".date("Y/m/d");
+    // $link="http://www.sms.com/registration?confirm=".md5($email)."&&from=mail&date=".date("Y/m/d");
     $stmt = $conn->prepare("INSERT INTO tbl_teachers(school_id,email,password,date) VALUES (?,?,?,CURRENT_TIMESTAMP)");
     $stmt->bind_param("sss", $school, $email, $password);
     if (!$stmt->execute()) {
         return 1;
     } else {
-        newMail($email,$link,$school);
+        // newMail($email,$link,$school);
         return 0;
     }
 }
@@ -59,7 +59,7 @@ function messages($message)
 {
     switch ($message) {
         case "success":
-            header("location: ../../register/index.php?code=200&&msg=Registration successful. You can now login.");
+            header("location: ../../index.php?code=200&&msg=Registration successful. You can now login.");
             break;
         case "not inserted":
             header("location: ../../register/index.php?code=501&&msg=An error occurred.Please try again.");
