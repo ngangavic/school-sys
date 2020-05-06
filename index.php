@@ -65,7 +65,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
             <?php }
             } ?>
             <!--[START] login-->
-            <div class="col-xs-12 col-sm-12 col-md-4 offset-md-4 col-lg-4 ">
+            <div class="col-xs-12 col-sm-12 col-md-12 offset-lg-4 col-lg-4 ">
                 <div class="card">
                     <div class="card-header">
                         <h6>Login</h6>
