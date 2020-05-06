@@ -19,7 +19,6 @@ if (isset($email) && isset($school) && isset($password) && isset($register)) {
     } else {
         messages('already exists');
     }
-
 } else {
     messages('empty values');
 }
@@ -59,7 +58,7 @@ function messages($message)
 {
     switch ($message) {
         case "success":
-            header("location: ../../index.php?code=200&&msg=Registration successful. You can now login.");
+            header("location: ../../index.php?code=200&&msg=Registration successful. Please Login.");
             break;
         case "not inserted":
             header("location: ../../register/index.php?code=501&&msg=An error occurred.Please try again.");
