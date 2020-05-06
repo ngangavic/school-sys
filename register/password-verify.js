@@ -13,4 +13,21 @@ $(document).ready(function () {
         }
 
     });
+
+    $("#teacher-pass2").keyup(function () {
+
+        var pass1 = $("#teacher-pass1").val();
+        var pass2 = $("#teacher-pass2").val();
+
+        if (pass1 != pass2) {
+            $("#teacher-pass2").css("background-color", "red");
+            $("#teacher-btn").prop('disabled', true);
+        } else {
+            $("#teacher-pass2").css("background-color", "green");
+            $("#teacher-btn").prop('disabled', false);
+        }
+
+    });
 });
+
+// id="teacher-pass1"

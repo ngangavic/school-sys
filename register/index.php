@@ -110,10 +110,10 @@ require_once "../actions/database/connection.php"
 
                     <div class="form-row">
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 form-group">
-                            <input type="password" class="form-control" id="school-pass1" name="pass1" autocomplete="off" placeholder="Enter password" required>
+                            <input type="password" class="form-control" id="school-pass1" name="pass1" minlength="6" autocomplete="off" placeholder="Enter password" required>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 form-group">
-                            <input type="password" class="form-control" id="school-pass2" name="pass2" autocomplete="off" placeholder="Confirm password" required>
+                            <input type="password" class="form-control" id="school-pass2" name="pass2" minlength="6" autocomplete="off" placeholder="Confirm password" required>
                         </div>
                     </div>
 
@@ -149,15 +149,15 @@ require_once "../actions/database/connection.php"
                     </div>
 
                     <div class="form-group">
-                        <input type="password" class="form-control" name="pass1" autocomplete="off" placeholder="Enter password" required>
+                        <input type="password" class="form-control" id="teacher-pass1" name="pass1" minlength="6" autocomplete="off" placeholder="Enter password" required>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" name="pass2" autocomplete="off" placeholder="Confirm password" required>
+                        <input type="password" class="form-control" id="teacher-pass2" name="pass2" minlength="6" autocomplete="off" placeholder="Confirm password" required>
                     </div>
 
 
                     <div class="form-group">
-                        <button class="btn btn-block btn-outline-primary" name="register">REGISTER</button>
+                        <button class="btn btn-block btn-outline-primary" id="teacher-btn" name="register">REGISTER</button>
                         <a href="../index.php" class="btn btn-block btn-outline-info">LOGIN</a>
                     </div>
 
@@ -192,10 +192,10 @@ require_once "../actions/database/connection.php"
                     </div>
 
                     <div class="form-group">
-                        <input type="password" class="form-control" name="pass1" autocomplete="off" placeholder="Enter password" required>
+                        <input type="password" class="form-control" name="pass1" minlength="6" autocomplete="off" placeholder="Enter password" required>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" name="pass2" autocomplete="off" placeholder="Confrim password" required>
+                        <input type="password" class="form-control" name="pass2" minlength="6" autocomplete="off" placeholder="Confrim password" required>
                     </div>
 
                     <div class="form-group">
