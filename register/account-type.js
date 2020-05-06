@@ -1,10 +1,3 @@
-
-function load() {
-    $("#form-school").show();
-    $("#form-teacher").hide();
-    $("#form-parent").hide();
-}
-
 $(document).ready(function () {
     $("select#account-type").change(function () {
         var selectedAccount = $(this).children("option:selected").val();
