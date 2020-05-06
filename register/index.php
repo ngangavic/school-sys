@@ -11,6 +11,7 @@ require_once "../actions/database/connection.php"
     <script rel="javascript" src="../popper/popper.min.js"></script>
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
     <script rel="javascript" src="../bootstrap/js/bootstrap.js"></script>
+    <script rel="javascript" src="password-verify.js"></script>
 </head>
 <body>
 
@@ -116,13 +117,13 @@ if (isset($_GET['msg']) && isset($_GET['code'])) {
 
                             <div class="form-row">
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 form-group">
-                                    <input type="password" class="form-control" name="pass1"
+                                    <input type="password" class="form-control" id="pass1" name="pass1"
                                            placeholder="Enter password"
                                            required>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 form-group">
-                                    <input type="password" class="form-control" name="pass2"
-                                           placeholder="Confirm password" required>
+                                    <input type="password" class="form-control" id="pass2" name="pass2"
+                                           placeholder="Confirm password" onmouseout="checkPasswordMatch()" required>
                                 </div>
                             </div>
 

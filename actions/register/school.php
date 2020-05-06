@@ -62,14 +62,14 @@ function checkIfExists($conn, $name, $phone, $email)
 
 function registerSchool($conn, $name, $phone, $box, $town, $email, $population, $password)
 {
-    $link="http://www.sms.com/registration?confirm=".md5($email)."&&from=mail&date=".date("Y/m/d");
+    // $link="http://www.sms.com/registration?confirm=".md5($email)."&&from=mail&date=".date("Y/m/d");
     
     $stmt = $conn->prepare("INSERT INTO tbl_school(name,phone,box,town,email,password,population,date) VALUES (?,?,?,?,?,?,?,CURRENT_TIMESTAMP )");
     $stmt->bind_param("sssssss", $name, $phone, $box, $town, $email, $password, $population);
     if (!$stmt->execute()) {
         return 1;
     } else {
-        newMail($email,$link,$name);
+        // newMail($email,$link,$name);
         return 0;
     }
 }

@@ -15,14 +15,14 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         $count=$result->num_rows;
 
         if ($count>0){
-            header("location:class.php?msg=error");
+            header("location:index.php?msg=error");
         }else {
             $stmt = $conn->prepare("INSERT INTO tbl_class(school,name,date) VALUES (?,?,CURRENT_TIMESTAMP )");
             $stmt->bind_param("ss", $school, $class);
             if (!$stmt->execute()) {
-                header("location:class.php?msg=error");
+                header("location:index.php?msg=error");
             } else {
-                header("location:class.php?msg=success");
+                header("location:index.php?msg=success");
             }
         }
     }

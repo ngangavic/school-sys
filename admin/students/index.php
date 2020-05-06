@@ -109,7 +109,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                     <button class="btn btn-sm btn-danger" name="create">CREATE</button>
                                 </form>
 
-                                <a href="student.php?page=edit-student&class=Form 1" class="btn btn-sm btn-primary">View Students</a>
+                                <a href="index.php?page=edit-student&class=Form 1" class="btn btn-sm btn-primary">View Students</a>
                             </div>
                             <hr/>
 
@@ -118,7 +118,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                     Add students
                                 </div>
                                 <div class="card-body">
-                                    <form action="../actions/student/a-e-student.php" method="post">
+                                    <form action="../../actions/student/a-e-student.php" method="post">
                                         <table class="table table-sm">
                                             <thead>
                                             <th>Adm</th>
@@ -146,7 +146,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                                                 <option value="Form 1">Form 1</option>
                                                                 <option value="Form 2">Form 2</option>
                                                                 <option value="Form 3">Form 3</option>
-                                                                <option value="FOrm 4">Form 4</option>
+                                                                <option value="Form 4">Form 4</option>
                                                             </select>
                                                         </td>
                                                         <td><input type="text" class="form-control form-control-sm"
@@ -175,11 +175,11 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
                                 <div class="btn-group btn-group-sm">
-                                    <a href="student.php?page=edit-student&class=Form 1" class="btn btn-group btn-outline-danger">Form 1</a>
-                                    <a href="student.php?page=edit-student&class=Form 2" class="btn btn-group btn-outline-info">Form 2</a>
-                                    <a href="student.php?page=edit-student&class=Form 3" class="btn btn-group btn-outline-success">Form 3</a>
-                                    <a href="student.php?page=edit-student&class=Form 4" class="btn btn-group btn-outline-primary">Form 4</a>
-                                    <a href="student.php?page=add-student" class="btn btn-group btn-outline-primary">Add Student</a>
+                                    <a href="index.php?page=edit-student&class=Form 1" class="btn btn-group btn-outline-danger">Form 1</a>
+                                    <a href="index.php?page=edit-student&class=Form 2" class="btn btn-group btn-outline-info">Form 2</a>
+                                    <a href="index.php?page=edit-student&class=Form 3" class="btn btn-group btn-outline-success">Form 3</a>
+                                    <a href="index.php?page=edit-student&class=Form 4" class="btn btn-group btn-outline-primary">Form 4</a>
+                                    <a href="index.php?page=add-student" class="btn btn-group btn-outline-primary">Add Student</a>
                                 </div>
                                 <div class="card">
                                     <div class="card-header">

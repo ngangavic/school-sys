@@ -77,7 +77,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                         <hr />
                     </div>
                     <div class="link-item">
-                        <a href="student/?page=add-student"><i class="fa fa-users"></i> Students </a>
+                        <a href="students/?page=add-student"><i class="fa fa-users"></i> Students </a>
                         <hr />
                     </div>
                     <div class="link-item">
