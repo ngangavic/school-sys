@@ -192,14 +192,14 @@ require_once "../actions/database/connection.php"
                     </div>
 
                     <div class="form-group">
-                        <input type="password" class="form-control" name="pass1" minlength="6" autocomplete="off" placeholder="Enter password" required>
+                        <input type="password" class="form-control" id="parent-pass1" name="pass1" minlength="6" autocomplete="off" placeholder="Enter password" required>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" name="pass2" minlength="6" autocomplete="off" placeholder="Confrim password" required>
+                        <input type="password" class="form-control" id="parent-pass2" name="pass2" minlength="6" autocomplete="off" placeholder="Confrim password" required>
                     </div>
 
                     <div class="form-group">
-                        <button class="btn btn-block btn-outline-primary" name="register">REGISTER</button>
+                        <button class="btn btn-block btn-outline-primary" id="parent-btn" name="register">REGISTER</button>
                         <a href="../index.php" class="btn btn-block btn-outline-info">LOGIN</a>
                     </div>
 

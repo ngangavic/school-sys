@@ -28,6 +28,19 @@ $(document).ready(function () {
         }
 
     });
-});
 
-// id="teacher-pass1"
+    $("#parent-pass2").keyup(function () {
+
+        var pass1 = $("#parent-pass1").val();
+        var pass2 = $("#parent-pass2").val();
+
+        if (pass1 != pass2) {
+            $("#parent-pass2").css("background-color", "red");
+            $("#parent-btn").prop('disabled', true);
+        } else {
+            $("#parent-pass2").css("background-color", "green");
+            $("#parent-btn").prop('disabled', false);
+        }
+
+    });
+});
