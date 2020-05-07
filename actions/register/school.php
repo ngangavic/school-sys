@@ -19,7 +19,7 @@ if (!isset($name) || !isset($email) || !isset($phone) || !isset($box) || !isset(
 } else {
     $count = checkIfExists($conn, $name, $phone, $email);
     if ($count == 0) {
-        $response = registerSchool($conn, $name, $box, $phone, $town, $email, $population, password_hash($password, PASSWORD_DEFAULT));
+        $response = registerSchool($conn, $name,  $phone, $box, $town, $email, $population, password_hash($password, PASSWORD_DEFAULT));
         if ($response == 0) {
             messages('success');
         } else {
