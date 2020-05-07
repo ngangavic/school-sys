@@ -177,31 +177,37 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                 <h6>School Details</h6>
                             </div>
                             <div class="card-body">
-                                <form action="" method="post" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <form action="action/edit-school-details.php" method="post" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
                                     <div class="row">
                                         <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                            <label>Name</label>
                                             <input type="text" name="name" class="form-control" id="input-school-name" placeholder="School Name" value="<?php echo $row['name']; ?>" disabled required>
                                         </div>
                                         <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <label>Phone</label>
                                             <input type="tel" name="phone" class="form-control" id="input-school-phone" placeholder="School Phone" value="<?php echo $row['phone']; ?>" disabled required>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <label>P.O Box</label>
                                             <input type="text" name="box" class="form-control" id="input-school-address" placeholder="P.O. Box address" value="<?php echo $row['box']; ?>" disabled required>
                                         </div>
                                         <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <label>Location</label>
                                             <input type="text" name="town" class="form-control" id="input-school-location" placeholder="Location" value="<?php echo $row['town']; ?>" disabled required>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <label>Population</label>
                                             <input type="number" name="population" class="form-control" id="input-school-population" placeholder="School population" value="<?php echo $row['population']; ?>" disabled required>
                                         </div>
                                         <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <label>Logo</label>
                                             <input type="file" name="logo" class="form-control" id="input-school-logo" placeholder="School logo" disabled required>
                                         </div>
                                     </div>
