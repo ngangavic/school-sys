@@ -49,6 +49,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         <link href="../css/custom.css" rel="stylesheet">
         <link href="style.css" rel="stylesheet">
         <link href="../fonts/css/all.css" rel="stylesheet">
+        <script rel="javascript" src="script.js"></script>
 
 
     </head>
@@ -180,35 +181,35 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
 
                                     <div class="row">
                                         <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                            <input type="text" name="name" class="form-control" placeholder="School Name" value="<?php echo $row['name']; ?>" disabled required>
+                                            <input type="text" name="name" class="form-control" id="input-school-name" placeholder="School Name" value="<?php echo $row['name']; ?>" disabled required>
                                         </div>
                                         <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                            <input type="tel" name="phone" class="form-control" placeholder="School Phone" value="<?php echo $row['phone']; ?>" disabled required>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                            <input type="text" name="box" class="form-control" placeholder="P.O. Box address" value="<?php echo $row['box']; ?>" disabled required>
-                                        </div>
-                                        <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                            <input type="text" name="town" class="form-control" placeholder="Location" value="<?php echo $row['town']; ?>" disabled required>
+                                            <input type="tel" name="phone" class="form-control" id="input-school-phone" placeholder="School Phone" value="<?php echo $row['phone']; ?>" disabled required>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                            <input type="number" name="population" class="form-control" placeholder="School population" value="<?php echo $row['population']; ?>" disabled required>
+                                            <input type="text" name="box" class="form-control" id="input-school-address" placeholder="P.O. Box address" value="<?php echo $row['box']; ?>" disabled required>
                                         </div>
                                         <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                            <input type="file" name="logo" class="form-control" placeholder="School logo" disabled required>
+                                            <input type="text" name="town" class="form-control" id="input-school-location" placeholder="Location" value="<?php echo $row['town']; ?>" disabled required>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                            <input type="number" name="population" class="form-control" id="input-school-population" placeholder="School population" value="<?php echo $row['population']; ?>" disabled required>
+                                        </div>
+                                        <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                            <input type="file" name="logo" class="form-control" id="input-school-logo" placeholder="School logo" disabled required>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="btn-group col-xs-12 col-sm-12 col-md-6 offset-md-3 col-lg-6">
-                                            <input type="button" name="edit" class="btn btn-success" value="Edit">
-                                            <input type="submit" name="save" class="btn btn-danger" value="Save" disabled>
+                                            <input type="button" name="edit" class="btn btn-success" id="btn-school-edit" value="Edit">
+                                            <input type="submit" name="save" class="btn btn-danger" id="btn-school-save" value="Save" disabled>
                                         </div>
                                     </div>
 
