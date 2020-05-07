@@ -54,12 +54,16 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     </head>
 
     <body>
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <a class="navbar-brand" href="#">Logo</a>
+            ...
+        </nav>
         <!--    new UI start-->
         <div class="container-fluid">
 
             <div class="row">
 
-                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 sidebar">
+                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 bg-dark">
                     <div class="link-item" style="padding-top: 10px">
                         <a href="index.php"><i class="fa fa-home"></i> Dashboard </a>
                         <hr />
@@ -100,12 +104,12 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 main-content">
-
-                    <div style="background-color: #ffffff" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <h5 style="color: #000000;padding: 5px;">Dashboard</h5>
-                        <hr />
+                    <div class="card" style="margin-top: 5px">
+                        <div style="background-color: #ffffff" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <h5 style="color: #000000;padding: 5px;">Dashboard</h5>
+                            <!-- <hr /> -->
+                        </div>
                     </div>
-
                     <div class="row">
 
                         <div class="card col-md-2 col-lg-2 my-card">
