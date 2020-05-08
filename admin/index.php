@@ -177,7 +177,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                 <h6>School Details</h6>
                             </div>
                             <div class="card-body">
-                                <form action="action/edit-school-details.php" method="post" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <form action="action/edit-school-details.php" method="post" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" enctype="multipart/form-data">
 
                                     <div class="row">
                                         <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
