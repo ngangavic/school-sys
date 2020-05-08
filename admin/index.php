@@ -19,7 +19,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     $stmt->execute();
     $student_count = $stmt->get_result()->fetch_array();
     //count teacher
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM tbl_teachers WHERE school_id=? AND status='available' ");
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM tbl_teachers WHERE school_id=?");
     $stmt->bind_param("s", $_SESSION['id']);
     $stmt->execute();
     $teacher_count = $stmt->get_result()->fetch_array();
@@ -33,6 +33,11 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     $stmt->bind_param("s", $_SESSION['id']);
     $stmt->execute();
     $logs_count = $stmt->get_result()->fetch_array();
+    //get logo url
+    $stmt=$conn->prepare("SELECT logo FROM tbl_school WHERE id=?");
+    $stmt->bind_param("s",$_SESSION['id']);
+    $stmt->execute();
+    $logo_url=$stmt->get_result()->fetch_array();
 
 ?>
     <!DOCTYPE html>
@@ -56,8 +61,16 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
 
     <body>
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-            <a class="navbar-brand" href="#">Logo</a>
-            ...
+            <a class="navbar-brand" href="index.php">
+            <img src="<?php echo $logo_url[0] ?>" alt="Logo" style="width:40px;">
+            </a>
+            <h5 style="color: #ffffff"><?php echo $_SESSION['name']; ?></h5>
+
+            <ul class="nav justify-content-end">
+            <a href="#"><i class="fa fa-info-circle"></i></a>
+            <a href="#"><i class="fa fa-question-circle"></i></a>
+            </ul>
+
         </nav>
         <!--    new UI start-->
         <div class="container-fluid">
