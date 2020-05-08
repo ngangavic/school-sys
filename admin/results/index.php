@@ -23,6 +23,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
 
     <body>
 
+        <?php include "../topbar.php"; ?>
         <!--START new UI-->
 
         <div class="container-fluid">

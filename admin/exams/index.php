@@ -34,7 +34,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     <html lang="en">
 
     <head>
-    <meta charset="UTF-8">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Exams</title>
         <script rel="javascript" src="../../jquery/jquery-3.4.1.js"></script>
@@ -48,12 +48,13 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     </head>
 
     <body>
+        <?php include "../topbar.php"; ?>
         <!--    new UI start-->
         <div class="container-fluid">
 
             <div class="row">
 
-                <?php include "../sidebar.php";?>
+                <?php include "../sidebar.php"; ?>
 
                 <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 main-content">
 
@@ -169,7 +170,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         </div>
         <!--    END modal create exam-->
 
-     <!--    [START]results modal-->
+        <!--    [START]results modal-->
         <!-- Modal -->
         <div id="resultsModal" class="modal fade" role="dialog">
             <div class="modal-dialog">

@@ -33,12 +33,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     $stmt->bind_param("s", $_SESSION['id']);
     $stmt->execute();
     $logs_count = $stmt->get_result()->fetch_array();
-    //get logo url
-    $stmt = $conn->prepare("SELECT logo FROM tbl_school WHERE id=?");
-    $stmt->bind_param("s", $_SESSION['id']);
-    $stmt->execute();
-    $logo_url = $stmt->get_result()->fetch_array();
-
+   
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -60,29 +55,14 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-            <a class="navbar-brand" href="index.php">
-                <?php if ($logo_url[0] == "empty") { ?>
-                    <i class="fa fa-2x fa-school"></i>
-                <?php } else { ?>
-                    <img src="<?php echo $logo_url[0]; ?>" alt="Logo" style="width:30px;height: 30px">
-                <?php } ?>
-            </a>
-            <ul class="nav">
-                <h5 style="color: #ffffff"><?php echo $_SESSION['name']; ?></h5>
-            </ul>
-            <ul class=" nav ml-auto">
-                <a href="#" class="navbar-icons" data-toggle="tooltip" data-placement="right" title="Information"><i class="fa fa-info-circle"></i></a>
-                <a href="#" class="navbar-icons" data-toggle="tooltip" data-placement="right" title="Help"><i class="fa fa-question-circle"></i></a>
-            </ul>
 
-        </nav>
+        <?php include "topbar.php"; ?>
         <!--    new UI start-->
         <div class="container-fluid">
 
             <div class="row">
 
-                <?php include "sidebar.php";?>
+                <?php include "sidebar.php"; ?>
 
                 <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 main-content">
                     <div class="card" style="margin-top: 5px">
@@ -214,7 +194,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
 
             <!-- Copyright -->
             <div class="footer-copyright text-center py-3" style="color: #ffffff">© 2020 Copyright:
-                 School system
+                School system
             </div>
             <!-- Copyright -->
 
