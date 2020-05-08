@@ -18,3 +18,13 @@ hr{
 .my-card{
     margin: 10px;
 }
+
+.navbar-icons i{
+    color: #ffffff;
+    font-size: 20px;
+    margin: 5px;
+}
+
+.navbar-icons i:hover{
+    color: #e6e6e6;
+}

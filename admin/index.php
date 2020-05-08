@@ -34,10 +34,10 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     $stmt->execute();
     $logs_count = $stmt->get_result()->fetch_array();
     //get logo url
-    $stmt=$conn->prepare("SELECT logo FROM tbl_school WHERE id=?");
-    $stmt->bind_param("s",$_SESSION['id']);
+    $stmt = $conn->prepare("SELECT logo FROM tbl_school WHERE id=?");
+    $stmt->bind_param("s", $_SESSION['id']);
     $stmt->execute();
-    $logo_url=$stmt->get_result()->fetch_array();
+    $logo_url = $stmt->get_result()->fetch_array();
 
 ?>
     <!DOCTYPE html>
@@ -62,13 +62,18 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     <body>
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
             <a class="navbar-brand" href="index.php">
-            <img src="<?php echo $logo_url[0] ?>" alt="Logo" style="width:40px;">
+                <?php if ($logo_url[0] == "empty") { ?>
+                    <i class="fa fa-2x fa-school"></i>
+                <?php } else { ?>
+                    <img src="<?php echo $logo_url[0]; ?>" alt="Logo" style="width:30px;height: 30px">
+                <?php } ?>
             </a>
-            <h5 style="color: #ffffff"><?php echo $_SESSION['name']; ?></h5>
-
-            <ul class="nav justify-content-end">
-            <a href="#"><i class="fa fa-info-circle"></i></a>
-            <a href="#"><i class="fa fa-question-circle"></i></a>
+            <ul class="nav">
+                <h5 style="color: #ffffff"><?php echo $_SESSION['name']; ?></h5>
+            </ul>
+            <ul class=" nav ml-auto">
+                <a href="#" class="navbar-icons" data-toggle="tooltip" data-placement="right" title="Information"><i class="fa fa-info-circle"></i></a>
+                <a href="#" class="navbar-icons" data-toggle="tooltip" data-placement="right" title="Help"><i class="fa fa-question-circle"></i></a>
             </ul>
 
         </nav>
@@ -198,29 +203,29 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                             <input type="text" name="name" class="form-control" id="input-school-name" placeholder="School Name" value="<?php echo $row['name']; ?>" disabled required>
                                         </div>
                                         <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <label>Phone</label>
+                                            <label>Phone</label>
                                             <input type="tel" name="phone" class="form-control" id="input-school-phone" placeholder="School Phone" value="<?php echo $row['phone']; ?>" disabled required>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <label>P.O Box</label>
+                                            <label>P.O Box</label>
                                             <input type="text" name="box" class="form-control" id="input-school-address" placeholder="P.O. Box address" value="<?php echo $row['box']; ?>" disabled required>
                                         </div>
                                         <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <label>Location</label>
+                                            <label>Location</label>
                                             <input type="text" name="town" class="form-control" id="input-school-location" placeholder="Location" value="<?php echo $row['town']; ?>" disabled required>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <label>Population</label>
+                                            <label>Population</label>
                                             <input type="number" name="population" class="form-control" id="input-school-population" placeholder="School population" value="<?php echo $row['population']; ?>" disabled required>
                                         </div>
                                         <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <label>Logo</label>
+                                            <label>Logo</label>
                                             <input type="file" name="logo" class="form-control" id="input-school-logo" placeholder="School logo" disabled required>
                                         </div>
                                     </div>
@@ -243,6 +248,15 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
             </div>
 
         </div>
+        <footer class="page-footer font-small bg-dark">
+
+            <!-- Copyright -->
+            <div class="footer-copyright text-center py-3" style="color: #ffffff">© 2020 Copyright:
+                 School system
+            </div>
+            <!-- Copyright -->
+
+        </footer>
         <!--    new UI end-->
 
         <!--    [START]results modal-->
