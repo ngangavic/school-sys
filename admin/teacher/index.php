@@ -7,8 +7,9 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
 
     <!DOCTYPE html>
     <html lang="en">
+
     <head>
-    <meta charset="UTF-8">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Class</title>
         <script rel="javascript" src="../../jquery/jquery-3.4.1.js"></script>
@@ -27,45 +28,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
 
             <div class="row">
 
-                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 sidebar">
-                    <div class="link-item" style="padding-top: 10px">
-                        <a href="../index.php"><i class="fa fa-home"></i> Dashboard </a>
-                        <hr />
-                    </div>
-                    <div class="link-item">
-                    <a href="../teacher/"><i class="fa fa-chalkboard-teacher"></i> Teachers </a>
-                        <hr />
-                    </div>
-                    <div class="link-item">
-                        <a href="index.php"><i class="fa fa-school"></i> Classes </a>
-                        <hr />
-                    </div>
-                    <div class="link-item">
-                        <a href="../subject/"><i class="fa fa-book"></i> Subjects </a>
-                        <hr />
-                    </div>
-                    <div class="link-item">
-                        <a href="../students/?page=add-student"><i class="fa fa-users"></i> Students </a>
-                        <hr />
-                    </div>
-                    <div class="link-item">
-                        <a href=""><i class="fa fa-receipt"></i> Report </a>
-                        <hr />
-                    </div>
-                    <div class="link-item">
-                        <a data-toggle="modal" href="#resultsModal"><i class="fa fa-keyboard"></i> Results </a>
-                        <hr />
-                    </div>
-                    <div class="link-item">
-                        <a href="../exams/"><i class="fa fa-file-alt"></i> Exams </a>
-                        <hr />
-                    </div>
-                    <div class="link-item">
-                        <a href="../logout.php"><i class="fa fa-door-open"></i> Logout </a>
-                        <hr />
-                    </div>
-
-                </div>
+                <?php include "../sidebar.php"; ?>
 
                 <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 main-content">
 
@@ -101,7 +64,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                             <div class="btn btn-group btn-group-sm">
                                                 <a data-toggle="modal" href="#viewTeacherModal" id="<?php echo $row['id']; ?>" class="btn btn-group-sm btn-outline-primary view">View</a>
                                                 <a data-toggle="modal" href="#assignTeacherModal" id="<?php echo $row['id']; ?>" class="btn btn-group-sm btn-outline-success assign">Assign</a>
-                                                <a href="../action/delete-teacher.php?id=<?php echo $row['id'];?>" class="btn btn-group-sm btn-outline-danger">Delete</a>
+                                                <a href="../action/delete-teacher.php?id=<?php echo $row['id']; ?>" class="btn btn-group-sm btn-outline-danger">Delete</a>
                                             </div>
                                         </td>
                                     </tr>

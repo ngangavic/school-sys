@@ -53,45 +53,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
 
             <div class="row">
 
-                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 sidebar">
-                    <div class="link-item" style="padding-top: 10px">
-                        <a href="../index.php"><i class="fa fa-home"></i> Dashboard </a>
-                        <hr />
-                    </div>
-                    <div class="link-item">
-                    <a href="../teacher/"><i class="fa fa-chalkboard-teacher"></i> Teachers </a>
-                        <hr />
-                    </div>
-                    <div class="link-item">
-                        <a href="../class/"><i class="fa fa-school"></i> Classes </a>
-                        <hr />
-                    </div>
-                    <div class="link-item">
-                        <a href="../subject/"><i class="fa fa-book"></i> Subjects </a>
-                        <hr />
-                    </div>
-                    <div class="link-item">
-                        <a href="../students/?page=add-student"><i class="fa fa-users"></i> Students </a>
-                        <hr />
-                    </div>
-                    <div class="link-item">
-                        <a href=""><i class="fa fa-receipt"></i> Report </a>
-                        <hr />
-                    </div>
-                    <div class="link-item">
-                        <a data-toggle="modal" href="#resultsModal"><i class="fa fa-keyboard"></i> Results </a>
-                        <hr />
-                    </div>
-                    <div class="link-item">
-                        <a href="../exams/"><i class="fa fa-file-alt"></i> Exams </a>
-                        <hr />
-                    </div>
-                    <div class="link-item">
-                        <a href="../logout.php"><i class="fa fa-door-open"></i> Logout </a>
-                        <hr />
-                    </div>
-
-                </div>
+                <?php include "../sidebar.php";?>
 
                 <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 main-content">
 
