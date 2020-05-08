@@ -148,7 +148,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                 </div>
             </div>
         </div>
-
+        <?php include "../footer.php"; ?>
         <!--END new UI-->
 
         <!--    [START]results modal-->

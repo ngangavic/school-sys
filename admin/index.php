@@ -33,7 +33,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     $stmt->bind_param("s", $_SESSION['id']);
     $stmt->execute();
     $logs_count = $stmt->get_result()->fetch_array();
-   
+
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -190,15 +190,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
             </div>
 
         </div>
-        <footer class="page-footer font-small bg-dark">
-
-            <!-- Copyright -->
-            <div class="footer-copyright text-center py-3" style="color: #ffffff">© 2020 Copyright:
-                School system
-            </div>
-            <!-- Copyright -->
-
-        </footer>
+        <?php include "footer.php"; ?>
         <!--    new UI end-->
 
         <!--    [START]results modal-->

@@ -180,6 +180,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
             </div>
 
         </div>
+        <?php include "../footer.php"; ?>
         <!--    new UI end-->
 
         <!--    [START]results modal-->
