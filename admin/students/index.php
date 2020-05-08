@@ -31,35 +31,38 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                 <?php include "../sidebar.php"; ?>
 
                 <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 main-content">
+                    <div class="card" style="margin-top: 5px">
+                        <div style="background-color: #ffffff" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <h5 style="color: #000000;padding: 5px;">Dashboard: Student</h5>
 
-                    <div style="background-color: #ffffff" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <h5 style="color: #000000;padding: 5px;">Dashboard: Student</h5>
-                        <hr />
+                        </div>
                     </div>
-
                     <?php
                     if (isset($_GET['page'])) {
                         $page = $_GET['page'];
                         if ($page == "add-student") {
                     ?>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="row">
+                                <div class="row" style="margin-top: 5px;">
                                     <form class="form-inline" action="" method="post">
                                         <input type="number" class="form-control form-control-sm" placeholder="Enter number of students" name="no" required />
-                                        <button class="btn btn-sm btn-danger" name="create">CREATE</button>
+                                        <div class="btn btn-group">
+                                            <button class="btn btn-sm btn-danger" name="create">CREATE</button>
+                                            <a href="index.php?page=edit-student&class=Form 1" class="btn btn-sm btn-primary">View Students</a>
+                                        </div>
                                     </form>
 
-                                    <a href="index.php?page=edit-student&class=Form 1" class="btn btn-sm btn-primary">View Students</a>
-                                </div>
-                                <hr />
 
-                                <div class="card">
+                                </div>
+
+
+                                <div class="card" style="margin-top: 5px;">
                                     <div class="card-header">
                                         Add students
                                     </div>
                                     <div class="card-body">
                                         <form action="../../actions/student/a-e-student.php" method="post">
-                                            <table class="table table-sm">
+                                            <table class="table table-bordered">
                                                 <thead>
                                                     <th>Adm</th>
                                                     <th>Name</th>

@@ -33,11 +33,12 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                 <?php include "../sidebar.php"; ?>
 
                 <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 main-content">
-
+                <div class="card" style="margin-top: 5px;margin-bottom:5px;">
                     <div style="background-color: #ffffff" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <h5 style="color: #000000;padding: 5px;">Dashboard: Results</h5>
-                        <hr />
+                       
                     </div>
+                </div>
                     <?php
                     if (isset($_GET['exam']) && isset($_GET['class']) && isset($_GET['term']) && isset($_GET['year']) && isset($_GET['subject'])) {
                         $exam = $_GET['exam'];
@@ -66,7 +67,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                 <input name="term" type="hidden" value="<?php echo $term; ?>">
                                 <input name="year" type="hidden" value="<?php echo $year; ?>">
                                 <input name="subject" type="hidden" value="<?php echo $subject; ?>">
-                                <table class="table">
+                                <table class="table table-bordered">
                                     <thead>
                                         <th>Adm</th>
                                         <th>Name</th>
@@ -103,7 +104,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                 <input name="term" type="hidden" value="<?php echo $term; ?>">
                                 <input name="year" type="hidden" value="<?php echo $year; ?>">
                                 <input name="subject" type="hidden" value="<?php echo $subject; ?>">
-                                <table class="table">
+                                <table class="table table-bordered">
                                     <thead>
                                         <th>Adm</th>
                                         <th>Name</th>

@@ -66,15 +66,15 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
 
                 <?php include "../sidebar.php"; ?>
                 <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 main-content">
+                    <div class="card" style="margin-top: 5px">
+                        <div style="background-color: #ffffff" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <h5 style="color: #000000;padding: 5px;">Dashboard: Subject</h5>
 
-                    <div style="background-color: #ffffff" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <h5 style="color: #000000;padding: 5px;">Dashboard: Subject</h5>
-                        <hr />
+                        </div>
                     </div>
-
-                    <a data-toggle="modal" href="#addSubjectModal" class="btn btn-group-sm btn-outline-secondary">Add
+                    <a data-toggle="modal" style="margin-top: 5px" href="#addSubjectModal" class="btn btn-sm btn-outline-secondary">Add
                         Subject</a>
-                    <div class="class-table">
+                    <div class="class-table" style="margin-top: 5px;">
                         <table class="table table-bordered">
                             <thead>
                                 <th>Subject Name</th>
