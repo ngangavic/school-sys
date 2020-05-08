@@ -93,7 +93,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                         <td><?php echo $row['date']; ?></td>
                                         <td>
                                             <div class="btn btn-group btn-group-sm">
-                                                <!--                                    <a href="#" class="btn btn-group-sm btn-outline-primary">View</a>-->
+                                                                                   <a href="#" class="btn btn-group-sm btn-outline-warning">Close</a>
                                                 <a href="action/delete-exam.php?id=<?php echo $row['id']; ?>" class="btn btn-group-sm btn-outline-danger">Delete</a>
                                             </div>
                                         </td>
