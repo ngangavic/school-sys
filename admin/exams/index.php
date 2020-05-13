@@ -57,14 +57,17 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                 <?php include "../sidebar.php"; ?>
 
                 <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 main-content">
-                <div class="card" style="margin-top: 5px">
-                    <div style="background-color: #ffffff" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <h5 style="color: #000000;padding: 5px;">Dashboard: Exam</h5>
-                        
+                    <div class="card" style="margin-top: 5px">
+                        <div style="background-color: #ffffff" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <h5 style="color: #000000;padding: 5px;">Dashboard: Exam</h5>
+
+                        </div>
                     </div>
-                </div>
-                    <a data-toggle="modal" style="margin-top: 5px;" href="#createExamModal" class="btn btn-sm btn-outline-secondary">Create
-                        Exam</a>
+                    <div class="btn btn-group" style="margin-top: 5px;">
+                        <a data-toggle="modal" href="#createExamModal" class="btn btn-sm btn-outline-secondary">Create
+                            Exam</a>
+                        <a data-toggle="modal" href="#" id="view-closed-exams" class="btn btn-sm btn-outline-warning">Closed Exams</a>
+                    </div>
                     <div class="class-table" style="margin-top: 5px;">
                         <table class="table table-bordered">
                             <thead>
@@ -93,7 +96,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                         <td><?php echo $row['date']; ?></td>
                                         <td>
                                             <div class="btn btn-group btn-group-sm">
-                                                                                   <a href="../action/close-exam.php?id=<?php echo $row['id']; ?>" class="btn btn-group-sm btn-outline-warning">Close</a>
+                                                <a href="../action/close-exam.php?id=<?php echo $row['id']; ?>" class="btn btn-group-sm btn-outline-warning">Close</a>
                                                 <a href="../action/delete-exam.php?id=<?php echo $row['id']; ?>" class="btn btn-group-sm btn-outline-danger">Delete</a>
                                             </div>
                                         </td>
@@ -112,6 +115,28 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         <?php include "../footer.php"; ?>
         <!--    new UI end-->
 
+        <!-- START closed exam modal -->
+        <div id="closedExamsModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Closed Exams</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="view_exams">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END closed exam modal -->
 
         <!--    START modal create exam-->
         <div id="createExamModal" class="modal fade" role="dialog">
@@ -249,7 +274,21 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
             </div>
         </div>
         <!--[END]results modal-->
-
+        <script>
+            $(document).ready(function() {
+                $('#view-closed-exams').click(function() {
+                    var subject_id = $(this).attr("id");
+                    $.ajax({
+                        url: "../action/view-closed-exams.php",
+                        method: "post",
+                        success: function(data) {
+                            $('#view_exams').html(data);
+                            $('#closedExamsModal').modal("show");
+                        }
+                    });
+                });
+            });
+        </script>
     </body>
 
     </html>
