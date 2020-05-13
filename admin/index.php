@@ -33,6 +33,11 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
     $stmt->bind_param("s", $_SESSION['id']);
     $stmt->execute();
     $logs_count = $stmt->get_result()->fetch_array();
+    //get logo details
+    $stmt = $conn->prepare("SELECT logo FROM tbl_school WHERE id=?");
+    $stmt->bind_param("s", $_SESSION['id']);
+    $stmt->execute();
+    $logo = $stmt->get_result()->fetch_array();
 
 ?>
     <!DOCTYPE html>
@@ -168,7 +173,8 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                         </div>
                                         <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                             <label>Logo</label>
-                                            <input type="file" name="logo" class="form-control" id="input-school-logo" placeholder="School logo" disabled required>
+                                            <input type="file" name="logo" class="form-control" id="input-school-logo" placeholder="School logo" disabled <?php if ($logo[0] == "empty") { ?>required<?php } else {
+                                                                                                                                                                                            } ?>>
                                         </div>
                                     </div>
 
