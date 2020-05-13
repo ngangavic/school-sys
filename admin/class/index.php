@@ -8,7 +8,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         $school = $_SESSION['id'];
         $class = $_POST['class'];
 
-        $stmt = $conn->prepare("SELECT * FROM tbl_class WHERE school=? AND name=? ");
+        $stmt = $conn->prepare("SELECT * FROM tbl_class WHERE school=? AND name=? AND status='active'");
         $stmt->bind_param("ss", $school, $class);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -92,7 +92,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                         <td>
                                             <div class="btn btn-group btn-group-sm">
                                                 <a data-toggle="modal" href="#editClassModal" id="<?php echo $row['id']; ?>" class="btn btn-group-sm btn-outline-primary edit">Edit</a>
-                                                <a href="action/delete-class.php?id=<?php echo $row['id']; ?>" class="btn btn-group-sm btn-outline-danger">Delete</a>
+                                                <a href="../action/delete-class.php?id=<?php echo $row['id']; ?>" class="btn btn-group-sm btn-outline-danger">Delete</a>
                                             </div>
                                         </td>
                                     </tr>
@@ -230,7 +230,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                 $('.edit').click(function() {
                     var class_id = $(this).attr("id");
                     $.ajax({
-                        url: "action/edit-class.php",
+                        url: "../action/edit-class.php",
                         method: "post",
                         data: {
                             class_id: class_id

@@ -9,14 +9,14 @@ if (isset($_POST['edit'])) {
     $result = $stmt->get_result();
     $count = $result->num_rows;
     if ($count > 0) {
-        header("location: ../class.php?msg=error");
+        header("location: ../class/?msg=error");
     } else {
         $stmt = $conn->prepare("UPDATE tbl_class SET name=? WHERE id=?");
         $stmt->bind_param("ss", $_POST['class'], $_POST['id']);
         if (!$stmt->execute()) {
-            header("location: ../class.php?msg=error");
+            header("location: ../class/?msg=error");
         } else {
-            header("location: ../class.php?msg=success");
+            header("location: ../class/?msg=success");
         }
     }
 }
@@ -41,7 +41,7 @@ if (isset($_POST['class_id'])) {
                 </button>
             </div>
             <div class="modal-body">
-            <form action="action/edit-class.php" method="post">
+            <form action="../action/edit-class.php" method="post">
             <input type="hidden" name="id" value="' . $class_id . '">
             <div class="form-group">
             <input class="form-control" value="' . $row['name'] . '" name="class" required>
@@ -58,5 +58,3 @@ if (isset($_POST['class_id'])) {
 
     echo $output;
 }
-
-?>
