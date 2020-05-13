@@ -3,20 +3,29 @@ session_start();
 require "../../actions/database/connection.php";
 
 if (isset($_POST['edit'])) {
-    $stmt = $conn->prepare("SELECT * FROM tbl_subject WHERE name=? AND code=? AND school=?");
-    $stmt->bind_param("sss", $_POST['subject'], $_POST['code'],$_SESSION['id']);
+    $stmt = $conn->prepare("SELECT * FROM tbl_subject WHERE name=? AND school=?");
+    $stmt->bind_param("ss", $_POST['subject'], $_SESSION['id']);
     $stmt->execute();
     $result = $stmt->get_result();
     $count = $result->num_rows;
     if ($count > 0) {
-        header("location: ../subject.php?msg=error");
+        header("location: ../subject/?msg=error");
     } else {
-        $stmt = $conn->prepare("UPDATE tbl_subject SET name=?,code=? WHERE id=?");
-        $stmt->bind_param("sss", $_POST['subject'], $_POST['code'],$_POST['id']);
-        if (!$stmt->execute()) {
-            header("location: ../subject.php?msg=error");
+        $stmt = $conn->prepare("SELECT * FROM tbl_subject WHERE code=? AND school=?");
+        $stmt->bind_param("ss", $_POST['code'], $_SESSION['id']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $count = $result->num_rows;
+        if ($count > 0) {
+            header("location: ../subject/?msg=error");
         } else {
-            header("location: ../subject.php?msg=success");
+            $stmt = $conn->prepare("UPDATE tbl_subject SET name=?,code=? WHERE id=?");
+            $stmt->bind_param("sss", $_POST['subject'], $_POST['code'], $_POST['id']);
+            if (!$stmt->execute()) {
+                header("location: ../subject/?msg=error");
+            } else {
+                header("location: ../subject/?msg=success");
+            }
         }
     }
 }
@@ -41,7 +50,7 @@ if (isset($_POST['subject_id'])) {
                 </button>
             </div>
             <div class="modal-body">
-            <form action="action/edit-subject.php" method="post">
+            <form action="../action/edit-subject.php" method="post">
             <input type="hidden" name="id" value="' . $subject_id . '">
             <div class="form-group">
                 <input class="form-control" value="' . $row['name'] . '" name="subject" required>
@@ -50,7 +59,7 @@ if (isset($_POST['subject_id'])) {
             <input class="form-control" value="' . $row['code'] . '" name="code" required>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-outline-warning" name="edit">Edit</button>
+                <button type="submit" class="btn btn-outline-warning" name="edit" disabled>Edit</button>
             </div>
             </form>
             </div>
@@ -61,5 +70,3 @@ if (isset($_POST['subject_id'])) {
 
     echo $output;
 }
-
-?>
