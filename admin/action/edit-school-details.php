@@ -62,8 +62,13 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     header("location: ../index.php?info=101&&msg=Something is not right");
                 }
             }
+        }
+        $stmt = $conn->prepare("UPDATE tbl_school SET name=?,phone=?,box=?,town=?,population=? WHERE id=?");
+        $stmt->bind_param("ssssss", $_POST['name'], $_POST['phone'], $_POST['box'], $_POST['town'], $_POST['population'], $_SESSION['id']);
+        if (!$stmt->execute()) {
+            header("location: ../index.php?error");
         } else {
-            header("location: ../index.php?not found");
+            header("location: ../index.php?sucess");
         }
     }
 } else {
