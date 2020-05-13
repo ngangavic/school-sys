@@ -17,14 +17,14 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
         $stmt->execute();
 
         if ($stmt->get_result()->num_rows > 0) {
-            header("location:exams.php?msg=error");
+            header("location:index.php?msg=error");
         } else {
             $stmt = $conn->prepare("INSERT INTO tbl_exam(school,name,class,term,year,date) VALUES (?,?,?,?,?,CURRENT_TIMESTAMP )");
             $stmt->bind_param("sssss", $school, $name, $class, $term, $year);
             if (!$stmt->execute()) {
-                header("location:exams.php?msg=error");
+                header("location:index.php?msg=error");
             } else {
-                header("location:exams.php?msg=success");
+                header("location:index.php?msg=success");
             }
         }
     }
@@ -79,7 +79,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                             </thead>
                             <tbody>
                                 <?php
-                                $stmt = $conn->prepare("SELECT * FROM tbl_exam WHERE school=? AND status='active' ");
+                                $stmt = $conn->prepare("SELECT * FROM tbl_exam WHERE school=? AND status='active' ORDER BY year DESC ");
                                 $stmt->bind_param("s", $_SESSION['id']);
                                 $stmt->execute();
                                 $result = $stmt->get_result();
@@ -94,7 +94,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                         <td>
                                             <div class="btn btn-group btn-group-sm">
                                                                                    <a href="#" class="btn btn-group-sm btn-outline-warning">Close</a>
-                                                <a href="action/delete-exam.php?id=<?php echo $row['id']; ?>" class="btn btn-group-sm btn-outline-danger">Delete</a>
+                                                <a href="../action/delete-exam.php?id=<?php echo $row['id']; ?>" class="btn btn-group-sm btn-outline-danger">Delete</a>
                                             </div>
                                         </td>
                                     </tr>
