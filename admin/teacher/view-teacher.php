@@ -9,7 +9,7 @@ if (isset($_POST['teacher_id'])) {
     $output .= ' 
     <div class="modal-header">';
 
-    $stmt = $conn->prepare("SELECT * FROM tbl_teachers_assigned WHERE id=?");
+    $stmt = $conn->prepare("SELECT * FROM tbl_teachers_assigned WHERE teacher_id=?");
     $stmt->bind_param("s", $teacher_id);
     $stmt->execute();
     $result = $stmt->get_result();
