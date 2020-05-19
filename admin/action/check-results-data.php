@@ -31,7 +31,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                 $stmt->bind_param("ssssssss", $row['adm'], $_SESSION['id'], $row['name'], $row['class'], $subject, $term, $exam, $year);
                 $stmt->execute();
                 echo 'done';
-                header("location: results.php?exam=" . $exam . "&&class=" . $class . "&&term=" . $term . "&&year=" . $year . "&&subject=" . $subject);
+                header("location: ../results/index.php?exam=" . $exam . "&&class=" . $class . "&&term=" . $term . "&&year=" . $year . "&&subject=" . $subject);
             }
         } else {
             while ($row = $get_result->fetch_array()) {
@@ -46,10 +46,14 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                     $stmt->bind_param("ssssssss", $row['adm'], $_SESSION['id'], $row['name'], $row['class'], $subject, $term, $exam, $year);
                     $stmt->execute();
                     echo 'done';
-                    header("location: results.php?exam=" . $exam . "&&class=" . $class . "&&term=" . $term . "&&year=" . $year . "&&subject=" . $subject);
+                    header("location: ../results/index.php?exam=" . $exam . "&&class=" . $class . "&&term=" . $term . "&&year=" . $year . "&&subject=" . $subject);
                 }
             }
+            header("location: ../results/index.php?exam=" . $exam . "&&class=" . $class . "&&term=" . $term . "&&year=" . $year . "&&subject=" . $subject);
+               
         }
+    }else{
+        header("location: ../index.php");
     }
 } else {
     header("location:../../index.php");
