@@ -23,8 +23,8 @@ $output .= '
                </thead>
                <tbody>
                 ';
-while ($row = $result->fetch_array()) {
-    $output .= '<tr>
+                while ($row = $result->fetch_array()) {
+                $output .= '<tr>
                     <td>' . $row['name'] . '</td>
                     <td>' . $row['class'] . '</td>
                     <td>' . $row['term'] . '</td>
@@ -32,8 +32,8 @@ while ($row = $result->fetch_array()) {
                     <td><a href="#" class="btn btn-sm btn-outline-warning">Open</a></td>
                     </tr>
                     ';
-}
-$output .= '
+                }
+                $output .= '
                </tbody>
                </table>
     ';
