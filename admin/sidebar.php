@@ -20,7 +20,7 @@
         <hr />
     </div>
     <div class="link-item">
-        <a href=""><i class="fa fa-receipt"></i> Report </a>
+        <a href="http://127.0.0.1/school-sys/admin/reports/"><i class="fa fa-receipt"></i> Report </a>
         <hr />
     </div>
     <div class="link-item">
