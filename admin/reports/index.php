@@ -64,7 +64,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['id']) && isset($_SESSION['name
                                         <td><?php echo $row['date']; ?></td>
                                         <td>
                                             <div class="btn btn-group btn-group-sm">
-                                                <a href="#" class="btn btn-group-sm btn-outline-primary view">Classlist</a>
+                                                <a href="classlist.php" class="btn btn-group-sm btn-outline-primary view">Classlist</a>
                                                 <a href="#" class="btn btn-group-sm btn-outline-success assign">Report Forms</a>
                                                 <a href="#" class="btn btn-group-sm btn-outline-danger">Post</a>
                                             </div>
